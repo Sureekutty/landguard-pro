@@ -407,77 +407,62 @@ const masterParcels = [
     }
 ];
 
-// Dynamic Real Name & Survey Record Generator for ANY Search Query
-function generateDynamicRecordForName(name, dist, taluk, village) {
-    const cleanName = name.trim().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
-    const hash = Math.abs(name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0));
-    const surveyNo = (140 + (hash % 30)).toString();
-    const subDiv = ['1', '2A', '2B', '3', '4A'][(hash % 5)];
-    const pattaNo = (1100 + (hash % 850)).toString();
-    const sqFt = 1650 + ((hash % 8) * 100);
-    const cents = +(sqFt / 435.6).toFixed(2);
-    const docYear = 2002 + (hash % 16);
-    const docNo = 'Doc No. ' + (1000 + (hash % 1400)) + '/' + docYear;
-    const fathers = ['Gurusamy', 'Ramasamy', 'Palanisamy', 'Kaliappan', 'Velusamy', 'Govindasamy', 'Muthusamy', 'Arumugam'];
-    const fathersTa = ['குருசாமி', 'ராமசாமி', 'பழனிசாமி', 'காளியப்பன்', 'வேலுசாமி', 'கோவிந்தசாமி', 'முத்துசாமி', 'ஆறுமுகம்'];
-    const fatherEn = fathers[hash % fathers.length];
-    const fatherTa = fathersTa[hash % fathersTa.length];
+// Phonetic & Transliteration Normalization (Resolves Periyasami/Periyasamy, Suree/Sureendhar, Kandasami/Kandasamy)
+function normalizeText(str) {
+    if (!str) return '';
+    return str.toLowerCase()
+        .replace(/[\s\-_.,/]/g, '')
+        .replace(/samy/g, 'sami')
+        .replace(/swamy/g, 'sami')
+        .replace(/ee?/g, 'i')
+        .replace(/oo?/g, 'u')
+        .replace(/th/g, 't')
+        .replace(/sh/g, 's')
+        .replace(/dh/g, 'd');
+}
 
-    const d = dist || "Namakkal";
-    const t = taluk || "Rasipuram";
-    const v = village || "Gurusamipalayam";
-    const tCode = (t.slice(0, 3)).toUpperCase();
+function matchQuery(p, q, mode) {
+    if (!q) return true;
+    const rawQ = q.trim().toLowerCase();
+    const normQ = normalizeText(q);
 
-    return {
-        "district": d,
-        "taluk": t,
-        "village": v,
-        "sroOffice": "Sub-Registrar Office, " + t,
-        "surveyNumber": surveyNo,
-        "subDivision": subDiv,
-        "fullSurvey": surveyNo + "/" + subDiv,
-        "pattaNumber": pattaNo,
-        "ownerNameEn": cleanName,
-        "ownerNameTa": cleanName + " (உரிமையாளர்)",
-        "fatherNameEn": fatherEn,
-        "fatherNameTa": fatherTa,
-        "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.53",
-        "extentSqFt": sqFt,
-        "cents": cents,
-        "taxAssessment": "₹ 4.50",
-        "guidelineValuePerSqFt": 750,
-        "askingRate": 1100,
-        "dtcpStatus": hash % 2 === 0 ? "Sanctioned DTCP Approved Layout" : "Unapproved Sub-division (G.O. 78 Regularisation Pending)",
-        "dtcpApproved": hash % 2 === 0,
-        "dtcpRegularisationCost": hash % 2 === 0 ? 0 : 8931,
-        "ecStatus": "Clean 30-Year Ancestral Chain - Reported Match",
-        "ecClean": true,
-        "activeLitigation": false,
-        "litigationNotes": "Clear of litigation in " + t + " Court",
-        "fmbRoadWidth": "20-Foot Main Tar Road Frontage",
-        "northBoundary": "Survey " + surveyNo + "/1 (Agricultural Holding)",
-        "southBoundary": "16-Foot Layout Cross Road",
-        "eastBoundary": "Survey " + surveyNo + "/2B (Residential Plot)",
-        "westBoundary": "20-Foot Panchayat Tar Main Road",
-        "surveyorName": "T. Velmurugan, Firka Surveyor, " + t,
-        "tahsildarName": "S. Rajendran, Tahsildar, " + t,
-        "deedNumber": docNo,
-        "ecNumber": "EC/2026/" + tCode + "/" + (10000 + (hash % 89999)),
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-" + tCode + "-" + pattaNo + "/2026 | Section 3 Patta Pass Book Act]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 Certificate | SRO " + t + " Central Server | 40-Year Ledger Verified]",
-        "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: " + tCode + "/G-FILE/" + surveyNo + "-" + subDiv + "]",
-        "dtcpProofCitation": hash % 2 === 0 ? "[DTCP Approved: Cleared under Section 22-A TN Registration Act]" : "[DTCP Regularisation Proof: Unapproved Sub-division under Section 22-A | Regularisation Fee: ₹30/sq.m under G.O. 78]",
-        "ecEntries": [
-            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Ancestral Partition (பாகப்பிரிவினை)", "executant": "Ramasamy Gounder & Family", "claimant": fatherEn, "extent": "1.25 Acres", "considerationValue": "₹ 25,000", "sroOffice": "SRO " + t, "statusNotes": "Verified Ancestral Root Title Deed" },
-            { "docNumber": docNo, "regDate": "24-Jul-" + docYear, "natureOfDocument": "Settlement Deed (தான செட்டில்மென்ட்)", "executant": fatherEn, "claimant": cleanName, "extent": sqFt + " Sq. Ft.", "considerationValue": "₹ 1,75,000", "sroOffice": "SRO " + t, "statusNotes": "Registered Family Settlement in Favor of " + cleanName },
-            { "docNumber": "Doc 890/2016", "regDate": "09-Oct-2016", "natureOfDocument": "Mortgage Discharge Receipt (அடமான ரசீது)", "executant": "State Bank of India", "claimant": cleanName, "extent": sqFt + " Sq. Ft.", "considerationValue": "₹ 2,00,000", "sroOffice": "SRO " + t, "statusNotes": "Full Discharge Recorded - Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "1984 - " + docYear, "documentNo": "Doc No. 520/1984", "sro": "SRO " + t, "titleHolder": fatherEn, "natureOfTransmission": "Ancestral Partition Deed", "extent": "1.25 Acres", "chainStatus": "Root Title Link 1 - Verified" },
-            { "period": docYear + " - Present", "documentNo": docNo, "sro": "SRO " + t, "titleHolder": cleanName, "natureOfTransmission": "Settlement Deed", "extent": sqFt + " Sq. Ft.", "chainStatus": "Immediate Title Link 2 - Verified Current Owner" }
-        ]
-    };
+    if (mode === 'SURVEY') {
+        const cleanSurvey = rawQ.replace(/[^0-9/a-z]/g, '');
+        return (p.surveyNumber && p.surveyNumber.toLowerCase() === cleanSurvey) ||
+               (p.fullSurvey && p.fullSurvey.toLowerCase().includes(cleanSurvey)) ||
+               (p.subDivision && p.subDivision.toLowerCase() === cleanSurvey);
+    }
+    if (mode === 'PATTA') {
+        const cleanPatta = rawQ.replace(/[^0-9]/g, '');
+        return cleanPatta && p.pattaNumber && (p.pattaNumber === cleanPatta || p.pattaNumber.startsWith(cleanPatta));
+    }
+    if (mode === 'ALL') {
+        const cleanSurvey = rawQ.replace(/[^0-9/a-z]/g, '');
+        const cleanPatta = rawQ.replace(/[^0-9]/g, '');
+        const matchSurvey = Boolean(cleanSurvey && (
+            (p.surveyNumber && p.surveyNumber.toLowerCase() === cleanSurvey) ||
+            (p.fullSurvey && p.fullSurvey.toLowerCase().includes(cleanSurvey)) ||
+            (p.subDivision && p.subDivision.toLowerCase() === cleanSurvey)
+        ));
+        const matchPatta = Boolean(cleanPatta && p.pattaNumber && (p.pattaNumber === cleanPatta || p.pattaNumber.startsWith(cleanPatta)));
+        const normEn = normalizeText(p.ownerNameEn);
+        const normFather = normalizeText(p.fatherNameEn);
+        const rawEn = (p.ownerNameEn || '').toLowerCase();
+        const rawTa = (p.ownerNameTa || '').toLowerCase();
+        const rawFather = (p.fatherNameEn || '').toLowerCase();
+        const matchName = rawEn.includes(rawQ) || rawTa.includes(rawQ) || rawFather.includes(rawQ) ||
+               normEn.includes(normQ) || normFather.includes(normQ);
+        return matchSurvey || matchPatta || matchName;
+    }
+
+    const normEn = normalizeText(p.ownerNameEn);
+    const normFather = normalizeText(p.fatherNameEn);
+    const rawEn = (p.ownerNameEn || '').toLowerCase();
+    const rawTa = (p.ownerNameTa || '').toLowerCase();
+    const rawFather = (p.fatherNameEn || '').toLowerCase();
+
+    return rawEn.includes(rawQ) || rawTa.includes(rawQ) || rawFather.includes(rawQ) ||
+           normEn.includes(normQ) || normFather.includes(normQ);
 }
 
 // Document Initialization
@@ -700,6 +685,8 @@ async function runSearch() {
                 renderComparisonTable(data);
                 if (data.length > 0) {
                     selectRecordData(data[0].subDivision);
+                } else {
+                    clearSelectedRecordData();
                 }
                 return;
             }
@@ -710,29 +697,14 @@ async function runSearch() {
 
     // High Availability Standalone Client Engine (Authentic Pre-Indexed Records)
     let list = [];
-    const q = query.toLowerCase();
+    const q = query.trim();
 
-    if (!q || currentSearchMode === 'ALL') {
+    if (!q && currentSearchMode === 'ALL') {
         // Browse entire village holdings (explicitly tagged as demo/pre-indexed)
         list = masterParcels.map(p => ({ ...p, isSynthetic: true }));
-    } else if (currentSearchMode === 'NAME') {
+    } else {
         list = masterParcels
-            .filter(p =>
-                (p.ownerNameEn && p.ownerNameEn.toLowerCase().includes(q)) ||
-                (p.ownerNameTa && p.ownerNameTa.toLowerCase().includes(q)) ||
-                (p.fatherNameEn && p.fatherNameEn.toLowerCase().includes(q))
-            )
-            .map(p => ({ ...p, isSynthetic: true }));
-    } else if (currentSearchMode === 'SURVEY') {
-        list = masterParcels
-            .filter(p =>
-                (p.surveyNumber && p.surveyNumber === q) ||
-                (p.fullSurvey && p.fullSurvey.toLowerCase().includes(q))
-            )
-            .map(p => ({ ...p, isSynthetic: true }));
-    } else if (currentSearchMode === 'PATTA') {
-        list = masterParcels
-            .filter(p => p.pattaNumber && p.pattaNumber.includes(q))
+            .filter(p => matchQuery(p, q, currentSearchMode))
             .map(p => ({ ...p, isSynthetic: true }));
     }
 
@@ -742,6 +714,8 @@ async function runSearch() {
     renderComparisonTable(allParcels);
     if (allParcels.length > 0) {
         selectRecordData(allParcels[0].subDivision);
+    } else {
+        clearSelectedRecordData();
     }
 }
 
@@ -877,16 +851,17 @@ function openDeedDirect(subDiv) {
 
 // Select Record Data & Synchronize Intelligence
 function selectRecordData(subDiv) {
+    const rec = allParcels.find(r => r.subDivision === subDiv) || allParcels[0];
+    if (!rec) {
+        clearSelectedRecordData();
+        return;
+    }
+    selectedRecord = rec;
+
     // Render Quick Copy Official Details Helper (Task 4)
     if (window.LandGuardGuard && window.LandGuardGuard.renderCopyHelper) {
-        const found = allParcelsList.find(p => p.subDivision === subDiv) || selectedRecord;
-        if (found) {
-            window.LandGuardGuard.renderCopyHelper('officialVerificationHelperContainer', found);
-        }
+        window.LandGuardGuard.renderCopyHelper('officialVerificationHelperContainer', rec);
     }
-    const rec = allParcels.find(r => r.subDivision === subDiv) || allParcels[0];
-    if (!rec) return;
-    selectedRecord = rec;
 
     document.querySelectorAll('.owner-card').forEach(c => c.classList.remove('active'));
     const activeCard = document.getElementById('card-' + subDiv);
@@ -898,6 +873,64 @@ function selectRecordData(subDiv) {
 
     const calcSqFtEl = document.getElementById('calcSqFt');
     if (calcSqFtEl && rec.extentSqFt) calcSqFtEl.value = rec.extentSqFt;
+    calculateStatutoryOutflow();
+}
+
+// Clear Selected Record Data (Zero Fabrication / Clean State)
+function clearSelectedRecordData() {
+    selectedRecord = null;
+    document.querySelectorAll('.owner-card').forEach(c => c.classList.remove('active'));
+
+    const helperContainer = document.getElementById('officialVerificationHelperContainer');
+    if (helperContainer) {
+        helperContainer.innerHTML = `
+            <div class="alert alert-light border small text-muted mb-0">
+                <i class="bi bi-info-circle me-1"></i>No parcel selected. Run a search and select an authentic record to copy official verification details.
+            </div>
+        `;
+    }
+
+    const badge = document.getElementById('landIntelBadge');
+    if (badge) badge.innerText = 'No Record Selected';
+
+    const body = document.getElementById('landIntelBody');
+    if (body) {
+        body.innerHTML = `
+            <div class="text-center py-4 text-muted">
+                <i class="bi bi-shield-x fs-2 d-block mb-2 text-secondary"></i>
+                <h6 class="fw-bold text-dark">No matching record returned by the selected source.</h6>
+                <p class="small mb-0">Select or search a valid parcel in the cadastre above to inspect boundary and ownership intelligence.</p>
+            </div>
+        `;
+    }
+
+    const tbodyClaims = document.getElementById('realVsFakeTableBody');
+    if (tbodyClaims) {
+        tbodyClaims.innerHTML = `
+            <tr>
+                <td colspan="3" class="text-center text-muted py-3">
+                    <i class="bi bi-info-circle me-1"></i>No parcel selected.
+                </td>
+            </tr>
+        `;
+    }
+
+    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+    setT('negParcelLabel', '-');
+    setT('negAskingSqFt', '0');
+    setT('negTotalAsking', '₹ 0');
+    setT('negTotalGuideline', '₹ 0');
+    setT('negDtcpCost', '₹ 0');
+    setT('negSurveyorCost', '₹ 0');
+    setT('negTotalDeduction', '₹ 0');
+    setT('negTargetPrice', '₹ 0');
+    setT('negPerSqFtRate', '-');
+    setT('negNetSavings', '₹ 0');
+    setT('negOpeningOffer', '₹ 0');
+    setT('negSettlementOffer', '₹ 0');
+
+    const calcSqFtEl = document.getElementById('calcSqFt');
+    if (calcSqFtEl) calcSqFtEl.value = '0';
     calculateStatutoryOutflow();
 }
 
@@ -1006,6 +1039,17 @@ function renderComparisonTable(records) {
     const tbody = document.getElementById('comparisonTableBody');
     if (!tbody) return;
     tbody.innerHTML = '';
+
+    if (!records || records.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9" class="text-center text-muted py-4">
+                    <i class="bi bi-info-circle me-1"></i>No matching parcels found in cadastre.
+                </td>
+            </tr>
+        `;
+        return;
+    }
 
     records.forEach(r => {
         const tr = document.createElement('tr');
