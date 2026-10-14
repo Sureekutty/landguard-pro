@@ -9,221 +9,28 @@
     <meta name="author" content="Sureendhar J">
 
     <!-- Bootstrap 5.3.3 & Icons CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none';">
+    <meta name="referrer" content="no-referrer">
 
-    <style>
-        :root {
-            --primary: #1e3a8a;
-            --primary-dark: #0f172a;
-            --accent: #2563eb;
-            --success: #16a34a;
-            --danger: #dc2626;
-            --warning: #d97706;
-            --bg-light: #f8fafc;
-            --card-border: #e2e8f0;
-        }
-        body {
-            background-color: var(--bg-light);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            color: #334155;
-            padding-bottom: 60px;
-        }
-        .navbar-brand {
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            font-size: 1.35rem;
-        }
-        .proof-citation {
-            color: #dc2626 !important;
-            font-size: 0.76rem;
-            font-weight: 600;
-            margin-top: 3px;
-            display: block;
-        }
-        .card-custom {
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: all 0.2s ease-in-out;
-            margin-bottom: 24px;
-        }
-        .card-custom:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-        .card-header-custom {
-            background: #ffffff;
-            border-bottom: 1px solid var(--card-border);
-            padding: 16px 20px;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .card-header-custom h5 {
-            margin: 0;
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .btn-primary-custom {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-            font-weight: 600;
-            padding: 8px 18px;
-            border-radius: 8px;
-        }
-        .btn-primary-custom:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-        .btn-gov {
-            background: #0f766e;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 0.82rem;
-            border-radius: 6px;
-            padding: 6px 12px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .btn-gov:hover {
-            background: #115e59;
-            color: #ffffff;
-        }
-        .owner-card {
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 16px;
-            transition: all 0.2s;
-            background: #ffffff;
-            cursor: pointer;
-        }
-        .owner-card:hover {
-            border-color: #2563eb;
-            background: #f8fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37,99,235,0.08);
-        }
-        .owner-card.active {
-            border-color: #1e3a8a;
-            background: #eff6ff;
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.25);
-        }
-        .badge-verified {
-            background: #dcfce7;
-            color: #15803d;
-            border: 1px solid #86efac;
-            font-weight: 600;
-        }
-        .badge-danger-custom {
-            background: #fee2e2;
-            color: #b91c1c;
-            border: 1px solid #fca5a5;
-            font-weight: 600;
-        }
-        .card-pill-btn {
-            font-size: 0.78rem;
-            font-weight: 600;
-            padding: 5px 10px;
-            border-radius: 6px;
-        }
-        /* Official TNREGINET EC Certificate PDF Layout */
-        .tnreginet-ec-sheet {
-            background: #ffffff;
-            border: 2px solid #1e3a8a;
-            padding: 26px;
-            color: #0f172a;
-            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-            font-size: 0.85rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-        .tnreginet-header {
-            text-align: center;
-            border-bottom: 2px solid #1e3a8a;
-            padding-bottom: 14px;
-            margin-bottom: 16px;
-        }
-        .tnreginet-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8rem;
-        }
-        .tnreginet-table th, .tnreginet-table td {
-            border: 1px solid #64748b;
-            padding: 6px 8px;
-            vertical-align: middle;
-        }
-        .tnreginet-table th {
-            background-color: #f1f5f9;
-            font-weight: bold;
-            text-align: center;
-        }
-        .seal-box {
-            border: 2px dashed #b45309;
-            padding: 6px 12px;
-            display: inline-block;
-            border-radius: 4px;
-            background: #fffbeb;
-            color: #92400e;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        /* Glassmorphic Login Overlay */
-        #loginOverlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .login-card {
-            background: rgba(30, 41, 59, 0.92);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 36px 32px;
-            width: 100%;
-            max-width: 440px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            color: #f8fafc;
-        }
-
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white; font-size: 11pt; }
-            .card-custom { border: none; box-shadow: none; }
-        }
-    </style>
+    <!-- Hardened Local Vendor Stylesheets (No CDNs) -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
 
 <!-- SECURE LOGIN OVERLAY (Gated for Sureendhar / Land@2026) -->
-<div id="loginOverlay" style="display: none;">
+<div id="loginOverlay" class="d-none">
     <div class="login-card">
         <div class="text-center mb-4">
-            <div style="font-size: 42px;">🏛️</div>
+            <div class="login-card-icon">🏛️</div>
             <h4 class="fw-bold mt-2 text-white">LandGuard Pro Sureendhar</h4>
             <div class="small text-muted">Tamil Nadu Land Due Diligence & Multi-Portal Verification Platform</div>
         </div>
 
-        <div id="loginAlert" class="alert alert-danger py-2 px-3 small" style="display: none;"></div>
+        <div id="loginAlert" class="alert alert-danger py-2 px-3 small d-none"></div>
 
-        <form id="authForm" onsubmit="handleAuthLogin(event)">
+        <form id="authForm">
             <div class="mb-3">
                 <label class="form-label small fw-bold text-light">Username / Authorized ID</label>
                 <input type="text" class="form-control" id="authUsername" value="Sureendhar" required autofocus>
@@ -233,13 +40,13 @@
                 <input type="password" class="form-control" id="authPassword" value="Land@2026" required>
             </div>
             <div class="d-flex justify-content-between align-items-center mb-3 small text-muted">
-                <label class="d-flex align-items-center gap-2" style="cursor: pointer;">
+                <label class="d-flex align-items-center gap-2" class="cursor-pointer">
                     <input type="checkbox" id="authRemember" checked> Remember session on this device
                 </label>
                 <span class="text-info"><i class="bi bi-shield-lock-fill me-1"></i>Encrypted</span>
             </div>
             <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Sign In to Due Diligence Dashboard ➔</button>
-            <button type="button" class="btn btn-outline-light w-100 mt-2 py-2 small" onclick="quickParentLogin()">
+            <button type="button" class="btn btn-outline-light w-100 mt-2 py-2 small" id="btnQuickParent">
                 ⚡ Family & Parents 1-Click Access
             </button>
         </form>
@@ -261,28 +68,32 @@
         <div class="d-flex align-items-center gap-3 flex-wrap">
             <span class="badge bg-success"><i class="bi bi-broadcast me-1"></i>Online Cloud Platform</span>
             <span class="text-light small"><i class="bi bi-person-circle me-1"></i><span id="userBadge">Sureendhar</span></span>
-            <button class="btn btn-outline-light btn-sm" onclick="printReport()"><i class="bi bi-printer me-1"></i>Print Report</button>
-            <button class="btn btn-outline-warning btn-sm" onclick="logoutSession()"><i class="bi bi-box-arrow-right me-1"></i>Logout / Lock</button>
+            <button class="btn btn-outline-light btn-sm" id="btnPrintReport"><i class="bi bi-printer me-1"></i>Print Report</button>
+            <button class="btn btn-outline-warning btn-sm" id="btnLogout"><i class="bi bi-box-arrow-right me-1"></i>Logout / Lock</button>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid px-4 mt-4">
 
-    <!-- TOP ALERT BANNER WITH OFFICIAL GOVERNMENT PORTAL LINKS -->
+    <!-- PUBLIC DUE DILIGENCE ADVISORY -->
+    <div class="alert alert-warning border-warning d-flex align-items-center p-3 no-print mb-3 rounded-3 shadow-sm" role="alert">
+        <i class="bi bi-shield-exclamation text-warning fs-3 me-3"></i>
+        <div class="small">
+            <strong>Public Due Diligence Advisory:</strong> LandGuard Pro is an independent advisory checklist and calculation tool for buyers. <em>It does not perform real-time verification or scrape government portals.</em> All outbound links open portal homepages only, with zero personal or survey data transmitted. For legally certified verification, always consult official Tamil Nadu Government portals directly.
+        </div>
+    </div>
+
+    <!-- TOP ALERT BANNER WITH OFFICIAL GOVERNMENT PORTAL LINKS (RENDERED VIA GUARD) -->
     <div class="alert alert-primary d-flex align-items-center justify-content-between p-3 no-print mb-4 rounded-3 shadow-sm flex-wrap gap-3" role="alert">
         <div class="d-flex align-items-center gap-3">
             <i class="bi bi-shield-check fs-2 text-primary"></i>
             <div>
-                <strong>LandGuard PRO (Sureendhar Edition) - Universal Land Due Diligence Platform</strong>
-                <div class="small text-muted">Direct Official Citations: <b>Authentic TNREGINET Form 15 EC</b>, <b>Field Demarcation Intelligence</b>, <b>Real vs Fake Broker Claims Audit</b>, and <b>Strategic Negotiation Calculator</b>.</div>
+                <strong>LandGuard PRO (Sureendhar Edition) - Official Portal Gateway</strong>
+                <div class="small text-muted">Direct Official Portals (Verified, zero personal parameters transmitted): <b>AnyTN e-Services</b>, <b>TNREGINET</b>, and <b>DTCP</b>.</div>
             </div>
         </div>
-        <div class="d-flex gap-2 flex-wrap">
-            <a href="https://eservices.tn.gov.in/eservicesnew/land/chitta.html" target="_blank" rel="noopener" class="btn btn-gov btn-sm"><i class="bi bi-box-arrow-up-right"></i> e-Services AnyTN (Patta)</a>
-            <a href="https://tnreginet.gov.in" target="_blank" rel="noopener" class="btn btn-gov btn-sm"><i class="bi bi-box-arrow-up-right"></i> TNREGINET (EC Search)</a>
-            <a href="https://onlineppa.tn.gov.in" target="_blank" rel="noopener" class="btn btn-gov btn-sm"><i class="bi bi-box-arrow-up-right"></i> DTCP Regularisation Portal</a>
-        </div>
+        <div id="officialGovLinksNav" class="d-flex gap-2 flex-wrap align-items-center"></div>
     </div>
 
     <!-- MAIN STEP 1: Search by Name, Place, or Survey -->
@@ -296,22 +107,22 @@
             <!-- Search Mode Selection Tabs -->
             <ul class="nav nav-pills mb-3" id="searchModePills">
                 <li class="nav-item">
-                    <button class="nav-link active fw-bold" onclick="setSearchMode('NAME')">
+                    <button class="nav-link active fw-bold" data-mode="NAME">
                         <i class="bi bi-person-bounding-box me-1"></i> 1. Search by Any Owner Name
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link fw-bold" onclick="setSearchMode('SURVEY')">
+                    <button class="nav-link fw-bold" data-mode="SURVEY">
                         <i class="bi bi-geo-alt-fill me-1"></i> 2. Search by Survey Number
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link fw-bold" onclick="setSearchMode('PATTA')">
+                    <button class="nav-link fw-bold" data-mode="PATTA">
                         <i class="bi bi-card-heading me-1"></i> 3. Search by Patta Number
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link fw-bold" onclick="setSearchMode('ALL')">
+                    <button class="nav-link fw-bold" data-mode="ALL">
                         <i class="bi bi-grid-fill me-1"></i> 4. Browse All Parcels in Village
                     </button>
                 </li>
@@ -321,7 +132,7 @@
             <div class="row g-3">
                 <div class="col-md-3">
                     <label class="form-label fw-bold">1. District (மாவட்டம்)</label>
-                    <select class="form-select" id="inpDistrict" onchange="runSearch()">
+                    <select class="form-select" id="inpDistrict" >
                         <option value="Namakkal" selected>Namakkal (நாமக்கல்)</option>
                         <option value="Salem">Salem (சேலம்)</option>
                         <option value="Erode">Erode (ஈரோடு)</option>
@@ -336,19 +147,19 @@
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">2. Taluk (வட்டம்)</label>
-                    <input type="text" class="form-control" id="inpTaluk" value="Rasipuram" placeholder="e.g. Rasipuram" onchange="runSearch()">
+                    <input type="text" class="form-control" id="inpTaluk" value="Rasipuram" placeholder="e.g. Rasipuram">
                     <div class="proof-citation">Checked Proof: Sub-Registrar / Taluk Jurisdiction</div>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold">3. Village (கிராமம்)</label>
-                    <input type="text" class="form-control" id="inpVillage" value="Gurusamipalayam" placeholder="e.g. Gurusamipalayam" onchange="runSearch()">
+                    <input type="text" class="form-control" id="inpVillage" value="Gurusamipalayam" placeholder="e.g. Gurusamipalayam">
                     <div class="proof-citation">Checked Proof: Revenue Village Settlement Ledger</div>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label fw-bold" id="lblSearchQuery">4. Owner / Pattadhar Name</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="inpSearchQuery" value="" placeholder="Type ANY name (e.g. Ramesh, Senthil, Palanisamy, Sureendhar...)" onkeydown="if(event.key==='Enter') runSearch()">
-                        <button class="btn btn-primary-custom" onclick="runSearch()">
+                        <input type="text" class="form-control" id="inpSearchQuery" value="" placeholder="Type ANY name (e.g. Ramesh, Senthil, Palanisamy, Sureendhar...)" >
+                        <button class="btn btn-primary-custom" id="btnRunSearch">
                             <i class="bi bi-search me-1"></i> Search
                         </button>
                     </div>
@@ -360,7 +171,7 @@
             <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top flex-wrap gap-2">
                 <div class="d-flex align-items-center gap-2">
                     <label class="small fw-bold text-muted mb-0"><i class="bi bi-sort-down me-1"></i>Sort Parcels By:</label>
-                    <select class="form-select form-select-sm w-auto" id="selectSort" onchange="sortAndRender()">
+                    <select class="form-select form-select-sm w-auto" id="selectSort" >
                         <option value="SURVEY_ASC" selected>Survey Number (Ascending)</option>
                         <option value="NAME_ASC">Owner Name (A to Z)</option>
                         <option value="NAME_DESC">Owner Name (Z to A)</option>
@@ -369,7 +180,7 @@
                     </select>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <input type="text" class="form-control form-control-sm" id="inpFilterText" placeholder="Filter in results..." oninput="filterInResults()">
+                    <input type="text" class="form-control form-control-sm" id="inpFilterText" placeholder="Filter in results..." >
                     <span class="badge bg-primary" id="lblCountBadge">13 Parcels Found</span>
                 </div>
             </div>
@@ -416,7 +227,7 @@
                                 <tr>
                                     <th>Seller / Broker Claim</th>
                                     <th>Ground Truth from Government Portals</th>
-                                    <th>Official Verdict</th>
+                                    <th>Due Diligence Verdict</th>
                                 </tr>
                             </thead>
                             <tbody id="realVsFakeTableBody">
@@ -487,7 +298,7 @@
                             <span class="fw-bold text-dark" id="negTotalAsking">₹ 18,15,000</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
-                            <span>Official Guideline Value (₹ 750/sq.ft):</span>
+                            <span>Reported Guideline Value (₹ 750/sq.ft):</span>
                             <span class="text-muted" id="negTotalGuideline">₹ 12,37,500</span>
                         </div>
                         <hr class="my-2">
@@ -588,18 +399,18 @@
     <div class="card card-custom mt-4">
         <div class="card-header-custom">
             <h5><i class="bi bi-calculator-fill text-primary"></i> Step 6: Total Acquisition Outflow Calculator (Verified Statutory Rates)</h5>
-            <span class="badge bg-secondary">Official TN Rates</span>
+            <span class="badge bg-secondary">Estimated TN Rates</span>
         </div>
         <div class="card-body p-4">
             <div class="row g-3">
                 <div class="col-md-4">
                     <label class="form-label fw-bold">Land Extent (Sq. Ft.)</label>
-                    <input type="number" class="form-control" id="calcSqFt" value="1650" oninput="calculateStatutoryOutflow()">
+                    <input type="number" class="form-control" id="calcSqFt" value="1650" >
                     <div class="proof-citation">Checked Proof: Standard Land Measure (1 Cent = 435.6 Sq. Ft)</div>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label fw-bold">Negotiated Rate (₹ / Sq. Ft.)</label>
-                    <input type="number" class="form-control" id="calcRate" value="1100" oninput="calculateStatutoryOutflow()">
+                    <input type="number" class="form-control" id="calcRate" value="1100" >
                     <div class="proof-citation">Checked Proof: Agreed Sale Consideration Value</div>
                 </div>
                 <div class="col-md-4">
@@ -617,7 +428,7 @@
                             <th>Cost Component</th>
                             <th>Basis / Statutory Rate</th>
                             <th>Amount (₹)</th>
-                            <th>Official Government Source & Checked Proof</th>
+                            <th>Portal Reference & Due Diligence Proof</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -668,12 +479,12 @@
         <div class="card-header-custom flex-wrap gap-2">
             <h5><i class="bi bi-hdd-network-fill text-primary"></i> Step 7: Saved Land Dossiers (<span id="dossierCount">0</span> Records in Storage)</h5>
             <div class="d-flex gap-2 flex-wrap">
-                <button class="btn btn-outline-primary btn-sm" onclick="saveSelectedToDossier()"><i class="bi bi-bookmark-plus-fill me-1"></i>Save Selected Parcel</button>
-                <button class="btn btn-outline-success btn-sm" onclick="exportDossiersToDrive()"><i class="bi bi-cloud-arrow-down-fill me-1"></i>Backup to Device & Drive</button>
-                <button class="btn btn-outline-secondary btn-sm" onclick="document.getElementById('importFileInput').click()"><i class="bi bi-cloud-arrow-up-fill me-1"></i>Restore from Backup</button>
-                <input type="file" id="importFileInput" style="display:none;" accept=".json" onchange="importDossiersFromFile(event)">
-                <button class="btn btn-outline-info btn-sm text-dark" onclick="syncWithLocalMongo()"><i class="bi bi-arrow-repeat me-1"></i>Sync Local MongoDB</button>
-                <button class="btn btn-outline-danger btn-sm" onclick="clearAllDossiers()"><i class="bi bi-trash3-fill me-1"></i>Clear All</button>
+                <button class="btn btn-outline-primary btn-sm" id="btnSaveDossier"><i class="bi bi-bookmark-plus-fill me-1"></i>Save Selected Parcel</button>
+                <button class="btn btn-outline-success btn-sm" id="btnExportDrive"><i class="bi bi-cloud-arrow-down-fill me-1"></i>Backup to Device & Drive</button>
+                <button class="btn btn-outline-secondary btn-sm" id="btnTriggerImport"><i class="bi bi-cloud-arrow-up-fill me-1"></i>Restore from Backup</button>
+                <input type="file" id="importFileInput" class="d-none" accept=".json">
+                <button class="btn btn-outline-info btn-sm text-dark" id="btnSyncMongo"><i class="bi bi-arrow-repeat me-1"></i>Sync Local MongoDB</button>
+                <button class="btn btn-outline-danger btn-sm" id="btnClearDossiers"><i class="bi bi-trash3-fill me-1"></i>Clear All</button>
             </div>
         </div>
         <div class="card-body p-4">
@@ -683,7 +494,7 @@
                     <p class="mt-2 mb-0">No dossiers currently stored. All records are stored securely in your website browser storage.</p>
                     <small>Select any parcel above and click <b>"Save Selected Parcel"</b> to keep your due diligence record permanently.</small>
                 </div>
-                <div class="table-responsive" id="dossiersTableWrapper" style="display:none;">
+                <div class="table-responsive d-none" id="dossiersTableWrapper">
                     <table class="table table-bordered small">
                         <thead class="table-light">
                             <tr>
@@ -727,10 +538,10 @@
                 </div>
 
                 <div class="d-flex gap-2 mb-3 flex-wrap">
-                    <button class="btn btn-outline-primary btn-sm fw-bold" onclick="openPattaModal()"><i class="bi bi-file-earmark-text"></i> View Patta Certificate</button>
-                    <button class="btn btn-outline-success btn-sm fw-bold" onclick="openFmbModal()"><i class="bi bi-map"></i> View Cadastral FMB</button>
-                    <button class="btn btn-outline-warning text-dark btn-sm fw-bold" onclick="openEcModal()"><i class="bi bi-clock-history"></i> View Authentic TNREGINET EC</button>
-                    <button class="btn btn-outline-info text-dark btn-sm fw-bold" onclick="openDeedModal()"><i class="bi bi-file-earmark-lock"></i> View Registered Deed</button>
+                    <button class="btn btn-outline-primary btn-sm fw-bold" id="btnOpenPatta"><i class="bi bi-file-earmark-text"></i> View Patta Certificate</button>
+                    <button class="btn btn-outline-success btn-sm fw-bold" id="btnOpenFmb"><i class="bi bi-map"></i> View Cadastral FMB</button>
+                    <button class="btn btn-outline-warning text-dark btn-sm fw-bold" id="btnOpenEc"><i class="bi bi-clock-history"></i> View Authentic TNREGINET EC</button>
+                    <button class="btn btn-outline-info text-dark btn-sm fw-bold" id="btnOpenDeed"><i class="bi bi-file-earmark-lock"></i> View Registered Deed</button>
                 </div>
 
                 <ul class="nav nav-tabs mb-3" id="modalInspectTabs" role="tablist">
@@ -831,7 +642,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="saveSelectedToDossier()">
+                <button type="button" class="btn btn-primary btn-sm" id="btnSaveDossierModal">
                     <i class="bi bi-bookmark-plus-fill me-1"></i> Save to Dossier Records
                 </button>
             </div>
@@ -849,7 +660,7 @@
             </div>
             <div class="modal-body p-4" id="printablePatta">
                 <div class="text-center border-bottom pb-3 mb-3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/TamilNadu_Logo.svg" alt="TN Emblem" style="height: 50px;" onerror="this.style.display='none'">
+                    <img src="assets/img/tamilnadu-logo.svg" alt="TN Emblem" class="tn-emblem-img">
                     <h5 class="fw-bold mt-2 mb-0">தமிழ்நாடு அரசு - வருவாய்த் துறை</h5>
                     <div class="small text-muted">கணினி திருத்தப்பட்ட பட்டா மாறுதல் உத்தரவு / நில உரிமைப் பதிவேடு</div>
                     <div class="fw-bold text-primary mt-1">படிவம் எண்: 1 | தமிழ்நாடு பட்டா மாறுதல் சட்டம் 1983 பிரிவு 3-ன் கீழ் வழங்கப்பட்டது</div>
@@ -898,15 +709,15 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="https://eservices.tn.gov.in/eservicesnew/land/chitta.html" target="_blank" rel="noopener" class="btn btn-gov btn-sm"><i class="bi bi-box-arrow-up-right"></i> Verify on AnyTN Live</a>
-                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="printElement('printablePatta')"><i class="bi bi-printer me-1"></i>Print Patta</button>
+                <div id="pattaPortalLinkContainer"></div>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-action="print-element" data-target="printablePatta"><i class="bi bi-printer me-1"></i>Print Patta</button>
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- MODAL 2: OFFICIAL FMB SKETCH (CADASTRE) -->
+<!-- MODAL 2: CADASTRAL FMB SKETCH -->
 <div class="modal fade" id="modalFmb" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -919,7 +730,7 @@
                 <div class="text-muted small mb-3">கிராமம்: <span id="mFmbVillage">Gurusamipalayam</span> | புல எண்: <span id="mFmbFullSurvey" class="fw-bold text-primary">142/2A</span></div>
 
                 <div class="border rounded p-3 bg-light mb-3">
-                    <svg width="100%" height="240" viewBox="0 0 500 240" style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px;">
+                    <svg width="100%" height="240" viewBox="0 0 500 240" class="fmb-cadastre-canvas">
                         <!-- Cadastral Plot Boundary -->
                         <polygon points="120,40 380,40 380,200 120,200" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" stroke-dasharray="0"/>
                         
@@ -975,8 +786,8 @@
             <div class="modal-body p-4" id="printableEc">
                 <div class="tnreginet-ec-sheet">
                     <div class="tnreginet-header">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/TamilNadu_Logo.svg" alt="TN Logo" style="height: 48px;" onerror="this.style.display='none'">
-                        <h5 class="fw-bold mt-1 mb-0" style="color:#1e3a8a;">பதிவுத்துறை, தமிழ்நாடு அரசு</h5>
+                        <img src="assets/img/tamilnadu-logo.svg" alt="TN Logo" class="tn-emblem-img">
+                        <h5 class="fw-bold mt-1 mb-0" class="text-primary-navy">பதிவுத்துறை, தமிழ்நாடு அரசு</h5>
                         <div class="small fw-bold">DEPARTMENT OF REGISTRATION, GOVERNMENT OF TAMIL NADU</div>
                         <div class="small mt-1">வில்லங்கச் சான்றிதழ் / Certificate of Encumbrance on Property (Form No. 15)</div>
                         <div class="mt-2"><span class="badge bg-primary" id="mEcCertNoBadge">EC/2026/RAS/58751</span></div>
@@ -1025,8 +836,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="https://tnreginet.gov.in" target="_blank" rel="noopener" class="btn btn-gov btn-sm"><i class="bi bi-box-arrow-up-right"></i> Verify on TNREGINET Official</a>
-                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="printElement('printableEc')"><i class="bi bi-printer me-1"></i>Print Form 15 EC</button>
+                <div id="ecPortalLinkContainer"></div>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-action="print-element" data-target="printableEc"><i class="bi bi-printer me-1"></i>Print Form 15 EC</button>
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
@@ -1072,1238 +883,17 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="printElement('printableDeed')"><i class="bi bi-printer me-1"></i>Print Deed</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-action="print-element" data-target="printableDeed"><i class="bi bi-printer me-1"></i>Print Deed</button>
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- SCRIPTS: BOOTSTRAP 5 BUNDLE + UNIVERSAL REAL-NAME LAND ENGINE -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-// Authentication & Session Guard
-function checkAuth() {
-    const isAuth = localStorage.getItem('landguard_auth_user');
-    const overlay = document.getElementById('loginOverlay');
-    if (!isAuth) {
-        if (overlay) overlay.style.display = 'flex';
-    } else {
-        if (overlay) overlay.style.display = 'none';
-        const badge = document.getElementById('userBadge');
-        if (badge) badge.innerText = isAuth;
-    }
-}
-
-function handleAuthLogin(e) {
-    e.preventDefault();
-    const u = (document.getElementById('authUsername').value || '').trim();
-    const p = (document.getElementById('authPassword').value || '').trim();
-
-    if (u === 'Sureendhar' && p === 'Land@2026') {
-        localStorage.setItem('landguard_auth_user', 'Sureendhar');
-        const overlay = document.getElementById('loginOverlay');
-        if (overlay) overlay.style.display = 'none';
-        const badge = document.getElementById('userBadge');
-        if (badge) badge.innerText = 'Sureendhar';
-        const alertEl = document.getElementById('loginAlert');
-        if (alertEl) alertEl.style.display = 'none';
-    } else {
-        const alertEl = document.getElementById('loginAlert');
-        if (alertEl) {
-            alertEl.innerText = '❌ Invalid Credentials. Username must be "Sureendhar" and Password "Land@2026".';
-            alertEl.style.display = 'block';
-        }
-    }
-}
-
-function quickParentLogin() {
-    localStorage.setItem('landguard_auth_user', 'Sureendhar (Family Access)');
-    const overlay = document.getElementById('loginOverlay');
-    if (overlay) overlay.style.display = 'none';
-    const badge = document.getElementById('userBadge');
-    if (badge) badge.innerText = 'Sureendhar (Family Access)';
-}
-
-function logoutSession() {
-    localStorage.removeItem('landguard_auth_user');
-    checkAuth();
-}
-
-// Global Variables
-let currentSearchMode = 'NAME';
-let allParcels = [];
-let displayedParcels = [];
-let selectedRecord = null;
-
-// Comprehensive Pre-Indexed Tamil Nadu Land Database (13 Authentic Holdings)
-const masterParcels = [
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "142", "subDivision": "1",
-        "fullSurvey": "142/1", "pattaNumber": "842", "ownerNameEn": "Kandasamy Ramasamy", "ownerNameTa": "கந்தசாமி ராமசாமி",
-        "fatherNameEn": "Ramasamy Gounder", "fatherNameTa": "ராமசாமி கவுண்டர்", "classification": "ரயத்து புஞ்சை (Dry Agricultural)",
-        "extentHectares": "0.45.00", "extentSqFt": 4844, "cents": 11.12, "taxAssessment": "₹ 12.50",
-        "guidelineValuePerSqFt": 750, "askingRate": 1000, "dtcpStatus": "Agricultural Holding (Patta Land)",
-        "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 30-Year Ancestral Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "No Civil Suits in Rasipuram Court", "fmbRoadWidth": "20-Foot Main Tar Road Frontage",
-        "northBoundary": "Survey 141 (Agricultural Land)", "southBoundary": "Survey 142/2A (Periyasamy Plot)",
-        "eastBoundary": "Survey 142/1B", "westBoundary": "Village Track",
-        "surveyorName": "T. Velmurugan, Firka Surveyor", "tahsildarName": "S. Rajendran, Tahsildar", "deedNumber": "Doc No. 520/1984",
-        "ecNumber": "EC/2026/RAS/48192",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-842/2026 | Section 3 Patta Pass Book Act]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 Certificate | SRO Rasipuram Central Server | 40-Year Ledger Verified]",
-        "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-1]",
-        "dtcpProofCitation": "[Agricultural Clear Land: Clean Patta Holding | Cleared under Section 22-A TN Registration Act]",
-        "ecEntries": [
-            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Ancestral Partition (பாகப்பிரிவினை)", "executant": "Ramasamy Gounder & Brothers", "claimant": "Kandasamy Ramasamy", "extent": "4844 Sq. Ft.", "considerationValue": "₹ 35,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Verified Ancestral Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "1984 - Present", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Kandasamy Ramasamy", "natureOfTransmission": "Ancestral Partition Deed", "extent": "4844 Sq. Ft.", "chainStatus": "Verified Title Link 1" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "142", "subDivision": "2A",
-        "fullSurvey": "142/2A", "pattaNumber": "1205", "ownerNameEn": "Periyasamy Gurusamy", "ownerNameTa": "பெரியசாமி குருசாமி",
-        "fatherNameEn": "Gurusamy", "fatherNameTa": "குருசாமி", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.53", "extentSqFt": 1650, "cents": 3.79, "taxAssessment": "₹ 4.50",
-        "guidelineValuePerSqFt": 750, "askingRate": 1100, "dtcpStatus": "Unapproved Sub-division (G.O. 78 Regularisation Pending)",
-        "dtcpApproved": false, "dtcpRegularisationCost": 8931, "ecStatus": "Mortgage Discharged in 2016 - Clean 30-Year Chain", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear of litigation in Rasipuram Court", "fmbRoadWidth": "20-Foot Main Tar Road Frontage",
-        "northBoundary": "Survey 142/1 (Kandasamy Land)", "southBoundary": "16-Foot Layout Cross Road",
-        "eastBoundary": "Survey 142/2B (Subramani Plot)", "westBoundary": "20-Foot Panchayat Tar Main Road",
-        "surveyorName": "T. Velmurugan, Firka Surveyor", "tahsildarName": "S. Rajendran, Tahsildar", "deedNumber": "Doc No. 1120/2004",
-        "ecNumber": "EC/2026/RAS/58751",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1205/2026 | Section 3 Patta Pass Book Act]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 Certificate | SRO Rasipuram Server Ref: EC/2026/RAS/58751 | 40-Year Ledger Verified]",
-        "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-2A]",
-        "dtcpProofCitation": "[DTCP Regularisation Proof: Unapproved Sub-division under Section 22-A | Regularisation Fee: ₹30/sq.m under G.O. 78]",
-        "ecEntries": [
-            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Ancestral Partition (பாகப்பிரிவினை)", "executant": "Ramasamy Gounder & Brothers", "claimant": "Gurusamy", "extent": "1.25 Acres", "considerationValue": "₹ 25,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Verified Ancestral Root Title Deed" },
-            { "docNumber": "Doc 1120/2004", "regDate": "24-Jul-2004", "natureOfDocument": "Settlement Deed (தான செட்டில்மென்ட்)", "executant": "Gurusamy", "claimant": "Periyasamy Gurusamy", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 1,50,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Registered Family Settlement" },
-            { "docNumber": "Doc 410/2012", "regDate": "18-Feb-2012", "natureOfDocument": "Simple Mortgage (அடமானம்)", "executant": "Periyasamy Gurusamy", "claimant": "State Bank of India (Rasipuram)", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 2,00,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Discharged on 09-Oct-2016" },
-            { "docNumber": "Doc 890/2016", "regDate": "09-Oct-2016", "natureOfDocument": "Mortgage Receipt / Discharge (அடமான ரசீது)", "executant": "State Bank of India (Rasipuram)", "claimant": "Periyasamy Gurusamy", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 2,00,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Full Discharge Recorded - Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "1984 - 2004", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Gurusamy", "natureOfTransmission": "Ancestral Partition Deed", "extent": "1.25 Acres", "chainStatus": "Root Title Link 1 - Verified" },
-            { "period": "2004 - Present", "documentNo": "Doc No. 1120/2004", "sro": "SRO Rasipuram", "titleHolder": "Periyasamy Gurusamy", "natureOfTransmission": "Settlement Deed", "extent": "1650 Sq. Ft.", "chainStatus": "Immediate Title Link 2 - Verified" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "142", "subDivision": "2B",
-        "fullSurvey": "142/2B", "pattaNumber": "1206", "ownerNameEn": "Subramani Muthusamy", "ownerNameTa": "சுப்பிரமணி முத்துசாமி",
-        "fatherNameEn": "Muthusamy", "fatherNameTa": "முத்துசாமி", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.86", "extentSqFt": 2000, "cents": 4.59, "taxAssessment": "₹ 5.50",
-        "guidelineValuePerSqFt": 750, "askingRate": 1050, "dtcpStatus": "Unapproved Sub-division",
-        "dtcpApproved": false, "dtcpRegularisationCost": 10717, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "16-Foot Layout Road Frontage",
-        "northBoundary": "Survey 142/1", "southBoundary": "16-Foot Layout Road", "eastBoundary": "Survey 142/3", "westBoundary": "Survey 142/2A",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1121/2004",
-        "ecNumber": "EC/2026/RAS/58752",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1206/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/58752]",
-        "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-2B]",
-        "dtcpProofCitation": "[DTCP Regularisation Proof: Unapproved Sub-division under Section 22-A]",
-        "ecEntries": [
-            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Partition", "executant": "Ramasamy", "claimant": "Muthusamy", "extent": "1.25 Acres", "considerationValue": "₹ 25,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" },
-            { "docNumber": "Doc 1121/2004", "regDate": "24-Jul-2004", "natureOfDocument": "Settlement Deed", "executant": "Muthusamy", "claimant": "Subramani Muthusamy", "extent": "2000 Sq. Ft.", "considerationValue": "₹ 1,75,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "1984 - 2004", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Muthusamy", "natureOfTransmission": "Partition Deed", "extent": "1.25 Acres", "chainStatus": "Verified Title Link 1" },
-            { "period": "2004 - Present", "documentNo": "Doc No. 1121/2004", "sro": "SRO Rasipuram", "titleHolder": "Subramani Muthusamy", "natureOfTransmission": "Settlement Deed", "extent": "2000 Sq. Ft.", "chainStatus": "Verified Title Link 2" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "142", "subDivision": "3",
-        "fullSurvey": "142/3", "pattaNumber": "310", "ownerNameEn": "Gurusamipalayam Weavers Co-op Society", "ownerNameTa": "குருசாமிபாளையம் நெசவாளர் கூட்டுறவு சங்கம்",
-        "fatherNameEn": "Special Officer / Registrar", "fatherNameTa": "பதிவாளர்", "classification": "ரயத்து புஞ்சை (Commercial / Institutional)",
-        "extentHectares": "0.80.00", "extentSqFt": 8611, "cents": 19.77, "taxAssessment": "₹ 24.00",
-        "guidelineValuePerSqFt": 850, "askingRate": 1300, "dtcpStatus": "Approved Institutional Layout",
-        "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 30-Year Trust Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "No Injunctions", "fmbRoadWidth": "30-Foot Main Tar Road Frontage",
-        "northBoundary": "Survey 142/2", "southBoundary": "Main Road", "eastBoundary": "Survey 142/4", "westBoundary": "Panchayat Office",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 310/1972",
-        "ecNumber": "EC/2026/RAS/31001",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-310/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/31001]",
-        "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-3]",
-        "dtcpProofCitation": "[Institutional Holding: Sanctioned Layout]",
-        "ecEntries": [
-            { "docNumber": "Doc 310/1972", "regDate": "10-Jan-1972", "natureOfDocument": "Government Grant / Trust Conveyance", "executant": "Collector of Salem / Namakkal", "claimant": "Weavers Co-op Society", "extent": "8611 Sq. Ft.", "considerationValue": "₹ 15,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Permanent Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "1972 - Present", "documentNo": "Doc No. 310/1972", "sro": "SRO Rasipuram", "titleHolder": "Weavers Co-op Society", "natureOfTransmission": "Registered Society Grant", "extent": "8611 Sq. Ft.", "chainStatus": "Verified Title" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "142", "subDivision": "4",
-        "fullSurvey": "142/4", "pattaNumber": "1207", "ownerNameEn": "Muthusamy Kaliappan", "ownerNameTa": "முத்துசாமி காளியப்பன்",
-        "fatherNameEn": "Kaliappan", "fatherNameTa": "காளியப்பன்", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.67", "extentSqFt": 1800, "cents": 4.13, "taxAssessment": "₹ 5.00",
-        "guidelineValuePerSqFt": 750, "askingRate": 1050, "dtcpStatus": "Unapproved Sub-division",
-        "dtcpApproved": false, "dtcpRegularisationCost": 9694, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "16-Foot Layout Road Frontage",
-        "northBoundary": "Survey 142/1", "southBoundary": "16-Foot Layout Road", "eastBoundary": "Survey 143", "westBoundary": "Survey 142/2B",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1125/2004",
-        "ecNumber": "EC/2026/RAS/58753",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1207/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/58753]",
-        "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-4]",
-        "dtcpProofCitation": "[DTCP Regularisation Proof: Unapproved Sub-division under Section 22-A]",
-        "ecEntries": [
-            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Partition", "executant": "Ramasamy", "claimant": "Kaliappan", "extent": "1.25 Acres", "considerationValue": "₹ 25,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" },
-            { "docNumber": "Doc 1125/2004", "regDate": "24-Jul-2004", "natureOfDocument": "Settlement Deed", "executant": "Kaliappan", "claimant": "Muthusamy Kaliappan", "extent": "1800 Sq. Ft.", "considerationValue": "₹ 1,60,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "1984 - 2004", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Kaliappan", "natureOfTransmission": "Partition Deed", "extent": "1.25 Acres", "chainStatus": "Verified Title Link 1" },
-            { "period": "2004 - Present", "documentNo": "Doc No. 1125/2004", "sro": "SRO Rasipuram", "titleHolder": "Muthusamy Kaliappan", "natureOfTransmission": "Settlement Deed", "extent": "1800 Sq. Ft.", "chainStatus": "Verified Title Link 2" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "143", "subDivision": "1",
-        "fullSurvey": "143/1", "pattaNumber": "912", "ownerNameEn": "Chinnasamy Palanisamy", "ownerNameTa": "சின்னசாமி பழனிசாமி",
-        "fatherNameEn": "Palanisamy", "fatherNameTa": "பழனிசாமி", "classification": "ரயத்து புஞ்சை (Ryotwari Dry)",
-        "extentHectares": "0.22.00", "extentSqFt": 2400, "cents": 5.51, "taxAssessment": "₹ 6.50",
-        "guidelineValuePerSqFt": 720, "askingRate": 1050, "dtcpStatus": "Approved Sub-divided Plot",
-        "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "20-Foot Road Frontage",
-        "northBoundary": "Survey 142/4", "southBoundary": "Survey 144", "eastBoundary": "Survey 143/2", "westBoundary": "Cart Track",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 842/2001",
-        "ecNumber": "EC/2026/RAS/59101",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-912/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/59101]",
-        "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/143-1]",
-        "dtcpProofCitation": "[DTCP Approved Sub-divided Plot]",
-        "ecEntries": [
-            { "docNumber": "Doc 842/2001", "regDate": "14-Aug-2001", "natureOfDocument": "Sale Deed", "executant": "Kuppusamy", "claimant": "Chinnasamy Palanisamy", "extent": "2400 Sq. Ft.", "considerationValue": "₹ 1,80,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "2001 - Present", "documentNo": "Doc No. 842/2001", "sro": "SRO Rasipuram", "titleHolder": "Chinnasamy Palanisamy", "natureOfTransmission": "Registered Sale Deed", "extent": "2400 Sq. Ft.", "chainStatus": "Verified Title" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "143", "subDivision": "2",
-        "fullSurvey": "143/2", "pattaNumber": "915", "ownerNameEn": "Natarajan Subramanian", "ownerNameTa": "நடராஜன் சுப்பிரமணி",
-        "fatherNameEn": "Subramani", "fatherNameTa": "சுப்பிரமணி", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.53", "extentSqFt": 1650, "cents": 3.79, "taxAssessment": "₹ 4.50",
-        "guidelineValuePerSqFt": 750, "askingRate": 1100, "dtcpStatus": "Unapproved Sub-division",
-        "dtcpApproved": false, "dtcpRegularisationCost": 8931, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "20-Foot Road Frontage",
-        "northBoundary": "Survey 142/4", "southBoundary": "Survey 144", "eastBoundary": "Village Boundary", "westBoundary": "Survey 143/1",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 845/2001",
-        "ecNumber": "EC/2026/RAS/59105",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-915/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/59105]",
-        "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/143-2]",
-        "dtcpProofCitation": "[DTCP Regularisation Proof: Unapproved Sub-division]",
-        "ecEntries": [
-            { "docNumber": "Doc 845/2001", "regDate": "14-Aug-2001", "natureOfDocument": "Sale Deed", "executant": "Kuppusamy", "claimant": "Natarajan Subramanian", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 1,35,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "2001 - Present", "documentNo": "Doc No. 845/2001", "sro": "SRO Rasipuram", "titleHolder": "Natarajan Subramanian", "natureOfTransmission": "Registered Sale Deed", "extent": "1650 Sq. Ft.", "chainStatus": "Verified Title" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "144", "subDivision": "1A",
-        "fullSurvey": "144/1A", "pattaNumber": "1024", "ownerNameEn": "Selvam Velusamy", "ownerNameTa": "செல்வம் வேலுசாமி",
-        "fatherNameEn": "Velusamy", "fatherNameTa": "வேலுசாமி", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.39", "extentSqFt": 1500, "cents": 3.44, "taxAssessment": "₹ 4.00",
-        "guidelineValuePerSqFt": 750, "askingRate": 1080, "dtcpStatus": "Unapproved Sub-division",
-        "dtcpApproved": false, "dtcpRegularisationCost": 8119, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "15-Foot Road Frontage",
-        "northBoundary": "Survey 143", "southBoundary": "Survey 145", "eastBoundary": "Survey 144/1B", "westBoundary": "Pathway",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 910/2003",
-        "ecNumber": "EC/2026/RAS/60112",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1024/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/60112]",
-        "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/144-1A]",
-        "dtcpProofCitation": "[DTCP Regularisation Proof: Unapproved Sub-division]",
-        "ecEntries": [
-            { "docNumber": "Doc 910/2003", "regDate": "11-May-2003", "natureOfDocument": "Settlement Deed", "executant": "Velusamy", "claimant": "Selvam Velusamy", "extent": "1500 Sq. Ft.", "considerationValue": "₹ 1,20,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "2003 - Present", "documentNo": "Doc No. 910/2003", "sro": "SRO Rasipuram", "titleHolder": "Selvam Velusamy", "natureOfTransmission": "Settlement Deed", "extent": "1500 Sq. Ft.", "chainStatus": "Verified Title" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "145", "subDivision": "2",
-        "fullSurvey": "145/2", "pattaNumber": "1108", "ownerNameEn": "Palanisamy Kuppusamy", "ownerNameTa": "பழனிசாமி குப்புசாமி",
-        "fatherNameEn": "Kuppusamy", "fatherNameTa": "குப்புசாமி", "classification": "ரயத்து புஞ்சை (Agricultural)",
-        "extentHectares": "0.30.00", "extentSqFt": 3300, "cents": 7.57, "taxAssessment": "₹ 9.00",
-        "guidelineValuePerSqFt": 700, "askingRate": 950, "dtcpStatus": "Agricultural Holding",
-        "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "Agricultural Track",
-        "northBoundary": "Survey 144", "southBoundary": "Stream (Odai)", "eastBoundary": "Survey 145/3", "westBoundary": "Field",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 712/1998",
-        "ecNumber": "EC/2026/RAS/61054",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1108/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/61054]",
-        "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/145-2]",
-        "dtcpProofCitation": "[Agricultural Holding: Section 22-A Cleared]",
-        "ecEntries": [
-            { "docNumber": "Doc 712/1998", "regDate": "19-Mar-1998", "natureOfDocument": "Partition Deed", "executant": "Kuppusamy & Brothers", "claimant": "Palanisamy Kuppusamy", "extent": "3300 Sq. Ft.", "considerationValue": "₹ 45,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "1998 - Present", "documentNo": "Doc No. 712/1998", "sro": "SRO Rasipuram", "titleHolder": "Palanisamy Kuppusamy", "natureOfTransmission": "Partition Deed", "extent": "3300 Sq. Ft.", "chainStatus": "Verified Title" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "146", "subDivision": "1",
-        "fullSurvey": "146/1", "pattaNumber": "1342", "ownerNameEn": "Murugan Arumugam", "ownerNameTa": "முருகன் ஆறுமுகம்",
-        "fatherNameEn": "Arumugam", "fatherNameTa": "ஆறுமுகம்", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.81", "extentSqFt": 1950, "cents": 4.48, "taxAssessment": "₹ 5.20",
-        "guidelineValuePerSqFt": 750, "askingRate": 1100, "dtcpStatus": "Approved Layout Plot",
-        "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "20-Foot Tar Road Frontage",
-        "northBoundary": "Survey 145", "southBoundary": "Road", "eastBoundary": "Survey 146/2", "westBoundary": "Main Road",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1205/2008",
-        "ecNumber": "EC/2026/RAS/62110",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1342/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/62110]",
-        "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/146-1]",
-        "dtcpProofCitation": "[DTCP Approved: Cleared under Section 22-A]",
-        "ecEntries": [
-            { "docNumber": "Doc 1205/2008", "regDate": "04-Sep-2008", "natureOfDocument": "Sale Deed", "executant": "Velusamy", "claimant": "Murugan Arumugam", "extent": "1950 Sq. Ft.", "considerationValue": "₹ 2,10,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "2008 - Present", "documentNo": "Doc No. 1205/2008", "sro": "SRO Rasipuram", "titleHolder": "Murugan Arumugam", "natureOfTransmission": "Sale Deed", "extent": "1950 Sq. Ft.", "chainStatus": "Verified Title" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "146", "subDivision": "2",
-        "fullSurvey": "146/2", "pattaNumber": "1343", "ownerNameEn": "Senthil Kumar K", "ownerNameTa": "செந்தில் குமார் கந்தசாமி",
-        "fatherNameEn": "Kandasamy", "fatherNameTa": "கந்தசாமி", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.95", "extentSqFt": 2100, "cents": 4.82, "taxAssessment": "₹ 5.80",
-        "guidelineValuePerSqFt": 750, "askingRate": 1150, "dtcpStatus": "Approved Layout Plot",
-        "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "20-Foot Tar Road Frontage",
-        "northBoundary": "Survey 145", "southBoundary": "Road", "eastBoundary": "Survey 147", "westBoundary": "Survey 146/1",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1206/2008",
-        "ecNumber": "EC/2026/RAS/62111",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1343/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/62111]",
-        "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/146-2]",
-        "dtcpProofCitation": "[DTCP Approved: Cleared under Section 22-A]",
-        "ecEntries": [
-            { "docNumber": "Doc 1206/2008", "regDate": "04-Sep-2008", "natureOfDocument": "Sale Deed", "executant": "Velusamy", "claimant": "Senthil Kumar K", "extent": "2100 Sq. Ft.", "considerationValue": "₹ 2,30,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "2008 - Present", "documentNo": "Doc No. 1206/2008", "sro": "SRO Rasipuram", "titleHolder": "Senthil Kumar K", "natureOfTransmission": "Sale Deed", "extent": "2100 Sq. Ft.", "chainStatus": "Verified Title" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "147", "subDivision": "1",
-        "fullSurvey": "147/1", "pattaNumber": "1420", "ownerNameEn": "Ramesh Govindasamy", "ownerNameTa": "ரமேஷ் கோவிந்தசாமி",
-        "fatherNameEn": "Govindasamy", "fatherNameTa": "கோவிந்தசாமி", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.62", "extentSqFt": 1750, "cents": 4.02, "taxAssessment": "₹ 4.80",
-        "guidelineValuePerSqFt": 750, "askingRate": 1100, "dtcpStatus": "Approved Layout Plot",
-        "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 30-Year Title", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "20-Foot Tar Road Frontage",
-        "northBoundary": "Survey 146", "southBoundary": "Road", "eastBoundary": "Survey 148", "westBoundary": "Survey 146/2",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1430/2010",
-        "ecNumber": "EC/2026/RAS/63402",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1420/2026]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/63402]",
-        "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/147-1]",
-        "dtcpProofCitation": "[DTCP Approved: Cleared under Section 22-A]",
-        "ecEntries": [
-            { "docNumber": "Doc 1430/2010", "regDate": "12-Nov-2010", "natureOfDocument": "Settlement Deed", "executant": "Govindasamy", "claimant": "Ramesh Govindasamy", "extent": "1750 Sq. Ft.", "considerationValue": "₹ 1,90,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "2010 - Present", "documentNo": "Doc No. 1430/2010", "sro": "SRO Rasipuram", "titleHolder": "Ramesh Govindasamy", "natureOfTransmission": "Settlement Deed", "extent": "1750 Sq. Ft.", "chainStatus": "Verified Title" }
-        ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "148", "subDivision": "1",
-        "fullSurvey": "148/1", "pattaNumber": "1550", "ownerNameEn": "Sureendhar J", "ownerNameTa": "சுரேந்தர் ஜெ",
-        "fatherNameEn": "Jagannathan", "fatherNameTa": "ஜெகந்நாதன்", "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.02.23", "extentSqFt": 2400, "cents": 5.51, "taxAssessment": "₹ 6.50",
-        "guidelineValuePerSqFt": 750, "askingRate": 1200, "dtcpStatus": "Sanctioned DTCP Approved Layout",
-        "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 40-Year Title - Zero Encumbrance", "ecClean": true,
-        "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "30-Foot Main Tar Road Frontage",
-        "northBoundary": "Survey 147", "southBoundary": "30-Foot Main Tar Road", "eastBoundary": "Survey 149", "westBoundary": "Survey 148/2",
-        "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1890/2018",
-        "ecNumber": "EC/2026/RAS/68901",
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1550/2026 | Section 3 Patta Pass Book Act]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 Certificate | SRO Rasipuram Central Server | 40-Year Clean Ledger]",
-        "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/148-1]",
-        "dtcpProofCitation": "[DTCP Sanctioned Layout: Cleared under Section 22-A TN Registration Act]",
-        "ecEntries": [
-            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Partition Deed", "executant": "Jagannathan & Brothers", "claimant": "Jagannathan", "extent": "1.25 Acres", "considerationValue": "₹ 35,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Root Title" },
-            { "docNumber": "Doc 1890/2018", "regDate": "21-Aug-2018", "natureOfDocument": "Settlement Deed (தான செட்டில்மென்ட்)", "executant": "Jagannathan", "claimant": "Sureendhar J", "extent": "2400 Sq. Ft.", "considerationValue": "₹ 3,50,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Clean Title Registered" }
-        ],
-        "titleDeedChain": [
-            { "period": "1984 - 2018", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Jagannathan", "natureOfTransmission": "Partition Deed", "extent": "1.25 Acres", "chainStatus": "Root Title Link 1 - Verified" },
-            { "period": "2018 - Present", "documentNo": "Doc No. 1890/2018", "sro": "SRO Rasipuram", "titleHolder": "Sureendhar J", "natureOfTransmission": "Settlement Deed", "extent": "2400 Sq. Ft.", "chainStatus": "Immediate Title Link 2 - Verified Current Owner" }
-        ]
-    }
-];
-
-// Dynamic Real Name & Survey Record Generator for ANY Search Query
-function generateDynamicRecordForName(name, dist, taluk, village) {
-    const cleanName = name.trim().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
-    const hash = Math.abs(name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0));
-    const surveyNo = (140 + (hash % 30)).toString();
-    const subDiv = ['1', '2A', '2B', '3', '4A'][(hash % 5)];
-    const pattaNo = (1100 + (hash % 850)).toString();
-    const sqFt = 1650 + ((hash % 8) * 100);
-    const cents = +(sqFt / 435.6).toFixed(2);
-    const docYear = 2002 + (hash % 16);
-    const docNo = 'Doc No. ' + (1000 + (hash % 1400)) + '/' + docYear;
-    const fathers = ['Gurusamy', 'Ramasamy', 'Palanisamy', 'Kaliappan', 'Velusamy', 'Govindasamy', 'Muthusamy', 'Arumugam'];
-    const fathersTa = ['குருசாமி', 'ராமசாமி', 'பழனிசாமி', 'காளியப்பன்', 'வேலுசாமி', 'கோவிந்தசாமி', 'முத்துசாமி', 'ஆறுமுகம்'];
-    const fatherEn = fathers[hash % fathers.length];
-    const fatherTa = fathersTa[hash % fathersTa.length];
-
-    const d = dist || "Namakkal";
-    const t = taluk || "Rasipuram";
-    const v = village || "Gurusamipalayam";
-    const tCode = (t.slice(0, 3)).toUpperCase();
-
-    return {
-        "district": d,
-        "taluk": t,
-        "village": v,
-        "sroOffice": "Sub-Registrar Office, " + t,
-        "surveyNumber": surveyNo,
-        "subDivision": subDiv,
-        "fullSurvey": surveyNo + "/" + subDiv,
-        "pattaNumber": pattaNo,
-        "ownerNameEn": cleanName,
-        "ownerNameTa": cleanName + " (உரிமையாளர்)",
-        "fatherNameEn": fatherEn,
-        "fatherNameTa": fatherTa,
-        "classification": "ரயத்து புஞ்சை (Residential Plot)",
-        "extentHectares": "0.01.53",
-        "extentSqFt": sqFt,
-        "cents": cents,
-        "taxAssessment": "₹ 4.50",
-        "guidelineValuePerSqFt": 750,
-        "askingRate": 1100,
-        "dtcpStatus": hash % 2 === 0 ? "Sanctioned DTCP Approved Layout" : "Unapproved Sub-division (G.O. 78 Regularisation Pending)",
-        "dtcpApproved": hash % 2 === 0,
-        "dtcpRegularisationCost": hash % 2 === 0 ? 0 : 8931,
-        "ecStatus": "Clean 30-Year Ancestral Chain - Fully Verified",
-        "ecClean": true,
-        "activeLitigation": false,
-        "litigationNotes": "Clear of litigation in " + t + " Court",
-        "fmbRoadWidth": "20-Foot Main Tar Road Frontage",
-        "northBoundary": "Survey " + surveyNo + "/1 (Agricultural Holding)",
-        "southBoundary": "16-Foot Layout Cross Road",
-        "eastBoundary": "Survey " + surveyNo + "/2B (Residential Plot)",
-        "westBoundary": "20-Foot Panchayat Tar Main Road",
-        "surveyorName": "T. Velmurugan, Firka Surveyor, " + t,
-        "tahsildarName": "S. Rajendran, Tahsildar, " + t,
-        "deedNumber": docNo,
-        "ecNumber": "EC/2026/" + tCode + "/" + (10000 + (hash % 89999)),
-        "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-" + tCode + "-" + pattaNo + "/2026 | Section 3 Patta Pass Book Act]",
-        "ecProofCitation": "[Statutory EC Proof: Form 15 Certificate | SRO " + t + " Central Server | 40-Year Ledger Verified]",
-        "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: " + tCode + "/G-FILE/" + surveyNo + "-" + subDiv + "]",
-        "dtcpProofCitation": hash % 2 === 0 ? "[DTCP Approved: Cleared under Section 22-A TN Registration Act]" : "[DTCP Regularisation Proof: Unapproved Sub-division under Section 22-A | Regularisation Fee: ₹30/sq.m under G.O. 78]",
-        "ecEntries": [
-            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Ancestral Partition (பாகப்பிரிவினை)", "executant": "Ramasamy Gounder & Family", "claimant": fatherEn, "extent": "1.25 Acres", "considerationValue": "₹ 25,000", "sroOffice": "SRO " + t, "statusNotes": "Verified Ancestral Root Title Deed" },
-            { "docNumber": docNo, "regDate": "24-Jul-" + docYear, "natureOfDocument": "Settlement Deed (தான செட்டில்மென்ட்)", "executant": fatherEn, "claimant": cleanName, "extent": sqFt + " Sq. Ft.", "considerationValue": "₹ 1,75,000", "sroOffice": "SRO " + t, "statusNotes": "Registered Family Settlement in Favor of " + cleanName },
-            { "docNumber": "Doc 890/2016", "regDate": "09-Oct-2016", "natureOfDocument": "Mortgage Discharge Receipt (அடமான ரசீது)", "executant": "State Bank of India", "claimant": cleanName, "extent": sqFt + " Sq. Ft.", "considerationValue": "₹ 2,00,000", "sroOffice": "SRO " + t, "statusNotes": "Full Discharge Recorded - Clean Title" }
-        ],
-        "titleDeedChain": [
-            { "period": "1984 - " + docYear, "documentNo": "Doc No. 520/1984", "sro": "SRO " + t, "titleHolder": fatherEn, "natureOfTransmission": "Ancestral Partition Deed", "extent": "1.25 Acres", "chainStatus": "Root Title Link 1 - Verified" },
-            { "period": docYear + " - Present", "documentNo": docNo, "sro": "SRO " + t, "titleHolder": cleanName, "natureOfTransmission": "Settlement Deed", "extent": sqFt + " Sq. Ft.", "chainStatus": "Immediate Title Link 2 - Verified Current Owner" }
-        ]
-    };
-}
-
-// Document Initialization
-document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();
-    runSearch();
-    loadDossiers();
-    calculateStatutoryOutflow();
-});
-
-// Search Mode Selection Tabs
-function setSearchMode(mode) {
-    currentSearchMode = mode;
-    document.querySelectorAll('#searchModePills .nav-link').forEach(btn => btn.classList.remove('active'));
-    if (window.event && window.event.target) window.event.target.classList.add('active');
-
-    const lbl = document.getElementById('lblSearchQuery');
-    const inp = document.getElementById('inpSearchQuery');
-    const proof = document.getElementById('proofSearch');
-
-    if (mode === 'NAME') {
-        if (lbl) lbl.innerText = '4. Owner / Pattadhar Name';
-        if (inp) { inp.placeholder = 'Type ANY name (e.g. Ramesh, Senthil, Palanisamy, Sureendhar...)'; inp.value = ''; }
-        if (proof) proof.innerText = 'Checked Proof: Dynamic Revenue Chitta Owner Ledger Search';
-    } else if (mode === 'SURVEY') {
-        if (lbl) lbl.innerText = '4. Survey Number (புல எண்)';
-        if (inp) { inp.placeholder = 'e.g. 142, 143, 146, 148, 204...'; inp.value = ''; }
-        if (proof) proof.innerText = 'Checked Proof: Cadastral Survey & Boundaries Index';
-    } else if (mode === 'PATTA') {
-        if (lbl) lbl.innerText = '4. Patta Number (பட்டா எண்)';
-        if (inp) { inp.placeholder = 'e.g. 1205, 842, 912, 1342, 1550...'; inp.value = ''; }
-        if (proof) proof.innerText = 'Checked Proof: Computerised Patta Register Index';
-    } else {
-        if (lbl) lbl.innerText = '4. Village Browse (All Records)';
-        if (inp) { inp.placeholder = 'All village parcels in cadastre'; inp.value = ''; }
-        if (proof) proof.innerText = 'Checked Proof: Comprehensive Village Cadastre Ledger';
-    }
-    runSearch();
-}
-
-// Universal Search Execution for ANY Real Name or Survey
-async function runSearch() {
-    const distEl = document.getElementById('inpDistrict');
-    const talukEl = document.getElementById('inpTaluk');
-    const villageEl = document.getElementById('inpVillage');
-    const queryEl = document.getElementById('inpSearchQuery');
-
-    const dist = distEl ? distEl.value : 'Namakkal';
-    const taluk = talukEl ? talukEl.value : 'Rasipuram';
-    const village = villageEl ? villageEl.value : 'Gurusamipalayam';
-    const query = queryEl ? (queryEl.value || '').trim() : '';
-
-    // Backend API Attempt
-    try {
-        const url = '/api/search-parcels?district=' + encodeURIComponent(dist) +
-                    '&taluk=' + encodeURIComponent(taluk) +
-                    '&village=' + encodeURIComponent(village) +
-                    '&searchMode=' + encodeURIComponent(currentSearchMode) +
-                    '&query=' + encodeURIComponent(query);
-        const res = await fetch(url);
-        if (res.ok) {
-            const data = await res.json();
-            if (data && data.length > 0) {
-                allParcels = data;
-                sortAndRender();
-                renderComparisonTable(data);
-                selectRecordData(data[0].subDivision);
-                return;
-            }
-        }
-    } catch (err) {
-        // Standalone / client mode active
-    }
-
-    // High Availability Universal Client Engine
-    let list = [];
-    const q = query.toLowerCase();
-
-    if (!q || currentSearchMode === 'ALL') {
-        // Browse entire village holdings
-        list = [...masterParcels];
-    } else if (currentSearchMode === 'NAME') {
-        // Search by real owner name across English and Tamil
-        list = masterParcels.filter(p =>
-            (p.ownerNameEn && p.ownerNameEn.toLowerCase().includes(q)) ||
-            (p.ownerNameTa && p.ownerNameTa.toLowerCase().includes(q)) ||
-            (p.fatherNameEn && p.fatherNameEn.toLowerCase().includes(q))
-        );
-        // If not found in pre-indexed database, DYNAMICALLY CONSTRUCT FOR THAT REAL NAME!
-        if (list.length === 0 && q.length > 0) {
-            const dynamicRec = generateDynamicRecordForName(query, dist, taluk, village);
-            list = [dynamicRec];
-        }
-    } else if (currentSearchMode === 'SURVEY') {
-        // Search by Survey Number
-        list = masterParcels.filter(p =>
-            (p.surveyNumber && p.surveyNumber === q) ||
-            (p.fullSurvey && p.fullSurvey.toLowerCase().includes(q))
-        );
-        if (list.length === 0 && q.length > 0) {
-            const cleanSurvey = query.replace(/[^0-9/]/g, '') || query;
-            const dyn1 = generateDynamicRecordForName("Pattadhar 1 (Survey " + cleanSurvey + ")", dist, taluk, village);
-            dyn1.surveyNumber = cleanSurvey;
-            dyn1.subDivision = "1";
-            dyn1.fullSurvey = cleanSurvey + "/1";
-
-            const dyn2 = generateDynamicRecordForName("Pattadhar 2 (Survey " + cleanSurvey + ")", dist, taluk, village);
-            dyn2.surveyNumber = cleanSurvey;
-            dyn2.subDivision = "2A";
-            dyn2.fullSurvey = cleanSurvey + "/2A";
-
-            list = [dyn1, dyn2];
-        }
-    } else if (currentSearchMode === 'PATTA') {
-        // Search by Patta Number
-        list = masterParcels.filter(p => p.pattaNumber && p.pattaNumber.includes(q));
-        if (list.length === 0 && q.length > 0) {
-            const dyn = generateDynamicRecordForName("Pattadhar #" + query, dist, taluk, village);
-            dyn.pattaNumber = query;
-            list = [dyn];
-        }
-    }
-
-    allParcels = list.length > 0 ? list : masterParcels;
-    sortAndRender();
-    renderComparisonTable(allParcels);
-    if (allParcels.length > 0) {
-        selectRecordData(allParcels[0].subDivision);
-    }
-}
-
-// Sorting & In-Memory Filtering
-function sortAndRender() {
-    const sortEl = document.getElementById('selectSort');
-    const sortVal = sortEl ? sortEl.value : 'SURVEY_ASC';
-    let list = [...allParcels];
-
-    if (sortVal === 'NAME_ASC') {
-        list.sort((a,b) => (a.ownerNameEn || '').localeCompare(b.ownerNameEn || ''));
-    } else if (sortVal === 'NAME_DESC') {
-        list.sort((a,b) => (b.ownerNameEn || '').localeCompare(a.ownerNameEn || ''));
-    } else if (sortVal === 'SURVEY_ASC') {
-        list.sort((a,b) => ((a.surveyNumber || '') + (a.subDivision || '')).localeCompare((b.surveyNumber || '') + (b.subDivision || '')));
-    } else if (sortVal === 'EXTENT_DESC') {
-        list.sort((a,b) => (b.extentSqFt || 0) - (a.extentSqFt || 0));
-    } else if (sortVal === 'EXTENT_ASC') {
-        list.sort((a,b) => (a.extentSqFt || 0) - (b.extentSqFt || 0));
-    }
-
-    displayedParcels = list;
-    renderParcelsGrid(list);
-}
-
-function filterInResults() {
-    const filterEl = document.getElementById('inpFilterText');
-    const txt = filterEl ? filterEl.value.toLowerCase().trim() : '';
-    if (!txt) {
-        renderParcelsGrid(displayedParcels);
-        return;
-    }
-    const filtered = displayedParcels.filter(p =>
-        (p.ownerNameEn && p.ownerNameEn.toLowerCase().includes(txt)) ||
-        (p.ownerNameTa && p.ownerNameTa.toLowerCase().includes(txt)) ||
-        (p.fullSurvey && p.fullSurvey.toLowerCase().includes(txt)) ||
-        (p.pattaNumber && p.pattaNumber.includes(txt))
-    );
-    renderParcelsGrid(filtered);
-}
-
-// Render Parcels Grid
-function renderParcelsGrid(records) {
-    const grid = document.getElementById('ownersGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    const badge = document.getElementById('lblCountBadge');
-    if (badge) badge.innerText = records.length + ' Parcels Found';
-
-    if (records.length === 0) {
-        grid.innerHTML = '<div class="col-12 text-center py-4 text-muted"><i class="bi bi-search fs-2"></i><p class="mt-2 mb-0">No matching parcels found for your search criteria.</p></div>';
-        return;
-    }
-
-    records.forEach(r => {
-        const col = document.createElement('div');
-        col.className = 'col-md-6 col-lg-6 col-xl-3';
-        col.innerHTML = `
-            <div class="owner-card ${selectedRecord && selectedRecord.fullSurvey === r.fullSurvey ? 'active' : ''}" id="card-${r.subDivision}" onclick="selectRecordData('${r.subDivision}')">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <span class="badge bg-primary me-1">${r.fullSurvey}</span>
-                        <span class="badge bg-secondary">பட்டா: ${r.pattaNumber}</span>
-                    </div>
-                    <div>
-                        ${r.dtcpApproved ? '<span class="badge badge-verified">Approved</span>' : '<span class="badge badge-danger-custom">⚠️ Unapproved</span>'}
-                    </div>
-                </div>
-
-                <div class="fw-bold fs-6 text-dark mt-2">${r.ownerNameEn}</div>
-                <div class="text-muted small">${r.ownerNameTa} (Father: ${r.fatherNameEn})</div>
-
-                <div class="small mt-2 p-2 bg-light rounded border">
-                    <div><b>Extent:</b> ${(r.extentSqFt || 0).toLocaleString()} Sq. Ft. (${r.cents} Cents)</div>
-                    <div><b>Road Access:</b> <span class="text-primary fw-bold">${r.fmbRoadWidth || '20-Foot Road'}</span></div>
-                    <div><b>30-Yr EC:</b> <span class="text-success fw-bold">${r.ecStatus || 'Clean & Discharged'}</span></div>
-                    ${!r.dtcpApproved ? '<div class="text-danger fw-bold mt-1">DTCP Outflow: ₹ ' + (r.dtcpRegularisationCost || 0).toLocaleString() + '</div>' : '<div class="text-success fw-bold mt-1">No DTCP Fee Needed</div>'}
-                </div>
-
-                <div class="mt-2 small" style="color:#dc2626; font-size:11px;">
-                    <b>Statutory Proofs:</b> Patta #${r.pattaNumber} | EC Doc #${r.ecEntries && r.ecEntries.length > 0 ? r.ecEntries[r.ecEntries.length-1].docNumber : 'Verified'} | FMB Cadastre Verified
-                </div>
-
-                <div class="d-flex gap-1 flex-wrap mt-2">
-                    <button class="btn btn-outline-primary card-pill-btn" onclick="event.stopPropagation(); openPattaDirect('${r.subDivision}')">
-                        <i class="bi bi-file-earmark-text"></i> Patta
-                    </button>
-                    <button class="btn btn-outline-success card-pill-btn" onclick="event.stopPropagation(); openFmbDirect('${r.subDivision}')">
-                        <i class="bi bi-map"></i> FMB
-                    </button>
-                    <button class="btn btn-outline-danger card-pill-btn" onclick="event.stopPropagation(); openEcDirect('${r.subDivision}')">
-                        <i class="bi bi-file-earmark-pdf"></i> Official EC
-                    </button>
-                    <button class="btn btn-outline-info text-dark card-pill-btn" onclick="event.stopPropagation(); openDeedDirect('${r.subDivision}')">
-                        <i class="bi bi-file-earmark-lock"></i> Deed
-                    </button>
-                </div>
-
-                <button class="btn btn-primary btn-sm w-100 mt-2 fw-bold" onclick="event.stopPropagation(); inspectParcelPopup('${r.subDivision}')">
-                    <i class="bi bi-shield-check me-1"></i> Inspect This Parcel (Full Popup)
-                </button>
-            </div>
-        `;
-        grid.appendChild(col);
-    });
-}
-
-// Direct Modal Openers from Card Buttons
-function openPattaDirect(subDiv) {
-    selectRecordData(subDiv);
-    openPattaModal();
-}
-function openFmbDirect(subDiv) {
-    selectRecordData(subDiv);
-    openFmbModal();
-}
-function openEcDirect(subDiv) {
-    selectRecordData(subDiv);
-    openEcModal();
-}
-function openDeedDirect(subDiv) {
-    selectRecordData(subDiv);
-    openDeedModal();
-}
-
-// Select Record Data & Synchronize Intelligence
-function selectRecordData(subDiv) {
-    const rec = allParcels.find(r => r.subDivision === subDiv) || allParcels[0];
-    if (!rec) return;
-    selectedRecord = rec;
-
-    document.querySelectorAll('.owner-card').forEach(c => c.classList.remove('active'));
-    const activeCard = document.getElementById('card-' + subDiv);
-    if (activeCard) activeCard.classList.add('active');
-
-    updateLandIntelligence(rec);
-    updateRealVsFakeClaims(rec);
-    updateNegotiationCalculator(rec);
-
-    const calcSqFtEl = document.getElementById('calcSqFt');
-    if (calcSqFtEl && rec.extentSqFt) calcSqFtEl.value = rec.extentSqFt;
-    calculateStatutoryOutflow();
-}
-
-// Update Step 2: Land Due Diligence Intelligence (Clean Facts, No Corner Drama)
-function updateLandIntelligence(r) {
-    const badge = document.getElementById('landIntelBadge');
-    if (badge) badge.innerText = 'Survey ' + r.fullSurvey + ' (' + r.ownerNameEn + ')';
-
-    const body = document.getElementById('landIntelBody');
-    if (body) {
-        body.innerHTML = `
-            <div class="d-flex align-items-center gap-2 mb-3">
-                <span class="badge bg-success fs-6"><i class="bi bi-check2-circle me-1"></i>Verified Boundary Demarcation</span>
-                <span class="badge bg-primary fs-6">${r.fmbRoadWidth || 'Tar Road Frontage'}</span>
-            </div>
-
-            <div class="p-3 bg-light rounded border mb-3">
-                <div><b>Owner Name:</b> ${r.ownerNameEn} (${r.ownerNameTa})</div>
-                <div class="mt-1"><b>Road Frontage:</b> ${r.fmbRoadWidth || '20-Foot Panchayat Main Tar Road'}</div>
-                <div class="mt-1"><b>Classification:</b> ${r.classification || 'ரயத்து புஞ்சை'}</div>
-                <div class="mt-1"><b>Boundaries:</b> North: ${r.northBoundary || '-'}, South: ${r.southBoundary || '-'}, East: ${r.eastBoundary || '-'}, West: ${r.westBoundary || '-'}</div>
-            </div>
-
-            <h6 class="fw-bold text-success mb-2"><i class="bi bi-hand-thumbs-up-fill me-1"></i> Property Advantages (Pros):</h6>
-            <ul class="small text-muted ps-3 mb-3">
-                <li><b>Direct Road Access:</b> Wide road frontage with direct vehicle entry.</li>
-                <li><b>Clear Title Lineage:</b> 40-year unbroken ancestral chain with full mortgage clearance.</li>
-                <li><b>Rapid Resale Liquidity:</b> High demand residential pocket in ${r.village}.</li>
-                <li><b>100% Constructible:</b> Clear ground footprint with standard building setbacks.</li>
-            </ul>
-
-            <h6 class="fw-bold text-danger mb-2"><i class="bi bi-exclamation-triangle-fill me-1"></i> Essential Buyer Cautions:</h6>
-            <ul class="small text-muted ps-3 mb-0">
-                <li><b>DTCP Regularisation:</b> ${r.dtcpApproved ? 'Fully approved layout ready for immediate registry.' : 'Section 22-A regularisation frame number needed for future resale.'}</li>
-                <li><b>Boundary Stones:</b> Physical boundary stones must be planted by Firka Surveyor before final payment.</li>
-            </ul>
-        `;
-    }
-}
-
-// Update Real vs Fake Claims
-function updateRealVsFakeClaims(r) {
-    const tbody = document.getElementById('realVsFakeTableBody');
-    if (!tbody) return;
-
-    tbody.innerHTML = `
-        <tr>
-            <td><b>"It's DTCP Approved"</b></td>
-            <td>${r.dtcpApproved ? 'Sanctioned layout cleared under Section 22-A of Registration Act.' : 'Unapproved sub-divided plot under Section 22-A. Resale blocked without G.O. 78 regularisation.'}</td>
-            <td class="text-center">${r.dtcpApproved ? '<span class="badge bg-success">REAL / APPROVED</span>' : '<span class="badge bg-danger">FAKE / UNAPPROVED</span>'}</td>
-        </tr>
-        <tr>
-            <td><b>"Clear Road Access & Boundary"</b></td>
-            <td>FMB Cadastral sketch confirms ${r.fmbRoadWidth || '20-Foot Main Tar Road'} frontage.</td>
-            <td class="text-center"><span class="badge bg-success">REAL / VERIFIED</span></td>
-        </tr>
-        <tr>
-            <td><b>"Clean 30-Year Title with Zero Loans"</b></td>
-            <td>${r.ecClean ? 'Mortgage cleared and fully discharged. 40-Year EC confirms clean title.' : 'Active encumbrance detected in SRO ledger.'}</td>
-            <td class="text-center">${r.ecClean ? '<span class="badge bg-success">REAL / CLEAN TITLE</span>' : '<span class="badge bg-danger">ENCUMBERED</span>'}</td>
-        </tr>
-        <tr>
-            <td><b>"Panchayat Approved Layout"</b></td>
-            <td>Panchayat has zero legal power to approve layouts post-2016 High Court ruling. Only DTCP is valid.</td>
-            <td class="text-center"><span class="badge bg-danger">MISLEADING / INVALID</span></td>
-        </tr>
-    `;
-}
-
-// Update Step 3: Strategic Price Negotiation Calculator
-function updateNegotiationCalculator(r) {
-    const sqFt = r.extentSqFt || 1650;
-    const askingRate = r.askingRate || 1100;
-    const guidelineRate = r.guidelineValuePerSqFt || 750;
-
-    const totalAsking = sqFt * askingRate;
-    const totalGuideline = sqFt * guidelineRate;
-
-    const dtcpCost = r.dtcpApproved ? 0 : (r.dtcpRegularisationCost || 8931);
-    const layoutPenalty = r.dtcpApproved ? 0 : 25000;
-    const surveyorCost = 5000;
-    const marketCorrection = 45000;
-
-    const totalDeductions = dtcpCost + layoutPenalty + surveyorCost + marketCorrection;
-    const targetPrice = Math.max(totalGuideline, totalAsking - totalDeductions);
-    const openingOffer = targetPrice - 50000;
-
-    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-
-    setT('negParcelLabel', r.fullSurvey);
-    setT('negAskingSqFt', sqFt.toLocaleString());
-    setT('negTotalAsking', '₹ ' + Math.round(totalAsking).toLocaleString());
-    setT('negTotalGuideline', '₹ ' + Math.round(totalGuideline).toLocaleString());
-    setT('negDtcpCost', dtcpCost > 0 ? ('- ₹ ' + Math.round(dtcpCost).toLocaleString()) : '₹ 0 (Approved)');
-    setT('negSurveyorCost', '- ₹ ' + surveyorCost.toLocaleString());
-    setT('negTotalDeduction', '- ₹ ' + Math.round(totalDeductions).toLocaleString());
-    setT('negTargetPrice', '₹ ' + Math.round(targetPrice).toLocaleString());
-    setT('negPerSqFtRate', '(~₹ ' + Math.round(targetPrice / sqFt).toLocaleString() + ' / sq. ft.)');
-    setT('negNetSavings', '₹ ' + Math.round(totalDeductions).toLocaleString());
-    setT('negOpeningOffer', '₹ ' + Math.round(openingOffer).toLocaleString());
-    setT('negSettlementOffer', '₹ ' + Math.round(targetPrice).toLocaleString());
-}
-
-// Update Step 5: Parcels Comparison Table
-function renderComparisonTable(records) {
-    const tbody = document.getElementById('comparisonTableBody');
-    if (!tbody) return;
-    tbody.innerHTML = '';
-
-    records.forEach(r => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td class="fw-bold">${r.fullSurvey}</td>
-            <td>${r.ownerNameEn} <small class="text-muted">(${r.ownerNameTa})</small></td>
-            <td class="text-end">${(r.extentSqFt || 0).toLocaleString()} Sq. Ft.</td>
-            <td>${r.fmbRoadWidth || 'Main Road'}</td>
-            <td>${r.dtcpApproved ? '<span class="badge bg-success">Approved</span>' : '<span class="badge bg-danger">⚠️ Unapproved</span>'}</td>
-            <td class="text-danger fw-bold">${r.dtcpApproved ? '₹ 0' : '₹ ' + (r.dtcpRegularisationCost || 0).toLocaleString()}</td>
-            <td><span class="badge bg-success">${r.ecStatus && r.ecStatus.includes('Clean') ? 'Clean 30-Yr' : 'Verified'}</span></td>
-            <td><span class="badge ${r.dtcpApproved ? 'bg-success' : 'bg-warning text-dark'}">${r.dtcpApproved ? '98/100 (Safe)' : '82/100 (Negotiate)'}</span></td>
-            <td>
-                <button class="btn btn-outline-primary btn-sm py-0 px-2" onclick="selectRecordData('${r.subDivision}')">Select</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-// Update Step 6: Statutory Acquisition Outflow
-function calculateStatutoryOutflow() {
-    const sqFtEl = document.getElementById('calcSqFt');
-    const rateEl = document.getElementById('calcRate');
-    const guideEl = document.getElementById('calcGuideline');
-
-    const sqFt = parseFloat(sqFtEl ? sqFtEl.value : 1650) || 1650;
-    const rate = parseFloat(rateEl ? rateEl.value : 1100) || 1100;
-    const guide = parseFloat(guideEl ? guideEl.value : 750) || 750;
-
-    const basePrice = sqFt * rate;
-    const stampDuty = Math.round(basePrice * 0.07);
-    const regFee = Math.round(basePrice * 0.04);
-    const legalSearch = 8000;
-    const pattaSubDiv = 1200;
-    const totalOutflow = basePrice + stampDuty + regFee + legalSearch + pattaSubDiv;
-
-    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-
-    setT('calcBaseFormula', sqFt.toLocaleString() + ' Sq. Ft. × ₹ ' + rate.toLocaleString());
-    setT('calcBasePrice', '₹ ' + Math.round(basePrice).toLocaleString());
-    setT('calcStampDuty', '₹ ' + stampDuty.toLocaleString());
-    setT('calcRegFee', '₹ ' + regFee.toLocaleString());
-    setT('calcTotalOutflow', '₹ ' + totalOutflow.toLocaleString());
-}
-
-// Modal 0: Full Interactive Inspection Popup
-function inspectParcelPopup(subDiv) {
-    selectRecordData(subDiv);
-    if (!selectedRecord) return;
-    const r = selectedRecord;
-
-    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-
-    setT('mInspSurveyTitle', r.fullSurvey);
-    setT('mInspOwnerTitle', r.ownerNameEn);
-    setT('mInspLoc', r.village + ', ' + r.taluk + ' Taluk, ' + r.district + ' District');
-    setT('mInspPattaBadge', 'Patta No: ' + r.pattaNumber);
-    setT('mInspExtentBadge', (r.extentSqFt || 0).toLocaleString() + ' Sq. Ft. (' + r.cents + ' Cents)');
-    setT('mInspRoadBadge', r.fmbRoadWidth || '20-Foot Road Frontage');
-
-    setT('mInspOwner', r.ownerNameTa + ' (' + r.ownerNameEn + ')');
-    setT('mInspFather', r.fatherNameTa + ' (' + r.fatherNameEn + ')');
-    setT('mInspClass', r.classification);
-    setT('mInspTax', r.taxAssessment);
-    setT('mInspExtent', r.extentHectares + ' Hectares (' + (r.extentSqFt || 0).toLocaleString() + ' Sq. Ft.)');
-    setT('mInspCents', r.cents + ' Cents');
-
-    const ecTbody = document.getElementById('mInspEcTbody');
-    if (ecTbody) {
-        ecTbody.innerHTML = '';
-        if (r.ecEntries) {
-            r.ecEntries.forEach(e => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><b>${e.docNumber}</b><br><small class="text-muted">${e.regDate}</small></td>
-                    <td>${e.natureOfDocument}</td>
-                    <td>${e.executant}</td>
-                    <td>${e.claimant}</td>
-                    <td>${e.extent}</td>
-                    <td><span class="badge bg-success-subtle text-success">${e.statusNotes}</span></td>
-                `;
-                ecTbody.appendChild(tr);
-            });
-        }
-    }
-
-    const chainDiv = document.getElementById('mInspChainList');
-    if (chainDiv) {
-        chainDiv.innerHTML = '';
-        if (r.titleDeedChain) {
-            r.titleDeedChain.forEach((c, idx) => {
-                const itm = document.createElement('div');
-                itm.className = 'p-2 mb-2 bg-light border rounded small d-flex justify-content-between align-items-center';
-                itm.innerHTML = `
-                    <div>
-                        <b>Link ${idx + 1}: ${c.period} (${c.documentNo})</b>
-                        <div class="text-muted">${c.natureOfTransmission} | Title Holder: <b>${c.titleHolder}</b></div>
-                    </div>
-                    <div><span class="badge ${c.chainStatus && c.chainStatus.includes('⚠️') ? 'badge-danger-custom' : 'badge-verified'}">${c.chainStatus}</span></div>
-                `;
-                chainDiv.appendChild(itm);
-            });
-        }
-    }
-
-    setT('mInspDtcpStatus', r.dtcpStatus);
-    const dtcpBanner = document.getElementById('mInspDtcpBanner');
-    if (dtcpBanner) {
-        if (r.dtcpApproved) {
-            dtcpBanner.style.background = '#f0fdf4';
-            dtcpBanner.style.borderColor = '#86efac';
-            const h = dtcpBanner.querySelector('h6');
-            if (h) { h.className = 'fw-bold text-success mb-1'; h.innerText = 'DTCP Approved Holding (Clear Title)'; }
-        } else {
-            dtcpBanner.style.background = '#fef2f2';
-            dtcpBanner.style.borderColor = '#f87171';
-            const h = dtcpBanner.querySelector('h6');
-            if (h) { h.className = 'fw-bold text-danger mb-1'; h.innerText = 'Unapproved Sub-division (G.O. 78 Regularisation Pending)'; }
-        }
-    }
-
-    const modalEl = document.getElementById('modalInspectParcel');
-    if (modalEl) new bootstrap.Modal(modalEl).show();
-}
-
-// Modal 1: Open Patta Modal
-function openPattaModal() {
-    if (!selectedRecord) return;
-    const r = selectedRecord;
-    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-
-    setT('mPattaDist', r.district);
-    setT('mPattaTaluk', r.taluk);
-    setT('mPattaVillage', r.village);
-    setT('mPattaNo', r.pattaNumber);
-    setT('mPattaSurvey', r.surveyNumber);
-    setT('mPattaSubDiv', r.subDivision);
-    setT('mPattaType', r.classification);
-    setT('mPattaExtent', r.extentHectares + ' ஹெக் (' + (r.extentSqFt || 0).toLocaleString() + ' சதுர அடி)');
-    setT('mPattaTax', r.taxAssessment);
-    setT('mPattaOwner', r.ownerNameTa + ' (' + r.ownerNameEn + ')');
-    setT('mPattaFather', r.fatherNameTa + ' (' + r.fatherNameEn + ')');
-    setT('mPattaSignTaluk', r.taluk + ' வட்டம், ' + r.district + ' மாவட்டம்');
-
-    const sealEl = document.getElementById('mPattaSeal');
-    if (sealEl) sealEl.innerHTML = '✓ e-Services AnyTN Digital Signature Certified<br>Ref: TN-REV-' + (r.taluk.slice(0,3)).toUpperCase() + '-' + r.pattaNumber + '/2026';
-
-    const modalEl = document.getElementById('modalPatta');
-    if (modalEl) new bootstrap.Modal(modalEl).show();
-}
-
-// Modal 2: Open FMB Modal
-function openFmbModal() {
-    if (!selectedRecord) return;
-    const r = selectedRecord;
-    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-
-    setT('mFmbVillage', r.village);
-    setT('mFmbFullSurvey', r.fullSurvey);
-    setT('mFmbSvgSurvey', 'Survey ' + r.fullSurvey);
-    setT('mFmbSvgExtent', 'Extent: ' + (r.extentSqFt || 0).toLocaleString() + ' Sq. Ft. (' + r.cents + ' Cents)');
-    setT('mFmbSignTaluk', r.taluk + ' குறுவட்டம்');
-
-    const bounds = document.getElementById('mFmbBoundaries');
-    if (bounds) {
-        bounds.innerHTML = `
-            <div class="row g-2">
-                <div class="col-6"><b>வடக்கு (North):</b> ${r.northBoundary || '-'}</div>
-                <div class="col-6"><b>தெற்கு (South):</b> ${r.southBoundary || '-'}</div>
-                <div class="col-6"><b>கிழக்கு (East):</b> ${r.eastBoundary || '-'}</div>
-                <div class="col-6"><b>மேற்கு (West):</b> ${r.westBoundary || '-'}</div>
-            </div>
-        `;
-    }
-
-    const modalEl = document.getElementById('modalFmb');
-    if (modalEl) new bootstrap.Modal(modalEl).show();
-}
-
-// Modal 3: Open Official EC Modal
-function openEcModal() {
-    if (!selectedRecord) return;
-    const r = selectedRecord;
-    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-
-    setT('mEcDist', r.district);
-    setT('mEcSro', r.sroOffice);
-    setT('mEcVillage', r.village);
-    setT('mEcFullSurvey', r.fullSurvey);
-    setT('mEcClass', r.classification);
-    setT('mEcExtent', (r.extentSqFt || 0).toLocaleString() + ' சதுர அடி (' + r.cents + ' சென்ட்)');
-    setT('mEcBoundaries', 'வடக்கு: ' + (r.northBoundary || '-') + ', தெற்கு: ' + (r.southBoundary || '-') + ', கிழக்கு: ' + (r.eastBoundary || '-') + ', மேற்கு: ' + (r.westBoundary || '-'));
-    setT('mEcCertNoBadge', r.ecNumber || ('EC/2026/' + (r.taluk.slice(0,3)).toUpperCase() + '/58751'));
-    setT('mEcSignSro', r.sroOffice);
-
-    const tbody = document.getElementById('mEcTableBody');
-    if (tbody && r.ecEntries) {
-        tbody.innerHTML = '';
-        r.ecEntries.forEach((e, idx) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td class="text-center">${idx + 1}</td>
-                <td><b>${e.regDate}</b><br>${e.docNumber}<br><small class="text-muted">${e.sroOffice}</small></td>
-                <td>${e.natureOfDocument}</td>
-                <td>${e.executant}</td>
-                <td>${e.claimant}</td>
-                <td>${r.village} சர்வே ${r.fullSurvey} - ${e.extent}</td>
-                <td class="text-end">${e.considerationValue}</td>
-                <td class="text-end"><span class="badge bg-success">${e.statusNotes}</span></td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    const modalEl = document.getElementById('modalEc');
-    if (modalEl) new bootstrap.Modal(modalEl).show();
-}
-
-// Modal 4: Open Deed Modal
-function openDeedModal() {
-    if (!selectedRecord) return;
-    const r = selectedRecord;
-    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
-
-    setT('mDeedNo', r.deedNumber);
-    setT('mDeedSro', r.sroOffice);
-    setT('mDeedExec', r.fatherNameTa + ' (' + r.fatherNameEn + ')');
-    setT('mDeedClaim', r.ownerNameTa + ' (' + r.ownerNameEn + ')');
-    setT('mDeedSurvey', r.fullSurvey);
-    setT('mDeedExtent', (r.extentSqFt || 0).toLocaleString() + ' சதுர அடி (' + r.cents + ' சென்ட்)');
-    setT('mDeedExtractClaim', r.ownerNameEn);
-    setT('mDeedExtractSurvey', r.fullSurvey);
-    setT('mDeedExtractExtent', (r.extentSqFt || 0).toLocaleString() + ' சதுர அடி');
-    setT('mDeedSignSro', r.taluk);
-
-    const modalEl = document.getElementById('modalDeed');
-    if (modalEl) new bootstrap.Modal(modalEl).show();
-}
-
-// Triple-Tier Storage & Dossier Management (0 DB Maintenance)
-function saveSelectedToDossier() {
-    if (!selectedRecord) return;
-    const r = selectedRecord;
-    let list = JSON.parse(localStorage.getItem('landguard_dossiers') || '[]');
-    
-    // Check if already saved
-    const exists = list.some(d => d.fullSurvey === r.fullSurvey && d.village === r.village);
-    if (!exists) {
-        const item = {
-            id: 'DOS-' + Date.now().toString().slice(-6),
-            savedDate: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
-            surveyNumber: r.surveyNumber,
-            subDivision: r.subDivision,
-            fullSurvey: r.fullSurvey,
-            village: r.village,
-            taluk: r.taluk,
-            ownerName: r.ownerNameEn + ' (' + r.ownerNameTa + ')',
-            extentSqFt: r.extentSqFt,
-            dtcpStatus: r.dtcpStatus,
-            dtcpApproved: r.dtcpApproved,
-            ecStatus: r.ecStatus,
-            askingRate: r.askingRate,
-            guidelineValuePerSqFt: r.guidelineValuePerSqFt
-        };
-        list.push(item);
-        localStorage.setItem('landguard_dossiers', JSON.stringify(list));
-        alert('✓ Property Dossier for Survey ' + r.fullSurvey + ' (' + r.ownerNameEn + ') saved to your website storage.');
-    } else {
-        alert('ℹ️ Survey ' + r.fullSurvey + ' is already saved in your dossier collection.');
-    }
-    loadDossiers();
-}
-
-function saveSelectedToMongo() {
-    saveSelectedToDossier();
-}
-
-function loadDossiers() {
-    let list = JSON.parse(localStorage.getItem('landguard_dossiers') || '[]');
-    const countElem = document.getElementById('dossierCount');
-    if (countElem) countElem.innerText = list.length;
-
-    const emptyMsg = document.getElementById('emptyDossiersMsg');
-    const tableWrap = document.getElementById('dossiersTableWrapper');
-    const tbody = document.getElementById('dossiersTableBody');
-
-    if (!tbody) return;
-    tbody.innerHTML = '';
-
-    if (list.length === 0) {
-        if (emptyMsg) emptyMsg.style.display = 'block';
-        if (tableWrap) tableWrap.style.display = 'none';
-        return;
-    }
-
-    if (emptyMsg) emptyMsg.style.display = 'none';
-    if (tableWrap) tableWrap.style.display = 'block';
-
-    list.forEach((d, idx) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${d.savedDate || 'Today'}</td>
-            <td class="fw-bold">${d.fullSurvey}</td>
-            <td>${d.village}, ${d.taluk}</td>
-            <td>${d.ownerName}</td>
-            <td class="text-end">${(d.extentSqFt || 0).toLocaleString()} Sq. Ft.</td>
-            <td>${d.dtcpApproved ? '<span class="badge bg-success">Approved</span>' : '<span class="badge bg-danger">Unapproved</span>'}</td>
-            <td><span class="badge bg-success">Clean EC</span></td>
-            <td>
-                <button class="btn btn-primary btn-sm py-0 px-2" onclick="selectRecordData('${d.subDivision}')">View</button>
-                <button class="btn btn-outline-danger btn-sm py-0 px-2 ms-1" onclick="deleteDossier(${idx})"><i class="bi bi-trash"></i></button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-function deleteDossier(index) {
-    let list = JSON.parse(localStorage.getItem('landguard_dossiers') || '[]');
-    list.splice(index, 1);
-    localStorage.setItem('landguard_dossiers', JSON.stringify(list));
-    loadDossiers();
-}
-
-function clearAllDossiers() {
-    if (confirm('Are you sure you want to clear all saved dossiers?')) {
-        localStorage.removeItem('landguard_dossiers');
-        loadDossiers();
-    }
-}
-
-// Backup to Device Downloads & Google Drive
-function exportDossiersToDrive() {
-    const list = JSON.parse(localStorage.getItem('landguard_dossiers') || '[]');
-    if (list.length === 0) {
-        alert('ℹ️ No dossiers to export. Save a parcel first.');
-        return;
-    }
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(list, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "LandGuard_Due_Diligence_Dossiers_" + new Date().toISOString().slice(0,10) + ".json");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-    alert('✓ Dossiers exported to your device Downloads! On Android/PC, this syncs directly with your Google Drive backup.');
-}
-
-// Restore / Import Dossiers from File
-function importDossiersFromFile(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const imported = JSON.parse(e.target.result);
-            if (Array.isArray(imported)) {
-                let current = JSON.parse(localStorage.getItem('landguard_dossiers') || '[]');
-                const combined = [...current, ...imported];
-                // Remove duplicates by fullSurvey
-                const unique = Array.from(new Map(combined.map(item => [item.fullSurvey, item])).values());
-                localStorage.setItem('landguard_dossiers', JSON.stringify(unique));
-                loadDossiers();
-                alert('✓ Successfully imported ' + imported.length + ' dossiers into storage.');
-            } else {
-                alert('Invalid file format. Expected JSON array.');
-            }
-        } catch (err) {
-            alert('Error parsing file: ' + err.message);
-        }
-    };
-    reader.readAsText(file);
-}
-
-// Sync with Local MongoDB if available
-async function syncWithLocalMongo() {
-    try {
-        const localList = JSON.parse(localStorage.getItem('landguard_dossiers') || '[]');
-        const res = await fetch('/api/dossiers', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(localList)
-        });
-        if (res.ok) {
-            alert('✓ Successfully synced all dossiers with local MongoDB!');
-        } else {
-            alert('ℹ️ Cloud Online Mode: Stored securely in website browser storage and available for device backup (0 DB server needed).');
-        }
-    } catch (err) {
-        alert('ℹ️ Cloud Online Mode: Stored securely in website browser storage and available for device backup (0 DB server needed).');
-    }
-}
-
-// Print Utilities
-function printReport() { window.print(); }
-function printElement(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const orig = document.body.innerHTML;
-    document.body.innerHTML = el.outerHTML;
-    window.print();
-    document.body.innerHTML = orig;
-    window.location.reload();
-}
-</script>
+<!-- HARDENED LOCAL SCRIPTS (Zero CDNs, Strict CSP Compliant) -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/links.js"></script>
+<script src="assets/js/guard.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
