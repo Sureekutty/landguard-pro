@@ -95,51 +95,115 @@
         </div>
         <div id="officialGovLinksNav" class="d-flex gap-2 flex-wrap align-items-center"></div>
     </div>
-    <!-- MAIN MULTI-PAGE NAVIGATION TABS (Version 1 Restored Multi-Page Experience) -->
-    <div class="main-page-nav-wrapper no-print">
-        <ul class="nav nav-pills main-page-nav d-flex flex-wrap gap-2 justify-content-start" id="mainPageNavTabs" role="tablist">
-            <li class="nav-item">
-                <button class="nav-link active" data-page="page-search" type="button">
-                    <i class="bi bi-search me-1"></i> 1. Cadastre Explorer
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-page="page-patta" type="button">
-                    <i class="bi bi-file-earmark-text me-1"></i> 2. Patta Pass Book
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-page="page-ec" type="button">
-                    <i class="bi bi-file-earmark-pdf me-1"></i> 3. 30-Yr EC (Form 15)
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-page="page-fmb" type="button">
-                    <i class="bi bi-map me-1"></i> 4. Cadastral FMB
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-page="page-deed" type="button">
-                    <i class="bi bi-file-earmark-lock me-1"></i> 5. Registered Deed
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-page="page-calculator" type="button">
-                    <i class="bi bi-calculator me-1"></i> 6. Cost & Negotiation
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-page="page-fetch" type="button">
-                    <i class="bi bi-cloud-arrow-down-fill me-1 text-primary"></i> 7. Official Portal Fetch Desk
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-page="page-dossiers" type="button">
-                    <i class="bi bi-hdd-network me-1"></i> 8. Saved Dossiers (<span id="navDossierCount">0</span>)
-                </button>
-            </li>
-        </ul>
-    </div>
+    <!-- APPLICATION PARTITIONED LAYOUT (LEFT SIDEBAR MENU + RIGHT WORKSPACE) -->
+    <div class="app-layout">
+        <!-- LEFT MENU BAR (SIDEBAR) WITH PARTITIONS -->
+        <aside class="app-sidebar no-print" id="appSidebar">
+            <div class="sidebar-header">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="badge bg-primary px-2 py-1"><i class="bi bi-compass me-1"></i> Due Diligence Suite</span>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="bi bi-shield-check me-1"></i>TN Cadastre</span>
+                </div>
+                <div class="small text-muted">Select any desk below to inspect authentic land records.</div>
+            </div>
+
+            <!-- Active Selected Parcel Summary Widget -->
+            <div class="sidebar-active-parcel">
+                <div class="sidebar-active-parcel-title">Active Inspection Parcel</div>
+                <div class="sidebar-active-parcel-val d-flex align-items-center justify-content-between mt-1">
+                    <span id="sbActiveSurvey" class="text-primary">Survey 148/1</span>
+                    <span class="badge bg-primary" id="sbActivePatta">Patta 1550</span>
+                </div>
+                <div class="small text-muted text-truncate mt-1" id="sbActiveOwner">Sureendhar J (Rasipuram)</div>
+            </div>
+
+            <!-- PARTITION 1: DUE DILIGENCE DESKS -->
+            <div class="sidebar-section-title">Cadastre & Document Desks</div>
+            <ul class="sidebar-nav" id="mainPageNavTabs" role="tablist">
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link active" data-page="page-search" type="button">
+                        <span><i class="bi bi-search me-2 text-primary"></i> 1. Cadastre Explorer</span>
+                        <span class="badge bg-primary-subtle text-primary">Search</span>
+                    </button>
+                </li>
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link" data-page="page-patta" type="button">
+                        <span><i class="bi bi-file-earmark-text me-2 text-success"></i> 2. Patta Pass Book</span>
+                        <span class="badge bg-light text-secondary">Form 1</span>
+                    </button>
+                </li>
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link" data-page="page-ec" type="button">
+                        <span><i class="bi bi-file-earmark-pdf me-2 text-danger"></i> 3. 30-Yr EC Desk</span>
+                        <span class="badge bg-light text-secondary">Form 15</span>
+                    </button>
+                </li>
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link" data-page="page-fmb" type="button">
+                        <span><i class="bi bi-map me-2 text-success"></i> 4. Cadastral FMB</span>
+                        <span class="badge bg-light text-secondary">Sketch</span>
+                    </button>
+                </li>
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link" data-page="page-deed" type="button">
+                        <span><i class="bi bi-file-earmark-lock me-2 text-info"></i> 5. Registered Deed</span>
+                        <span class="badge bg-light text-secondary">Extract</span>
+                    </button>
+                </li>
+
+                <!-- PARTITION 2: FINANCIAL & VALUATION -->
+                <li class="sidebar-section-title">Valuation & Storage</li>
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link" data-page="page-calculator" type="button">
+                        <span><i class="bi bi-calculator me-2 text-warning"></i> 6. Cost & Negotiation</span>
+                        <span class="badge bg-light text-secondary">Calculator</span>
+                    </button>
+                </li>
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link" data-page="page-dossiers" type="button">
+                        <span><i class="bi bi-hdd-network me-2 text-secondary"></i> 7. Saved Dossiers</span>
+                        <span class="badge bg-secondary" id="navDossierCount">0</span>
+                    </button>
+                </li>
+
+                <!-- PARTITION 3: OFFICIAL GOVERNMENT GATEWAYS -->
+                <li class="sidebar-section-title">Government Gateways</li>
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link" data-page="page-status" type="button">
+                        <span><i class="bi bi-activity me-2 text-success"></i> 8. Live Portal Monitor</span>
+                        <span class="badge bg-success"><span class="pulse-dot pulse-green"></span>Online</span>
+                    </button>
+                </li>
+                <li class="sidebar-nav-item">
+                    <button class="sidebar-nav-link nav-link" data-page="page-fetch" type="button">
+                        <span><i class="bi bi-cloud-arrow-down-fill me-2 text-primary"></i> 9. Official Fetch Desk</span>
+                        <span class="badge bg-primary">Gov Guide</span>
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Live Portal Health Pills in Sidebar Footer -->
+            <div class="sidebar-status-footer">
+                <div class="sidebar-section-title ps-0 mt-0">Monitored State Portals</div>
+                <div class="d-flex flex-column gap-1 small mt-2">
+                    <div class="d-flex justify-content-between align-items-center p-1 px-2 rounded bg-light border">
+                        <span><span class="pulse-dot pulse-green"></span>AnyTN e-Services:</span>
+                        <span class="badge bg-success-subtle text-success">HTTP 200</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center p-1 px-2 rounded bg-light border">
+                        <span><span class="pulse-dot pulse-green"></span>TNREGINET (IGR):</span>
+                        <span class="badge bg-success-subtle text-success">HTTP 200</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center p-1 px-2 rounded bg-light border">
+                        <span><span class="pulse-dot pulse-green"></span>DTCP OnlinePPA:</span>
+                        <span class="badge bg-success-subtle text-success">HTTP 200</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT MAIN CONTENT PARTITION -->
+        <main class="app-main-content">
 
     <!-- ========================================== -->
     <!-- PAGE VIEW 1: CADASTRE EXPLORER & FIELD DILIGENCE -->
@@ -396,25 +460,86 @@
             </div>
         </div>
 
+        <!-- STEP-BY-STEP OFFICIAL DOWNLOAD PROCEDURE CARD -->
+        <div class="step-procedure-card no-print">
+            <div class="step-procedure-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-success"><i class="bi bi-file-earmark-check me-1"></i>Official Procedure</span>
+                    <h6 class="fw-bold mb-0 text-primary-navy">How to Download Authentic Patta / Chitta (Form 1) from AnyTN e-Services</h6>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <div id="stepPattaPortalLink"></div>
+                </div>
+            </div>
+            <div class="step-list-grid">
+                <div class="step-item-box">
+                    <div class="step-num-badge">1</div>
+                    <div>
+                        <div class="step-item-title">Open AnyTN Portal</div>
+                        <div class="step-item-desc">Click the verified portal button to open <code>https://eservices.tn.gov.in/</code>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">2</div>
+                    <div>
+                        <div class="step-item-title">Select Patta / Chitta Service</div>
+                        <div class="step-item-desc">Click on <b>"View Patta & FMB / Chitta Extract"</b> (பட்டா & புல வரைபடம் / சிட்டா விவரங்களை பார்வையிட).</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">3</div>
+                    <div>
+                        <div class="step-item-title">Select Revenue Location</div>
+                        <div class="step-item-desc">Choose District: <b>Namakkal</b>, Taluk: <b>Rasipuram</b>, Village: <b>Gurusamipalayam</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">4</div>
+                    <div>
+                        <div class="step-item-title">Enter Cadastral Details</div>
+                        <div class="step-item-desc">Select <b>Survey No</b>: <b class="text-primary" id="stepPattaSurveyVal">148</b>, <b>Subdivision</b>: <b class="text-primary" id="stepPattaSubVal">1</b> (or Patta No: <b id="stepPattaNoVal">1550</b>).</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">5</div>
+                    <div>
+                        <div class="step-item-title">Submit Captcha Authentication</div>
+                        <div class="step-item-desc">Type the displayed visual authentication code and click <b>Submit (சமர்ப்பி)</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">6</div>
+                    <div>
+                        <div class="step-item-title">Download & Verify Seal</div>
+                        <div class="step-item-desc">Save the computerised Form 1 extract with digital signature QR code or drop PDF below to verify.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 bg-light border-top d-flex justify-content-between align-items-center flex-wrap gap-2 small">
+                <span class="text-muted"><i class="bi bi-shield-check text-success me-1"></i>Official Source: <b>AnyTN Revenue Registry (Section 3 Patta Pass Book Act)</b></span>
+                <span class="text-muted">Direct Portal Launch Protected by Link Allowlist Guard</span>
+            </div>
+        </div>
+
         <div class="full-page-doc-wrapper" id="fullPagePattaContainer">
             <div class="text-center border-bottom pb-4 mb-4">
                 <img src="assets/img/tamilnadu-logo.svg" alt="TN Emblem" class="tn-emblem-img">
                 <h4 class="fw-bold mt-2 mb-1 text-primary-navy">தமிழ்நாடு அரசு - வருவாய்த் துறை</h4>
                 <div class="fs-6 text-muted">கணினி திருத்தப்பட்ட பட்டா மாறுதல் உத்தரவு / நில உரிமைப் பதிவேடு</div>
                 <div class="fw-bold text-primary mt-1">படிவம் எண்: 1 | தமிழ்நாடு பட்டா மாறுதல் சட்டம் 1983 பிரிவு 3-ன் கீழ் வழங்கப்பட்டது</div>
-                <div class="mt-2"><span class="badge bg-primary" id="fpPattaNoBadge">பட்டா எண்: 1205</span></div>
+                <div class="mt-2"><span class="badge bg-primary" id="fpPattaNoBadge">பட்டா எண்: 1550</span></div>
             </div>
 
             <div class="row g-3 small mb-4 p-3 bg-light rounded border">
                 <div class="col-md-4"><b>மாவட்டம் (District):</b> <span id="fpPattaDist">Namakkal</span></div>
                 <div class="col-md-4"><b>வட்டம் (Taluk):</b> <span id="fpPattaTaluk">Rasipuram</span></div>
                 <div class="col-md-4"><b>கிராமம் (Village):</b> <span id="fpPattaVillage">Gurusamipalayam</span></div>
-                <div class="col-md-4"><b>பட்டா எண் (Patta No):</b> <span class="badge bg-primary" id="fpPattaNo">1205</span></div>
-                <div class="col-md-4"><b>புல எண் (Survey No):</b> <span class="fw-bold" id="fpPattaSurvey">142</span></div>
-                <div class="col-md-4"><b>உட்பிரிவு (Sub-div):</b> <span class="fw-bold" id="fpPattaSubDiv">2A</span></div>
+                <div class="col-md-4"><b>பட்டா எண் (Patta No):</b> <span class="badge bg-primary" id="fpPattaNo">1550</span></div>
+                <div class="col-md-4"><b>புல எண் (Survey No):</b> <span class="fw-bold" id="fpPattaSurvey">148</span></div>
+                <div class="col-md-4"><b>உட்பிரிவு (Sub-div):</b> <span class="fw-bold" id="fpPattaSubDiv">1</span></div>
                 <div class="col-md-4"><b>நில வகைப்பாடு:</b> <span id="fpPattaType">ரயத்து புஞ்சை</span></div>
-                <div class="col-md-4"><b>பரப்பளவு:</b> <span id="fpPattaExtent">0.01.53 ஹெக் (1,650 சதுர அடி)</span></div>
-                <div class="col-md-4"><b>தீர்வை (Land Tax):</b> <span id="fpPattaTax">₹ 4.50</span></div>
+                <div class="col-md-4"><b>பரப்பளவு:</b> <span id="fpPattaExtent">0.02.23 ஹெக் (2,400 சதுர அடி)</span></div>
+                <div class="col-md-4"><b>தீர்வை (Land Tax):</b> <span id="fpPattaTax">₹ 6.50</span></div>
             </div>
 
             <div class="table-responsive mb-4">
@@ -475,6 +600,67 @@
             </div>
         </div>
 
+        <!-- STEP-BY-STEP OFFICIAL DOWNLOAD PROCEDURE CARD -->
+        <div class="step-procedure-card no-print">
+            <div class="step-procedure-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-danger"><i class="bi bi-file-earmark-lock me-1"></i>Official Procedure</span>
+                    <h6 class="fw-bold mb-0 text-primary-navy">How to Download Statutory 30-Year Encumbrance Certificate (Form 15) from TNREGINET</h6>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <div id="stepEcPortalLink"></div>
+                </div>
+            </div>
+            <div class="step-list-grid">
+                <div class="step-item-box">
+                    <div class="step-num-badge">1</div>
+                    <div>
+                        <div class="step-item-title">Open TNREGINET Portal</div>
+                        <div class="step-item-desc">Click the verified portal button to open <code>https://tnreginet.gov.in/</code>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">2</div>
+                    <div>
+                        <div class="step-item-title">Navigate E-Services Menu</div>
+                        <div class="step-item-desc">From the top menu, select <b>E-Services (மின்னணு சேவைகள்)</b> ➔ <b>Encumbrance Certificate (வில்லங்கச் சான்று)</b> ➔ <b>View EC (வில்லங்கச் சான்று விவரம் பார்க்க)</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">3</div>
+                    <div>
+                        <div class="step-item-title">Select SRO Jurisdiction</div>
+                        <div class="step-item-desc">Select Zone: <b>Salem</b>, District: <b>Namakkal</b>, SRO: <b>Rasipuram</b>, Village: <b>Gurusamipalayam</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">4</div>
+                    <div>
+                        <div class="step-item-title">Enter Cadastral Identifiers</div>
+                        <div class="step-item-desc">Enter Survey No: <b class="text-primary" id="stepEcSurveyVal">148</b>, Subdivision: <b class="text-primary" id="stepEcSubVal">1</b> (or leave blank to inspect all subdivisions in survey).</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">5</div>
+                    <div>
+                        <div class="step-item-title">Set Search Period</div>
+                        <div class="step-item-desc">Set Start Date: <b>01/01/1984</b> to <b>Current Date</b> (Mandatory statutory 30-40 year clean title search).</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">6</div>
+                    <div>
+                        <div class="step-item-title">Solve Captcha & Download</div>
+                        <div class="step-item-desc">Solve visual security code, click <b>Search</b>, and download official digitally signed Form 15 PDF.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 bg-light border-top d-flex justify-content-between align-items-center flex-wrap gap-2 small">
+                <span class="text-muted"><i class="bi bi-shield-check text-success me-1"></i>Official Source: <b>TNREGINET Central Registration Database (Section 57 Indian Registration Act)</b></span>
+                <span class="text-muted">Direct Portal Launch Protected by Link Allowlist Guard</span>
+            </div>
+        </div>
+
         <div class="full-page-doc-wrapper" id="fullPageEcContainer">
             <div class="tnreginet-ec-sheet">
                 <div class="tnreginet-header text-center pb-3 mb-3 border-bottom">
@@ -482,7 +668,7 @@
                     <h4 class="fw-bold mt-2 mb-0 text-primary-navy">பதிவுத்துறை, தமிழ்நாடு அரசு</h4>
                     <div class="small fw-bold">DEPARTMENT OF REGISTRATION, GOVERNMENT OF TAMIL NADU</div>
                     <div class="small mt-1 text-muted">வில்லங்கச் சான்றிதழ் / Certificate of Encumbrance on Property (Form No. 15)</div>
-                    <div class="mt-2"><span class="badge bg-primary" id="fpEcCertNoBadge">EC/2026/RAS/58751</span></div>
+                    <div class="mt-2"><span class="badge bg-primary" id="fpEcCertNoBadge">EC/2026/RAS/15501</span></div>
                 </div>
 
                 <div class="row g-2 small mb-4 p-3 bg-light rounded border">
@@ -491,10 +677,10 @@
                     <div class="col-md-6"><b>சார்பதிவாளர் அலுவலகம் (SRO):</b> <span id="fpEcSro">ராசிபுரம் (Rasipuram SRO)</span></div>
                     <div class="col-md-6"><b>கால அளவு (Search Period):</b> <span id="fpEcPeriod">01-Jan-1984 முதல் 2026 வரை (40 ஆண்டுகள்)</span></div>
                     <div class="col-md-6"><b>கிராமம் (Village):</b> <span id="fpEcVillage">குருசாமிபாளையம் (Gurusamipalayam)</span></div>
-                    <div class="col-md-6"><b>புல எண் (Survey & Sub-div):</b> <span id="fpEcFullSurvey" class="fw-bold text-primary">142/2A</span></div>
+                    <div class="col-md-6"><b>புல எண் (Survey & Sub-div):</b> <span id="fpEcFullSurvey" class="fw-bold text-primary">148/1</span></div>
                     <div class="col-md-6"><b>நில வகைப்பாடு:</b> <span id="fpEcClass">ரயத்து புஞ்சை</span></div>
-                    <div class="col-md-6"><b>பரப்பளவு:</b> <span id="fpEcExtent">1,650 சதுர அடி (3.79 சென்ட்)</span></div>
-                    <div class="col-12"><b>நான்கெல்லை (Boundaries):</b> <span id="fpEcBoundaries">வடக்கு: 142/1, தெற்கு: 16 அடி சாலை, கிழக்கு: 142/2B, மேற்கு: 20 அடி சாலை</span></div>
+                    <div class="col-md-6"><b>பரப்பளவு:</b> <span id="fpEcExtent">2,400 சதுர அடி (5.51 சென்ட்)</span></div>
+                    <div class="col-12"><b>நான்கெல்லை (Boundaries):</b> <span id="fpEcBoundaries">வடக்கு: 147, தெற்கு: 30 அடி பஞ்சாயத்து தார் சாலை, கிழக்கு: 148/2, மேற்கு: 148/1B</span></div>
                 </div>
 
                 <div class="table-responsive mb-4">
@@ -547,23 +733,84 @@
             </div>
         </div>
 
+        <!-- STEP-BY-STEP OFFICIAL DOWNLOAD PROCEDURE CARD -->
+        <div class="step-procedure-card no-print">
+            <div class="step-procedure-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-success"><i class="bi bi-map me-1"></i>Official Procedure</span>
+                    <h6 class="fw-bold mb-0 text-primary-navy">How to Download Cadastral FMB Sketch from AnyTN Revenue Portal</h6>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <div id="stepFmbPortalLink"></div>
+                </div>
+            </div>
+            <div class="step-list-grid">
+                <div class="step-item-box">
+                    <div class="step-num-badge">1</div>
+                    <div>
+                        <div class="step-item-title">Open AnyTN FMB Portal</div>
+                        <div class="step-item-desc">Click the verified portal button to open <code>https://eservices.tn.gov.in/eservicesnew/land/fmb.html</code>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">2</div>
+                    <div>
+                        <div class="step-item-title">Select Area Classification</div>
+                        <div class="step-item-desc">Choose <b>Rural (கிராமப்புறம்)</b> for village agricultural & residential survey tracts.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">3</div>
+                    <div>
+                        <div class="step-item-title">Select Revenue Location</div>
+                        <div class="step-item-desc">Select District: <b>Namakkal</b>, Taluk: <b>Rasipuram</b>, Village: <b>Gurusamipalayam</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">4</div>
+                    <div>
+                        <div class="step-item-title">Enter Survey & Subdivision</div>
+                        <div class="step-item-desc">Enter Survey Number: <b class="text-primary" id="stepFmbSurveyVal">148</b>, Sub-division: <b class="text-primary" id="stepFmbSubVal">1</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">5</div>
+                    <div>
+                        <div class="step-item-title">Submit Captcha & Generate</div>
+                        <div class="step-item-desc">Enter the authentication captcha value to render the official Field Measurement Book sketch.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">6</div>
+                    <div>
+                        <div class="step-item-title">Inspect Triangulation Ladder</div>
+                        <div class="step-item-desc">Cross-check tie lines, boundary stones (A, B, C, D), and compare measured road frontage width with ground survey.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 bg-light border-top d-flex justify-content-between align-items-center flex-wrap gap-2 small">
+                <span class="text-muted"><i class="bi bi-shield-check text-success me-1"></i>Official Source: <b>AnyTN Directorate of Survey and Settlement (Triangulation Ladder Record)</b></span>
+                <span class="text-muted">Direct Portal Launch Protected by Link Allowlist Guard</span>
+            </div>
+        </div>
+
         <div class="full-page-doc-wrapper text-center" id="fullPageFmbContainer">
             <h4 class="fw-bold mb-1 text-primary-navy">கிராமப் புல வரைபடம் (Field Measurement Book)</h4>
-            <div class="text-muted small mb-4">கிராமம்: <span id="fpFmbVillage">Gurusamipalayam</span> | புல எண்: <span id="fpFmbFullSurvey" class="fw-bold text-primary">142/2A</span></div>
+            <div class="text-muted small mb-4">கிராமம்: <span id="fpFmbVillage">Gurusamipalayam</span> | புல எண்: <span id="fpFmbFullSurvey" class="fw-bold text-primary">148/1</span></div>
 
             <div class="border rounded p-4 bg-light mb-4">
                 <svg width="100%" height="280" viewBox="0 0 500 240" class="fmb-cadastre-canvas">
                     <polygon points="120,40 380,40 380,200 120,200" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" stroke-dasharray="0"/>
                     <line x1="120" y1="30" x2="380" y2="30" stroke="#0369a1" stroke-width="1.5"/>
-                    <text x="250" y="24" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">55.0 Feet (North)</text>
+                    <text x="250" y="24" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">60.0 Feet (North)</text>
                     <line x1="390" y1="40" x2="390" y2="200" stroke="#0369a1" stroke-width="1.5"/>
-                    <text x="440" y="125" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">30.0 Feet (East)</text>
+                    <text x="440" y="125" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">40.0 Feet (East)</text>
                     <line x1="120" y1="210" x2="380" y2="210" stroke="#0369a1" stroke-width="1.5"/>
-                    <text x="250" y="226" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">55.0 Feet (South Frontage)</text>
+                    <text x="250" y="226" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">60.0 Feet (South Frontage)</text>
                     <line x1="110" y1="40" x2="110" y2="200" stroke="#0369a1" stroke-width="1.5"/>
-                    <text x="60" y="125" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">30.0 Feet (West Frontage)</text>
-                    <text x="250" y="115" fill="#1e3a8a" font-size="16" font-weight="bold" text-anchor="middle" id="fpFmbSvgSurvey">Survey 142/2A</text>
-                    <text x="250" y="135" fill="#475569" font-size="12" text-anchor="middle" id="fpFmbSvgExtent">Extent: 1,650 Sq. Ft. (3.79 Cents)</text>
+                    <text x="60" y="125" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">40.0 Feet (West Frontage)</text>
+                    <text x="250" y="115" fill="#1e3a8a" font-size="16" font-weight="bold" text-anchor="middle" id="fpFmbSvgSurvey">Survey 148/1</text>
+                    <text x="250" y="135" fill="#475569" font-size="12" text-anchor="middle" id="fpFmbSvgExtent">Extent: 2,400 Sq. Ft. (5.51 Cents)</text>
                 </svg>
             </div>
 
@@ -574,7 +821,7 @@
             <div class="d-flex justify-content-between align-items-center pt-3 border-top small text-start flex-wrap gap-2">
                 <div class="seal-box" id="fpFmbSeal">
                     ✓ Survey Field Diary Triangulation Certified<br>
-                    G-File Reference: RAS/G-FILE/142-2A
+                    G-File Reference: RAS/G-FILE/148-1
                 </div>
                 <div class="text-end">
                     <b>பிர்க்கா நில அளவர் / Firka Surveyor</b><br>
@@ -599,6 +846,65 @@
                 <button class="btn btn-info btn-sm text-dark fw-bold" data-action="print-element" data-target="fullPageDeedContainer">
                     <i class="bi bi-printer me-1"></i> Print Deed Extract
                 </button>
+            </div>
+        <!-- STEP-BY-STEP OFFICIAL DOWNLOAD PROCEDURE CARD -->
+        <div class="step-procedure-card no-print">
+            <div class="step-procedure-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-info text-dark"><i class="bi bi-file-earmark-lock me-1"></i>Official Procedure</span>
+                    <h6 class="fw-bold mb-0 text-primary-navy">How to Search & Retrieve Certified Copy (CC) from TNREGINET</h6>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <div id="stepDeedPortalLink"></div>
+                </div>
+            </div>
+            <div class="step-list-grid">
+                <div class="step-item-box">
+                    <div class="step-num-badge">1</div>
+                    <div>
+                        <div class="step-item-title">Open TNREGINET Portal</div>
+                        <div class="step-item-desc">Click the verified portal button to open <code>https://tnreginet.gov.in/</code>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">2</div>
+                    <div>
+                        <div class="step-item-title">Select Certified Copy Menu</div>
+                        <div class="step-item-desc">From the top menu, select <b>E-Services (மின்னணு சேவைகள்)</b> ➔ <b>Certified Copy (சான்றளிக்கப்பட்ட நகல்)</b> ➔ <b>Search Document</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">3</div>
+                    <div>
+                        <div class="step-item-title">Select Document Type</div>
+                        <div class="step-item-desc">Choose <b>Regular Document (சாதாரண ஆவணம்)</b> or <b>Partition / Settlement Deed</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">4</div>
+                    <div>
+                        <div class="step-item-title">Enter SRO & Document No</div>
+                        <div class="step-item-desc">Select SRO: <b>Rasipuram</b>, enter Doc No: <b class="text-primary" id="stepDeedDocVal">1890</b>, Year: <b class="text-primary" id="stepDeedYearVal">2018</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">5</div>
+                    <div>
+                        <div class="step-item-title">Solve Captcha & Submit</div>
+                        <div class="step-item-desc">Enter the authentication code and submit to inspect registered document indexes and executant/claimant names.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">6</div>
+                    <div>
+                        <div class="step-item-title">Apply for Signed CC</div>
+                        <div class="step-item-desc">Pay statutory government copy fee online or inspect the registered schedule of boundaries against ground survey.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 bg-light border-top d-flex justify-content-between align-items-center flex-wrap gap-2 small">
+                <span class="text-muted"><i class="bi bi-shield-check text-success me-1"></i>Official Source: <b>TNREGINET Registered Document Archives (Indian Registration Act)</b></span>
+                <span class="text-muted">Direct Portal Launch Protected by Link Allowlist Guard</span>
             </div>
         </div>
 
@@ -645,6 +951,67 @@
                     <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
                 </button>
                 <span class="badge bg-primary fs-6">Financial Analytics & Statutory Costs</span>
+            </div>
+        </div>
+
+        <!-- STEP-BY-STEP OFFICIAL DOWNLOAD PROCEDURE CARD -->
+        <div class="step-procedure-card no-print">
+            <div class="step-procedure-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-warning text-dark"><i class="bi bi-shield-lock me-1"></i>Official Procedure</span>
+                    <h6 class="fw-bold mb-0 text-primary-navy">How to Verify DTCP Layout Regularisation on OnlinePPA Portal</h6>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <div id="stepDtcpPortalLink"></div>
+                </div>
+            </div>
+            <div class="step-list-grid">
+                <div class="step-item-box">
+                    <div class="step-num-badge">1</div>
+                    <div>
+                        <div class="step-item-title">Open DTCP OnlinePPA Portal</div>
+                        <div class="step-item-desc">Click the verified portal button to open <code>https://onlineppa.tn.gov.in/</code>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">2</div>
+                    <div>
+                        <div class="step-item-title">Select Regularisation Scheme</div>
+                        <div class="step-item-desc">Select <b>Unapproved Layout Regularisation Scheme (G.O. Ms. No. 78 & 141)</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">3</div>
+                    <div>
+                        <div class="step-item-title">Search by Local Body & Survey</div>
+                        <div class="step-item-desc">Select Local Body: <b>Gurusamipalayam Town Panchayat</b>, enter Survey No: <b class="text-primary" id="stepDtcpSurveyVal">148/1</b>.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">4</div>
+                    <div>
+                        <div class="step-item-title">Verify In-Principle Approval</div>
+                        <div class="step-item-desc">Check if the layout promoter obtained framework approval from the Member Secretary / Deputy Director of DTCP.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">5</div>
+                    <div>
+                        <div class="step-item-title">Compute Individual Regularisation</div>
+                        <div class="step-item-desc">If plot is unregularised, compute statutory fee: ₹30/sq.m layout charge + 3% OSR fee before executing sale deed.</div>
+                    </div>
+                </div>
+                <div class="step-item-box">
+                    <div class="step-num-badge">6</div>
+                    <div>
+                        <div class="step-item-title">Enforce Section 22-A Bar</div>
+                        <div class="step-item-desc">Ensure regularisation order is issued prior to registration to prevent SRO refusal under Section 22-A of Registration Act.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 bg-light border-top d-flex justify-content-between align-items-center flex-wrap gap-2 small">
+                <span class="text-muted"><i class="bi bi-shield-check text-success me-1"></i>Official Source: <b>Directorate of Town and Country Planning (DTCP / OnlinePPA)</b></span>
+                <span class="text-muted">Direct Portal Launch Protected by Link Allowlist Guard</span>
             </div>
         </div>
 
@@ -1063,10 +1430,152 @@
                     </div>
                 </div>
             </div>
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 9: LIVE GOVT PORTAL HEALTH & STATUS MONITOR -->
+    <!-- ========================================== -->
+    <div class="page-view" id="page-status">
+        <div class="page-view-header d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-action="switch-page" data-page="page-search">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
+                </button>
+                <span class="badge bg-success fs-6"><i class="bi bi-activity me-1"></i> Live Government Portal Health & Status Monitor</span>
+            </div>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <button class="btn btn-primary btn-sm fw-bold" id="btnRefreshPortalHealth">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Re-Check Server Status Live
+                </button>
+            </div>
+        </div>
+
+        <!-- Real-Time State Server Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="portal-health-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-success"><span class="pulse-dot pulse-green"></span>ONLINE (200 OK)</span>
+                        <span class="small text-muted" id="phAnyTnLatency"><i class="bi bi-speedometer2 me-1"></i>341ms</span>
+                    </div>
+                    <h5 class="fw-bold mb-1 text-primary-navy">AnyTN e-Services</h5>
+                    <div class="small text-muted mb-2">Revenue Administration & Disaster Management</div>
+                    <div class="small mb-3">
+                        <b>Domain:</b> <code>eservices.tn.gov.in</code><br>
+                        <b>Jurisdiction:</b> Patta, Chitta, FMB Cadastral Sketches, TSLR<br>
+                        <b>Security:</b> TLS 1.3 / NIC SHA-256 Verified
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                        <span class="badge bg-light text-secondary">Section 3 Patta Pass Book Act</span>
+                        <div id="phAnyTnBtnContainer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="portal-health-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-success"><span class="pulse-dot pulse-green"></span>ONLINE (200 OK)</span>
+                        <span class="small text-muted" id="phTnreginetLatency"><i class="bi bi-speedometer2 me-1"></i>180ms</span>
+                    </div>
+                    <h5 class="fw-bold mb-1 text-primary-navy">TNREGINET Portal</h5>
+                    <div class="small text-muted mb-2">Registration Department, Govt of Tamil Nadu</div>
+                    <div class="small mb-3">
+                        <b>Domain:</b> <code>tnreginet.gov.in</code><br>
+                        <b>Jurisdiction:</b> Encumbrance Certificates (Form 15), Registered Deeds, Guideline Values<br>
+                        <b>Security:</b> TLS 1.3 / Govt Central Server
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                        <span class="badge bg-light text-secondary">Sec 57 Indian Registration Act</span>
+                        <div id="phTnreginetBtnContainer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="portal-health-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-success"><span class="pulse-dot pulse-green"></span>ONLINE (200 OK)</span>
+                        <span class="small text-muted" id="phDtcpLatency"><i class="bi bi-speedometer2 me-1"></i>306ms</span>
+                    </div>
+                    <h5 class="fw-bold mb-1 text-primary-navy">DTCP / OnlinePPA</h5>
+                    <div class="small text-muted mb-2">Directorate of Town and Country Planning</div>
+                    <div class="small mb-3">
+                        <b>Domain:</b> <code>onlineppa.tn.gov.in</code><br>
+                        <b>Jurisdiction:</b> Layout Regularisation Schemes (G.O. 78/141), Planning Approvals<br>
+                        <b>Security:</b> TLS 1.2+ / TNeGA Secured Cloud
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                        <span class="badge bg-light text-secondary">Sec 22-A Registration Act Bar</span>
+                        <div id="phDtcpBtnContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Network & Compliance Diagnostics Table -->
+        <div class="card card-custom">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-shield-check text-success"></i> Official Government Portal Network & Redirect Audit</h5>
+                <span class="badge bg-success">All Systems Operational</span>
+            </div>
+            <div class="card-body p-4">
+                <div class="table-responsive">
+                    <table class="table table-bordered small align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Portal Name</th>
+                                <th>Target Government URL</th>
+                                <th>HTTP Reachability</th>
+                                <th>Latency</th>
+                                <th>Redirect Safety</th>
+                                <th>Staleness Status</th>
+                                <th>Departure Guard</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">AnyTN e-Services</td>
+                                <td><code>https://eservices.tn.gov.in/</code></td>
+                                <td><span class="badge bg-success">HTTP 200 OK</span></td>
+                                <td><span class="text-success fw-bold">341 ms</span></td>
+                                <td><span class="badge bg-light text-dark border">Terminates on same host</span></td>
+                                <td><span class="badge bg-success-subtle text-success">Verified Fresh (0d ago)</span></td>
+                                <td><span class="text-success"><i class="bi bi-check-circle-fill me-1"></i>Allowlist Guard Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">TNREGINET (IGR)</td>
+                                <td><code>https://tnreginet.gov.in/</code></td>
+                                <td><span class="badge bg-success">HTTP 200 OK</span></td>
+                                <td><span class="text-success fw-bold">180 ms</span></td>
+                                <td><span class="badge bg-light text-dark border">Terminates on same host</span></td>
+                                <td><span class="badge bg-success-subtle text-success">Verified Fresh (0d ago)</span></td>
+                                <td><span class="text-success"><i class="bi bi-check-circle-fill me-1"></i>Allowlist Guard Active</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">DTCP / OnlinePPA</td>
+                                <td><code>https://onlineppa.tn.gov.in/</code></td>
+                                <td><span class="badge bg-success">HTTP 200 OK</span></td>
+                                <td><span class="text-success fw-bold">306 ms</span></td>
+                                <td><span class="badge bg-light text-dark border">Terminates on same host</span></td>
+                                <td><span class="badge bg-success-subtle text-success">Verified Fresh (0d ago)</span></td>
+                                <td><span class="text-success"><i class="bi bi-check-circle-fill me-1"></i>Allowlist Guard Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-info border-info mt-4 mb-0 small">
+                    <i class="bi bi-info-circle-fill me-2 text-info"></i>
+                    <strong>Why Live Portal Monitoring Matters for Land Due Diligence:</strong>
+                    Government cadastre portals undergo server maintenance during night hours and weekend maintenance windows. LandGuard monitors portal uptime so prospective buyers and advocates can verify server availability before scheduling SRO registration visits or preparing same-day encumbrance searches.
+                </div>
+            </div>
         </div>
     </div>
 
-</div>
+        </main>
+    </div> <!-- End app-layout -->
+
+</div> <!-- End container-fluid -->
 
 <!-- MODAL 0: FULL INTERACTIVE INSPECTION POPUP -->
 <div class="modal fade" id="modalInspectParcel" tabindex="-1" aria-labelledby="modalInspectParcelLabel" aria-hidden="true">

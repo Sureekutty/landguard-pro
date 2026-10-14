@@ -292,3 +292,205 @@
     margin-bottom: 30px;
 }
 
+/* App Partitioned Layout & Left Sidebar Menu */
+.app-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+.app-sidebar {
+    width: 290px;
+    min-width: 290px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 16px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 16px;
+    scrollbar-width: thin;
+}
+.app-main-content {
+    flex: 1;
+    min-width: 0;
+}
+@media (max-width: 991.98px) {
+    .app-layout {
+        flex-direction: column;
+    }
+    .app-sidebar {
+        width: 100%;
+        min-width: 100%;
+        position: static;
+        max-height: none;
+        margin-bottom: 20px;
+    }
+}
+
+.sidebar-header {
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+}
+.sidebar-section-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #94a3b8;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    padding-left: 8px;
+}
+.sidebar-nav {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.sidebar-nav-item {
+    margin-bottom: 4px;
+}
+.sidebar-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-align: left;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+}
+.sidebar-nav-link:hover {
+    background: #f1f5f9;
+    color: var(--primary);
+}
+.sidebar-nav-link.active {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+}
+.sidebar-nav-link.active .badge {
+    background: rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+}
+
+/* Sidebar Active Parcel Summary Card */
+.sidebar-active-parcel {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+}
+.sidebar-active-parcel-title {
+    font-size: 0.72rem;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.sidebar-active-parcel-val {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* Sidebar Live Portals Status Footer */
+.sidebar-status-footer {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 12px;
+    margin-top: 16px;
+}
+.pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+.pulse-green {
+    background-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+.pulse-amber {
+    background-color: #f59e0b;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+/* Step-by-Step Procedure Cards on Document Pages */
+.step-procedure-card {
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+.step-procedure-header {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 14px 18px;
+}
+.step-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    padding: 16px;
+}
+.step-item-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.step-num-badge {
+    min-width: 26px;
+    height: 26px;
+    background: var(--primary);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+.step-item-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 2px;
+}
+.step-item-desc {
+    font-size: 0.78rem;
+    color: #475569;
+    margin-bottom: 0;
+    line-height: 1.35;
+}
+
+/* Live Government Portal Status Monitor */
+.portal-health-card {
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    padding: 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.portal-health-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+
