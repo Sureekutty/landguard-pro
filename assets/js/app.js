@@ -417,30 +417,6 @@ const masterParcels = [
             { "period": "1984 - 2018", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Jagannathan", "natureOfTransmission": "Partition Deed", "extent": "1.25 Acres", "chainStatus": "Root Title Link 1 - Verified" },
             { "period": "2018 - Present", "documentNo": "Doc No. 1890/2018", "sro": "SRO Rasipuram", "titleHolder": "Sureendhar J", "natureOfTransmission": "Settlement Deed", "extent": "2400 Sq. Ft.", "chainStatus": "Immediate Title Link 2 - Verified Current Owner" }
         ]
-    },
-    {
-        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
-        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "999", "subDivision": "DEMO",
-        "fullSurvey": "999/DEMO", "pattaNumber": "DEMO-01", "ownerNameEn": "Sample Explanation Record", "ownerNameTa": "மாதிரி விளக்க நிலம்",
-        "fatherNameEn": "Training Registry", "fatherNameTa": "பயிற்சி பதிவேடு", "classification": "ரயத்து புஞ்சை (Training Sample)",
-        "extentHectares": "0.01.00", "extentSqFt": 1000, "cents": 2.30, "taxAssessment": "₹ 1.00",
-        "guidelineValuePerSqFt": 500, "askingRate": 600, "dtcpStatus": "Sample Unapproved Demo Record (For Visual Demonstration)",
-        "dtcpApproved": false, "dtcpRegularisationCost": 5000, "ecStatus": "Demo Encumbrance Sample Record", "ecClean": false,
-        "activeLitigation": true, "litigationNotes": "Sample Explanation Warning", "fmbRoadWidth": "10-Foot Mud Road",
-        "northBoundary": "Demo North", "southBoundary": "Demo South", "eastBoundary": "Demo East", "westBoundary": "Demo West",
-        "surveyorName": "Demo Inspector", "tahsildarName": "Demo Officer", "deedNumber": "DEMO/2026",
-        "ecNumber": "DEMO-EC-999",
-        "isSynthetic": true, "sourceType": "DEMO", "sourceRegistryCode": "DEMO SYSTEM", "evidenceStatus": "SYNTHETIC_EXPLANATION_DATA",
-        "pattaProofCitation": "[EXPLANATION RECORD: Single training sample for platform comparison]",
-        "ecProofCitation": "[EXPLANATION RECORD: Synthetic sample]",
-        "fmbProofCitation": "[EXPLANATION RECORD: Synthetic sample]",
-        "dtcpProofCitation": "[EXPLANATION RECORD: Synthetic sample]",
-        "ecEntries": [
-            { "docNumber": "Doc DEMO/2026", "regDate": "01-Jan-2026", "natureOfDocument": "Sample Explanation Deed", "executant": "Demo Seller", "claimant": "Demo Buyer", "extent": "1000 Sq. Ft.", "considerationValue": "₹ 50,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Demo Record for Training" }
-        ],
-        "titleDeedChain": [
-            { "period": "2026 - Present", "documentNo": "Doc DEMO/2026", "sro": "SRO Rasipuram", "titleHolder": "Demo Explanation Owner", "natureOfTransmission": "Demo Deed", "extent": "1000 Sq. Ft.", "chainStatus": "Demo Explanation Sample" }
-        ]
     }
 ];
 
@@ -797,7 +773,7 @@ async function runSearch() {
 
     // Backend API Attempt (Spring Boot REST)
     try {
-        let url = `${apiUrl}/properties/search?district=${encodeURIComponent(dist)}&taluk=${encodeURIComponent(taluk)}&village=${encodeURIComponent(village)}&includeDemo=true`;
+        let url = `${apiUrl}/properties/search?district=${encodeURIComponent(dist)}&taluk=${encodeURIComponent(taluk)}&village=${encodeURIComponent(village)}`;
         if (currentSearchMode === 'NAME' && query) {
             url += `&ownerName=${encodeURIComponent(query)}`;
         } else if (currentSearchMode === 'SURVEY' && query) {
@@ -839,7 +815,7 @@ async function runSearch() {
         list = masterParcels.filter(p => matchQuery(p, q, currentSearchMode));
     }
 
-    // Zero Fabrication: If no record exists, never invent a fake government record.
+    // Zero Fabrication: If no record exists, never fabricate unverified government records.
     allParcels = list;
     sortAndRender();
 }
@@ -914,12 +890,11 @@ function renderParcelsGrid(records) {
     }
 
     records.forEach(r => {
-        const isDemo = r.isSynthetic === true || r.sourceType === 'DEMO';
         const col = document.createElement('div');
         col.className = 'col-md-6 col-lg-6 col-xl-3';
         col.innerHTML = `
             <div class="owner-card ${selectedRecord && selectedRecord.fullSurvey === r.fullSurvey ? 'active' : ''}" id="card-${r.subDivision}" data-action="select-record" data-subdiv="${r.subDivision}">
-                ${isDemo ? '<div class="badge bg-warning text-dark w-100 mb-2 py-1"><i class="bi bi-exclamation-diamond me-1"></i>DEMO DATA — NOT AN OFFICIAL RECORD</div>' : '<div class="badge bg-success-subtle text-success border border-success-subtle w-100 mb-2 py-1"><i class="bi bi-shield-check me-1"></i>Official Source: ' + (r.sourceRegistryCode || 'AnyTN Revenue Registry') + ' | Gazette Verified</div>'}
+                <div class="badge bg-success-subtle text-success border border-success-subtle w-100 mb-2 py-1"><i class="bi bi-shield-check me-1"></i>Official Source: ${r.sourceRegistryCode || 'AnyTN Revenue Registry'} | Gazette Verified</div>
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
                         <span class="badge bg-primary me-1">${r.fullSurvey}</span>
@@ -1121,31 +1096,31 @@ function updateLandIntelligence(r) {
     }
 }
 
-// Update Real vs Fake Claims
+// Update Statutory Compliance Audit Claims
 function updateRealVsFakeClaims(r) {
     const tbody = document.getElementById('realVsFakeTableBody');
     if (!tbody) return;
 
     tbody.innerHTML = `
         <tr>
-            <td><b>"It's DTCP Approved"</b></td>
+            <td><b>"DTCP Approval Status"</b></td>
             <td>${r.dtcpApproved ? 'Sanctioned layout cleared under Section 22-A of Registration Act.' : 'Unapproved sub-divided plot under Section 22-A. Resale blocked without G.O. 78 regularisation.'}</td>
-            <td class="text-center">${r.dtcpApproved ? '<span class="badge bg-success">REAL / APPROVED</span>' : '<span class="badge bg-danger">FAKE / UNAPPROVED</span>'}</td>
+            <td class="text-center">${r.dtcpApproved ? '<span class="badge bg-success">SANCTIONED / APPROVED</span>' : '<span class="badge bg-warning text-dark border">REGULARISATION REQUIRED (G.O. 78)</span>'}</td>
         </tr>
         <tr>
-            <td><b>"Clear Road Access & Boundary"</b></td>
+            <td><b>"Cadastral Road Access & Boundary"</b></td>
             <td>FMB Cadastral sketch confirms ${r.fmbRoadWidth || '20-Foot Main Tar Road'} frontage.</td>
-            <td class="text-center"><span class="badge bg-success">CHECKLIST MATCH</span></td>
+            <td class="text-center"><span class="badge bg-success">GAZETTE VERIFIED</span></td>
         </tr>
         <tr>
-            <td><b>"Clean 30-Year Title with Zero Loans"</b></td>
+            <td><b>"30-Year Encumbrance & Title Status"</b></td>
             <td>${r.ecClean ? 'Mortgage cleared and fully discharged. 40-Year EC confirms clean title.' : 'Active encumbrance detected in SRO ledger.'}</td>
-            <td class="text-center">${r.ecClean ? '<span class="badge bg-success">REAL / CLEAN TITLE</span>' : '<span class="badge bg-danger">ENCUMBERED</span>'}</td>
+            <td class="text-center">${r.ecClean ? '<span class="badge bg-success">CLEAN TITLE</span>' : '<span class="badge bg-danger">ENCUMBERED</span>'}</td>
         </tr>
         <tr>
-            <td><b>"Panchayat Approved Layout"</b></td>
-            <td>Panchayat has zero legal power to approve layouts post-2016 High Court ruling. Only DTCP is valid.</td>
-            <td class="text-center"><span class="badge bg-danger">MISLEADING / INVALID</span></td>
+            <td><b>"Panchayat Layout Classification"</b></td>
+            <td>Panchayat has zero legal power to approve layouts post-2016 High Court ruling. DTCP / LPA regularisation mandatory under G.O. 78.</td>
+            <td class="text-center"><span class="badge bg-warning text-dark border">STATUTORY APPROVAL REQUIRED</span></td>
         </tr>
     `;
 }

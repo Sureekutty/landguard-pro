@@ -17,7 +17,7 @@
    - [Browse All Village Parcels](#browse-all-village-parcels)
    - [Sorting & In-Results Filtering](#sorting--in-results-filtering)
 4. [Step 2: Land Due Diligence & Field Intelligence](#4-step-2-land-due-diligence--field-intelligence)
-5. [Real vs. Fake Broker Claims Auditor](#5-real-vs-fake-broker-claims-auditor)
+5. [Statutory Title & Land Compliance Audit](#5-statutory-title--land-compliance-audit)
 6. [Step 3: Strategic Price Negotiation Calculator](#6-step-3-strategic-price-negotiation-calculator)
 7. [Step 4: Critical Pre-Purchase Buyer Checkpoints](#7-step-4-critical-pre-purchase-buyer-checkpoints)
 8. [Step 5: Side-by-Side Parcels Comparison Matrix](#8-step-5-side-by-side-parcels-comparison-matrix)
@@ -110,16 +110,16 @@ Whenever a land parcel card is clicked, **Step 2** updates in real time to prese
 
 ---
 
-## 5. Real vs. Fake Broker Claims Auditor
+## 5. Statutory Title & Land Compliance Audit
 
-This tool protects buyers from misleading real estate marketing by checking broker pitches against statutory portals:
+This desk cross-references cadastral claims against official Tamil Nadu government revenue & registration records:
 
-| Broker / Seller Claim | Ground Truth from Government Portals | Official Verdict |
+| Market & Title Representation | Official Government Record Status | Statutory Audit Verdict |
 | :--- | :--- | :---: |
-| *"It's DTCP Approved"* | Unapproved sub-divided plot under Section 22-A of Registration Act. Future resale blocked without G.O. 78 regularisation. | <span style="color:red; font-weight:bold;">FAKE / UNAPPROVED</span> |
-| *"Clear Road Access & Boundary"* | FMB Cadastral sketch confirms 20-Foot Panchayat Main Tar Road frontage. | <span style="color:green; font-weight:bold;">REAL / VERIFIED</span> |
-| *"Clean 30-Year Title with Zero Loans"* | Mortgage fully cleared & discharged via registered receipt. 40-Year EC confirms clean title. | <span style="color:green; font-weight:bold;">REAL / CLEAN TITLE</span> |
-| *"Panchayat Approved Layout"* | Panchayat has zero legal authority to approve residential layouts post-2016 High Court ruling. | <span style="color:red; font-weight:bold;">MISLEADING / INVALID</span> |
+| *"DTCP Approval Status"* | Unapproved sub-divided plot under Section 22-A of Registration Act. Future resale blocked without G.O. 78 regularisation. | <span style="color:#d97706; font-weight:bold;">REGULARISATION REQUIRED (G.O. 78)</span> |
+| *"Cadastral Road Access & Boundary"* | FMB Cadastral sketch confirms 20-Foot Panchayat Main Tar Road frontage. | <span style="color:green; font-weight:bold;">GAZETTE VERIFIED</span> |
+| *"30-Year Encumbrance & Title Status"* | Mortgage fully cleared & discharged via registered receipt. 40-Year EC confirms clean title. | <span style="color:green; font-weight:bold;">CLEAN TITLE</span> |
+| *"Panchayat Layout Classification"* | Panchayat has zero legal authority to approve residential layouts post-2016 High Court ruling. DTCP / LPA regularisation mandatory under G.O. 78. | <span style="color:#d97706; font-weight:bold;">STATUTORY APPROVAL REQUIRED</span> |
 
 ---
 

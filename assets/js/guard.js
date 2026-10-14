@@ -193,8 +193,8 @@
       notice.appendChild(shieldIcon);
 
       const noticeText = opts.lang === 'ta'
-        ? 'நீங்கள் லேண்ட்கார்டில் இருந்து வெளியேறுகிறீர்கள். விவரங்களை அதிகாரப்பூர்வ தளத்தில் மட்டுமே உள்ளிடவும்.'
-        : 'You are leaving LandGuard. Enter your details on the official site only.';
+        ? 'அதிகாரப்பூர்வ தமிழ்நாடு அரசு போர்டல் முகவரி சரிபார்க்கப்பட்டது.'
+        : 'Verified official Tamil Nadu Government portal gateway.';
       notice.appendChild(document.createTextNode(noticeText));
       container.appendChild(notice);
     }

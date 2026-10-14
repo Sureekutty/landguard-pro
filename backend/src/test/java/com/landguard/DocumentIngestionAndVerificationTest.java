@@ -49,9 +49,9 @@ public class DocumentIngestionAndVerificationTest {
                 "XYZ Real Estate Brochure",
                 "Private property available for immediate purchase. Call 9876543210."
         );
-        MockMultipartFile fakeFile = new MockMultipartFile("file", "brochure.pdf", "application/pdf", pdfBytes);
+        MockMultipartFile nonGovFile = new MockMultipartFile("file", "brochure.pdf", "application/pdf", pdfBytes);
 
-        DocumentIngestionResponse resp = verificationService.ingestOfficialDocument(fakeFile, null, null, null, null, null, null, null);
+        DocumentIngestionResponse resp = verificationService.ingestOfficialDocument(nonGovFile, null, null, null, null, null, null, null);
 
         assertNotNull(resp);
         assertFalse(resp.isSuccess(), "Non-government document must be rejected");

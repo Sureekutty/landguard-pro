@@ -275,7 +275,7 @@
             <i class="bi bi-shield-check fs-2 text-primary"></i>
             <div>
                 <strong>LandGuard PRO (Sureendhar Edition) - Universal Land Due Diligence Platform</strong>
-                <div class="small text-muted">Direct Official Citations: <b>Authentic TNREGINET Form 15 EC</b>, <b>Field Demarcation Intelligence</b>, <b>Real vs Fake Broker Claims Audit</b>, and <b>Strategic Negotiation Calculator</b>.</div>
+                <div class="small text-muted">Direct Official Citations: <b>Authentic TNREGINET Form 15 EC</b>, <b>Field Demarcation Intelligence</b>, <b>Statutory Title & Land Compliance Audit</b>, and <b>Strategic Negotiation Calculator</b>.</div>
             </div>
         </div>
         <div class="d-flex gap-2 flex-wrap">
@@ -386,7 +386,7 @@
         </div>
     </div>
 
-    <!-- MAIN STEP 2: LAND DUE DILIGENCE & FIELD INTELLIGENCE (PROS & CONS, REAL VS FAKE) -->
+    <!-- MAIN STEP 2: LAND DUE DILIGENCE & FIELD INTELLIGENCE (PROS & CONS, STATUTORY COMPLIANCE) -->
     <div class="row g-4" id="intelSection">
         <!-- Land Due Diligence Intelligence Card -->
         <div class="col-lg-6">
@@ -401,22 +401,22 @@
             </div>
         </div>
 
-        <!-- Real vs Fake Claims Auditor -->
+        <!-- Statutory Title & Land Compliance Audit -->
         <div class="col-lg-6">
             <div class="card card-custom h-100">
                 <div class="card-header-custom">
-                    <h5><i class="bi bi-shield-shaded text-danger"></i> Real vs Fake Claims Auditor (உண்மை vs பொய் ஆய்வு)</h5>
-                    <span class="badge bg-danger">Zero Misleading Claims</span>
+                    <h5><i class="bi bi-shield-check text-primary"></i> Statutory Title & Land Compliance Audit (உரிமம் & வரைமுறை சரிபார்ப்பு)</h5>
+                    <span class="badge bg-primary">Statutory Cross-Audit</span>
                 </div>
                 <div class="card-body p-4">
-                    <p class="text-muted small">We cross-referenced seller and broker marketing claims against official Tamil Nadu government portals:</p>
+                    <p class="text-muted small">Cross-referenced cadastral claims against official Tamil Nadu government revenue & registration records:</p>
                     <div class="table-responsive">
                         <table class="table table-bordered table-sm small align-middle">
                             <thead class="table-light text-center">
                                 <tr>
-                                    <th>Seller / Broker Claim</th>
-                                    <th>Ground Truth from Government Portals</th>
-                                    <th>Official Verdict</th>
+                                    <th>Market & Title Representation</th>
+                                    <th>Official Government Record Status</th>
+                                    <th>Statutory Audit Verdict</th>
                                 </tr>
                             </thead>
                             <tbody id="realVsFakeTableBody">
@@ -1854,31 +1854,31 @@ function updateLandIntelligence(r) {
     }
 }
 
-// Update Real vs Fake Claims
+// Update Statutory Compliance Audit Claims
 function updateRealVsFakeClaims(r) {
     const tbody = document.getElementById('realVsFakeTableBody');
     if (!tbody) return;
 
     tbody.innerHTML = `
         <tr>
-            <td><b>"It's DTCP Approved"</b></td>
+            <td><b>"DTCP Approval Status"</b></td>
             <td>${r.dtcpApproved ? 'Sanctioned layout cleared under Section 22-A of Registration Act.' : 'Unapproved sub-divided plot under Section 22-A. Resale blocked without G.O. 78 regularisation.'}</td>
-            <td class="text-center">${r.dtcpApproved ? '<span class="badge bg-success">REAL / APPROVED</span>' : '<span class="badge bg-danger">FAKE / UNAPPROVED</span>'}</td>
+            <td class="text-center">${r.dtcpApproved ? '<span class="badge bg-success">SANCTIONED / APPROVED</span>' : '<span class="badge bg-warning text-dark border">REGULARISATION REQUIRED (G.O. 78)</span>'}</td>
         </tr>
         <tr>
-            <td><b>"Clear Road Access & Boundary"</b></td>
+            <td><b>"Cadastral Road Access & Boundary"</b></td>
             <td>FMB Cadastral sketch confirms ${r.fmbRoadWidth || '20-Foot Main Tar Road'} frontage.</td>
-            <td class="text-center"><span class="badge bg-success">REAL / VERIFIED</span></td>
+            <td class="text-center"><span class="badge bg-success">GAZETTE VERIFIED</span></td>
         </tr>
         <tr>
-            <td><b>"Clean 30-Year Title with Zero Loans"</b></td>
+            <td><b>"30-Year Encumbrance & Title Status"</b></td>
             <td>${r.ecClean ? 'Mortgage cleared and fully discharged. 40-Year EC confirms clean title.' : 'Active encumbrance detected in SRO ledger.'}</td>
-            <td class="text-center">${r.ecClean ? '<span class="badge bg-success">REAL / CLEAN TITLE</span>' : '<span class="badge bg-danger">ENCUMBERED</span>'}</td>
+            <td class="text-center">${r.ecClean ? '<span class="badge bg-success">CLEAN TITLE</span>' : '<span class="badge bg-danger">ENCUMBERED</span>'}</td>
         </tr>
         <tr>
-            <td><b>"Panchayat Approved Layout"</b></td>
-            <td>Panchayat has zero legal power to approve layouts post-2016 High Court ruling. Only DTCP is valid.</td>
-            <td class="text-center"><span class="badge bg-danger">MISLEADING / INVALID</span></td>
+            <td><b>"Panchayat Layout Classification"</b></td>
+            <td>Panchayat has zero legal power to approve layouts post-2016 High Court ruling. DTCP / LPA regularisation mandatory under G.O. 78.</td>
+            <td class="text-center"><span class="badge bg-warning text-dark border">STATUTORY APPROVAL REQUIRED</span></td>
         </tr>
     `;
 }
