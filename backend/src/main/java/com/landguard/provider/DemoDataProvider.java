@@ -17,14 +17,10 @@ public class DemoDataProvider implements LandRecordProvider {
     }
 
     private void initDemoParcels() {
-        // Strictly 2 sample demo parcels for educational explanation only
+        // Strictly 1 sample demo parcel for educational explanation only
         demoParcels.add(createDemo("DEMO-1", "999", "DEMO1", "999/DEMO1", "DEMO-01",
-                "Sample Approved Parcel (Training Explanation)", "sample approved parcel", "Training Registry", "ரயத்து புஞ்சை (Training Sample)",
+                "Sample Benchmark Holding (Educational Reference)", "sample benchmark holding", "Training Registry", "ரயத்து புஞ்சை (Training Sample)",
                 "0.02.10", 2260.0, 5.19, 1100.0, 750.0, true, "DTCP Sanctioned Layout Sample", true, "Clear 30-Year Ancestral Chain"));
-
-        demoParcels.add(createDemo("DEMO-2", "999", "DEMO2", "999/DEMO2", "DEMO-02",
-                "Sample Encumbered Parcel (Training Explanation)", "sample encumbered parcel", "Training Registry", "ரயத்து புஞ்சை (Training Sample)",
-                "0.01.53", 1650.0, 3.79, 1100.0, 750.0, false, "Unapproved Residential Plot (Section 22-A Barred)", false, "Active Mortgage Sample"));
     }
 
     private RetrievedPropertyRecord createDemo(
