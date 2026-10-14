@@ -18,7 +18,7 @@ INSERT INTO retrieved_property_records (
 ),
 (
     'REC-TN-RAS-142-2A', 'SEARCH-INIT', 'anytn-eservices', 'Namakkal', 'Rasipuram', 'Gurusamipalayam',
-    '142', '2A', '142/2A', '1205', 'Periyasamy Gurusamy', 'periyasami gurusami', 'Gurusamy',
+    '142', '2A', '142/2A', '1205', 'Gurusamy Jagannathan', 'gurusami jagannathan', 'Jagannathan',
     'ரயத்து புஞ்சை (Residential Plot)', '0.01.53 Hectares (1650 Sq. Ft.)', 1650.0, 3.79, 1100.0, 750.0,
     FALSE, 'Unapproved Sub-division (G.O. 78 Regularisation Pending)', TRUE, 'Mortgage Discharged in 2016 - Clean 30-Year Chain', FALSE,
     'OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED',

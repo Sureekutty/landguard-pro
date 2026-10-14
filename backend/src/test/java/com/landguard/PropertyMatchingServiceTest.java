@@ -52,7 +52,7 @@ public class PropertyMatchingServiceTest {
         rec.setSurveyNumber("142");
         rec.setSubdivision("2A");
         rec.setFullSurvey("142/2A");
-        rec.setOwnerNameRaw("Periyasamy G (பெரியசாமி)");
+        rec.setOwnerNameRaw("Gurusamy Jagannathan (குருசாமி)");
         rec.setExtentSqFt(1650.0);
         rec.setDtcpApproved(false); // Section 22-A Barred!
         rec.setDtcpStatus("Unapproved Residential Layout");

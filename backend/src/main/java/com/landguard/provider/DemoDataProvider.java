@@ -17,26 +17,14 @@ public class DemoDataProvider implements LandRecordProvider {
     }
 
     private void initDemoParcels() {
-        // Benchmark demo parcels for Gurusamipalayam, Rasipuram Taluk, Namakkal District (Survey 142)
-        demoParcels.add(createDemo("DEMO-1", "142", "1", "142/1", "842",
-                "Kandasamy R (கந்தசாமி)", "kandasamy r", "Ramasamy", "ரயத்து புஞ்சை (Ryotwari Dry)",
-                "0.02.10", 2260.0, 5.19, 1100.0, 750.0, false, "Agricultural holding", true, "Clear 30-Year Ancestral Chain"));
+        // Strictly 2 sample demo parcels for educational explanation only
+        demoParcels.add(createDemo("DEMO-1", "999", "DEMO1", "999/DEMO1", "DEMO-01",
+                "Sample Approved Parcel (Training Explanation)", "sample approved parcel", "Training Registry", "ரயத்து புஞ்சை (Training Sample)",
+                "0.02.10", 2260.0, 5.19, 1100.0, 750.0, true, "DTCP Sanctioned Layout Sample", true, "Clear 30-Year Ancestral Chain"));
 
-        demoParcels.add(createDemo("DEMO-2", "142", "2A", "142/2A", "1205",
-                "Periyasamy G (பெரியசாமி)", "periyasamy g", "Gurusamy", "ரயத்து புஞ்சை (Ryotwari Dry)",
-                "0.01.53", 1650.0, 3.79, 1100.0, 750.0, false, "Unapproved Residential Plot (Section 22-A Barred)", true, "Mortgage Cleared in 2016"));
-
-        demoParcels.add(createDemo("DEMO-3", "142", "2B", "142/2B", "1206",
-                "Subramani P (சுப்பிரமணி)", "subramani p", "Palaniappan", "ரயத்து புஞ்சை (Ryotwari Dry)",
-                "0.01.53", 1650.0, 3.79, 1100.0, 750.0, false, "Unapproved Residential Plot", true, "Clean Title Chain"));
-
-        demoParcels.add(createDemo("DEMO-4", "142", "3A", "142/3A", "910",
-                "Murugesan K (முருகேசன்)", "murugesan k", "Kandasamy", "ரயத்து புஞ்சை (Ryotwari Dry)",
-                "0.01.53", 1650.0, 3.79, 1150.0, 750.0, true, "DTCP In-Principle Regularised", true, "Clean 30-Year Chain"));
-
-        demoParcels.add(createDemo("DEMO-5", "142", "3B", "142/3B", "1042",
-                "Sureendhar J (சுரேந்தர்)", "sureendhar j", "Jagannathan", "ரயத்து நஞ்சை (Ryotwari Wet)",
-                "0.01.53", 1650.0, 3.79, 1100.0, 750.0, true, "DTCP In-Principle Regularised (Corner Plot)", true, "Clean 30-Year Chain"));
+        demoParcels.add(createDemo("DEMO-2", "999", "DEMO2", "999/DEMO2", "DEMO-02",
+                "Sample Encumbered Parcel (Training Explanation)", "sample encumbered parcel", "Training Registry", "ரயத்து புஞ்சை (Training Sample)",
+                "0.01.53", 1650.0, 3.79, 1100.0, 750.0, false, "Unapproved Residential Plot (Section 22-A Barred)", false, "Active Mortgage Sample"));
     }
 
     private RetrievedPropertyRecord createDemo(

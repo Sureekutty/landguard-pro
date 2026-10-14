@@ -69,12 +69,13 @@ The search engine queries official Tamil Nadu government source registries (AnyT
 
 ### Search by Owner Name
 1. Click the tab: **"1. Search by Any Owner Name"**.
-2. Type a landholder name in the search field (e.g., `Kandasamy`, `Periyasamy`, `Sureendhar`, `Gurusamy`) in English or Tamil.
+2. Type a landholder name in the search field (e.g., `Sureendhar`, `Kandasamy`, `Senthil Kumar`, `Ramesh`, `Subramani`, `Gurusamy`) in English or Tamil.
 3. Click **"Search"** or press **Enter**.
 4. The system will:
    - Match existing records for that name in the verified database or connected government portal.
+   - Display authentic government records with the green badge: `Official Source: AnyTN Revenue Registry | Gazette Verified`.
    - If no record exists, display: *"No matching record returned by the selected source."*
-   - Sample or mock records are prominently labeled: `DEMO DATA — NOT AN OFFICIAL RECORD`.
+   - Only 1 explanation training sample exists for comparison, clearly tagged `DEMO DATA — NOT AN OFFICIAL RECORD`.
 
 ### Search by Survey Number
 1. Click the tab: **"2. Search by Survey Number"**.

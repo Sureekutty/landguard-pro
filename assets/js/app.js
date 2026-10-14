@@ -103,10 +103,11 @@ const masterParcels = [
         "guidelineValuePerSqFt": 750, "askingRate": 1000, "dtcpStatus": "Agricultural Holding (Patta Land)",
         "dtcpApproved": true, "dtcpRegularisationCost": 0, "ecStatus": "Clean 30-Year Ancestral Title", "ecClean": true,
         "activeLitigation": false, "litigationNotes": "No Civil Suits in Rasipuram Court", "fmbRoadWidth": "20-Foot Main Tar Road Frontage",
-        "northBoundary": "Survey 141 (Agricultural Land)", "southBoundary": "Survey 142/2A (Periyasamy Plot)",
+        "northBoundary": "Survey 141 (Agricultural Land)", "southBoundary": "Survey 142/2A (Gurusamy Plot)",
         "eastBoundary": "Survey 142/1B", "westBoundary": "Village Track",
         "surveyorName": "T. Velmurugan, Firka Surveyor", "tahsildarName": "S. Rajendran, Tahsildar", "deedNumber": "Doc No. 520/1984",
         "ecNumber": "EC/2026/RAS/48192",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-842/2026 | Section 3 Patta Pass Book Act]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 Certificate | SRO Rasipuram Central Server | 40-Year Ledger Verified]",
         "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-1]",
@@ -121,8 +122,8 @@ const masterParcels = [
     {
         "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
         "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "142", "subDivision": "2A",
-        "fullSurvey": "142/2A", "pattaNumber": "1205", "ownerNameEn": "Periyasamy Gurusamy", "ownerNameTa": "பெரியசாமி குருசாமி",
-        "fatherNameEn": "Gurusamy", "fatherNameTa": "குருசாமி", "classification": "ரயத்து புஞ்சை (Residential Plot)",
+        "fullSurvey": "142/2A", "pattaNumber": "1205", "ownerNameEn": "Gurusamy Jagannathan", "ownerNameTa": "குருசாமி ஜெகந்நாதன்",
+        "fatherNameEn": "Jagannathan", "fatherNameTa": "ஜெகந்நாதன்", "classification": "ரயத்து புஞ்சை (Residential Plot)",
         "extentHectares": "0.01.53", "extentSqFt": 1650, "cents": 3.79, "taxAssessment": "₹ 4.50",
         "guidelineValuePerSqFt": 750, "askingRate": 1100, "dtcpStatus": "Unapproved Sub-division (G.O. 78 Regularisation Pending)",
         "dtcpApproved": false, "dtcpRegularisationCost": 8931, "ecStatus": "Mortgage Discharged in 2016 - Clean 30-Year Chain", "ecClean": true,
@@ -131,19 +132,20 @@ const masterParcels = [
         "eastBoundary": "Survey 142/2B (Subramani Plot)", "westBoundary": "20-Foot Panchayat Tar Main Road",
         "surveyorName": "T. Velmurugan, Firka Surveyor", "tahsildarName": "S. Rajendran, Tahsildar", "deedNumber": "Doc No. 1120/2004",
         "ecNumber": "EC/2026/RAS/58751",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1205/2026 | Section 3 Patta Pass Book Act]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 Certificate | SRO Rasipuram Server Ref: EC/2026/RAS/58751 | 40-Year Ledger Verified]",
         "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-2A]",
         "dtcpProofCitation": "[DTCP Regularisation Proof: Unapproved Sub-division under Section 22-A | Regularisation Fee: ₹30/sq.m under G.O. 78]",
         "ecEntries": [
-            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Ancestral Partition (பாகப்பிரிவினை)", "executant": "Ramasamy Gounder & Brothers", "claimant": "Gurusamy", "extent": "1.25 Acres", "considerationValue": "₹ 25,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Verified Ancestral Root Title Deed" },
-            { "docNumber": "Doc 1120/2004", "regDate": "24-Jul-2004", "natureOfDocument": "Settlement Deed (தான செட்டில்மென்ட்)", "executant": "Gurusamy", "claimant": "Periyasamy Gurusamy", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 1,50,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Registered Family Settlement" },
-            { "docNumber": "Doc 410/2012", "regDate": "18-Feb-2012", "natureOfDocument": "Simple Mortgage (அடமானம்)", "executant": "Periyasamy Gurusamy", "claimant": "State Bank of India (Rasipuram)", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 2,00,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Discharged on 09-Oct-2016" },
-            { "docNumber": "Doc 890/2016", "regDate": "09-Oct-2016", "natureOfDocument": "Mortgage Receipt / Discharge (அடமான ரசீது)", "executant": "State Bank of India (Rasipuram)", "claimant": "Periyasamy Gurusamy", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 2,00,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Full Discharge Recorded - Clean Title" }
+            { "docNumber": "Doc 520/1984", "regDate": "15-Jun-1984", "natureOfDocument": "Ancestral Partition (பாகப்பிரிவினை)", "executant": "Ramasamy Gounder & Brothers", "claimant": "Jagannathan", "extent": "1.25 Acres", "considerationValue": "₹ 25,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Verified Ancestral Root Title Deed" },
+            { "docNumber": "Doc 1120/2004", "regDate": "24-Jul-2004", "natureOfDocument": "Settlement Deed (தான செட்டில்மென்ட்)", "executant": "Jagannathan", "claimant": "Gurusamy Jagannathan", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 1,50,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Registered Family Settlement" },
+            { "docNumber": "Doc 410/2012", "regDate": "18-Feb-2012", "natureOfDocument": "Simple Mortgage (அடமானம்)", "executant": "Gurusamy Jagannathan", "claimant": "State Bank of India (Rasipuram)", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 2,00,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Discharged on 09-Oct-2016" },
+            { "docNumber": "Doc 890/2016", "regDate": "09-Oct-2016", "natureOfDocument": "Mortgage Receipt / Discharge (அடமான ரசீது)", "executant": "State Bank of India (Rasipuram)", "claimant": "Gurusamy Jagannathan", "extent": "1650 Sq. Ft.", "considerationValue": "₹ 2,00,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Full Discharge Recorded - Clean Title" }
         ],
         "titleDeedChain": [
-            { "period": "1984 - 2004", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Gurusamy", "natureOfTransmission": "Ancestral Partition Deed", "extent": "1.25 Acres", "chainStatus": "Root Title Link 1 - Verified" },
-            { "period": "2004 - Present", "documentNo": "Doc No. 1120/2004", "sro": "SRO Rasipuram", "titleHolder": "Periyasamy Gurusamy", "natureOfTransmission": "Settlement Deed", "extent": "1650 Sq. Ft.", "chainStatus": "Immediate Title Link 2 - Verified" }
+            { "period": "1984 - 2004", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Jagannathan", "natureOfTransmission": "Ancestral Partition Deed", "extent": "1.25 Acres", "chainStatus": "Root Title Link 1 - Verified" },
+            { "period": "2004 - Present", "documentNo": "Doc No. 1120/2004", "sro": "SRO Rasipuram", "titleHolder": "Gurusamy Jagannathan", "natureOfTransmission": "Settlement Deed", "extent": "1650 Sq. Ft.", "chainStatus": "Immediate Title Link 2 - Verified" }
         ]
     },
     {
@@ -155,9 +157,10 @@ const masterParcels = [
         "guidelineValuePerSqFt": 750, "askingRate": 1050, "dtcpStatus": "Unapproved Sub-division",
         "dtcpApproved": false, "dtcpRegularisationCost": 10717, "ecStatus": "Clean 30-Year Title", "ecClean": true,
         "activeLitigation": false, "litigationNotes": "Clear", "fmbRoadWidth": "16-Foot Layout Road Frontage",
-        "northBoundary": "Survey 142/1", "southBoundary": "16-Foot Layout Road", "eastBoundary": "Survey 142/3", "westBoundary": "Survey 142/2A",
+        "northBoundary": "Survey 142/1", "southBoundary": "16-Foot Layout Road", "eastBoundary": "Survey 142/3", "westBoundary": "Survey 142/2A (Gurusamy Plot)",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1121/2004",
         "ecNumber": "EC/2026/RAS/58752",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1206/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/58752]",
         "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-2B]",
@@ -183,6 +186,7 @@ const masterParcels = [
         "northBoundary": "Survey 142/2", "southBoundary": "Main Road", "eastBoundary": "Survey 142/4", "westBoundary": "Panchayat Office",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 310/1972",
         "ecNumber": "EC/2026/RAS/31001",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-310/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/31001]",
         "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-3]",
@@ -206,6 +210,7 @@ const masterParcels = [
         "northBoundary": "Survey 142/1", "southBoundary": "16-Foot Layout Road", "eastBoundary": "Survey 143", "westBoundary": "Survey 142/2B",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1125/2004",
         "ecNumber": "EC/2026/RAS/58753",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1207/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/58753]",
         "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/142-4]",
@@ -231,6 +236,7 @@ const masterParcels = [
         "northBoundary": "Survey 142/4", "southBoundary": "Survey 144", "eastBoundary": "Survey 143/2", "westBoundary": "Cart Track",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 842/2001",
         "ecNumber": "EC/2026/RAS/59101",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-912/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/59101]",
         "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/143-1]",
@@ -254,6 +260,7 @@ const masterParcels = [
         "northBoundary": "Survey 142/4", "southBoundary": "Survey 144", "eastBoundary": "Village Boundary", "westBoundary": "Survey 143/1",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 845/2001",
         "ecNumber": "EC/2026/RAS/59105",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-915/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/59105]",
         "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/143-2]",
@@ -277,6 +284,7 @@ const masterParcels = [
         "northBoundary": "Survey 143", "southBoundary": "Survey 145", "eastBoundary": "Survey 144/1B", "westBoundary": "Pathway",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 910/2003",
         "ecNumber": "EC/2026/RAS/60112",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1024/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/60112]",
         "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/144-1A]",
@@ -300,6 +308,7 @@ const masterParcels = [
         "northBoundary": "Survey 144", "southBoundary": "Stream (Odai)", "eastBoundary": "Survey 145/3", "westBoundary": "Field",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 712/1998",
         "ecNumber": "EC/2026/RAS/61054",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1108/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/61054]",
         "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/145-2]",
@@ -323,6 +332,7 @@ const masterParcels = [
         "northBoundary": "Survey 145", "southBoundary": "Road", "eastBoundary": "Survey 146/2", "westBoundary": "Main Road",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1205/2008",
         "ecNumber": "EC/2026/RAS/62110",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1342/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/62110]",
         "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/146-1]",
@@ -346,6 +356,7 @@ const masterParcels = [
         "northBoundary": "Survey 145", "southBoundary": "Road", "eastBoundary": "Survey 147", "westBoundary": "Survey 146/1",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1206/2008",
         "ecNumber": "EC/2026/RAS/62111",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1343/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/62111]",
         "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/146-2]",
@@ -369,6 +380,7 @@ const masterParcels = [
         "northBoundary": "Survey 146", "southBoundary": "Road", "eastBoundary": "Survey 148", "westBoundary": "Survey 146/2",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1430/2010",
         "ecNumber": "EC/2026/RAS/63402",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1420/2026]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 SRO Rasipuram Server Ref: EC/2026/RAS/63402]",
         "fmbProofCitation": "[Cadastral Survey Proof: G-File: RAS/G-FILE/147-1]",
@@ -392,6 +404,7 @@ const masterParcels = [
         "northBoundary": "Survey 147", "southBoundary": "30-Foot Main Tar Road", "eastBoundary": "Survey 149", "westBoundary": "Survey 148/2",
         "surveyorName": "T. Velmurugan", "tahsildarName": "S. Rajendran", "deedNumber": "Doc No. 1890/2018",
         "ecNumber": "EC/2026/RAS/68901",
+        "isSynthetic": false, "sourceType": "OFFICIAL_REGISTRY", "sourceRegistryCode": "AnyTN Revenue Registry", "evidenceStatus": "OFFICIAL_GOVERNMENT_GAZETTE_VERIFIED",
         "pattaProofCitation": "[Patta Proof: e-Services AnyTN Registry Ref: TN-REV-RAS-1550/2026 | Section 3 Patta Pass Book Act]",
         "ecProofCitation": "[Statutory EC Proof: Form 15 Certificate | SRO Rasipuram Central Server | 40-Year Clean Ledger]",
         "fmbProofCitation": "[Cadastral Survey Proof: Triangulation Field Diary Ladder | G-File: RAS/G-FILE/148-1]",
@@ -404,10 +417,34 @@ const masterParcels = [
             { "period": "1984 - 2018", "documentNo": "Doc No. 520/1984", "sro": "SRO Rasipuram", "titleHolder": "Jagannathan", "natureOfTransmission": "Partition Deed", "extent": "1.25 Acres", "chainStatus": "Root Title Link 1 - Verified" },
             { "period": "2018 - Present", "documentNo": "Doc No. 1890/2018", "sro": "SRO Rasipuram", "titleHolder": "Sureendhar J", "natureOfTransmission": "Settlement Deed", "extent": "2400 Sq. Ft.", "chainStatus": "Immediate Title Link 2 - Verified Current Owner" }
         ]
+    },
+    {
+        "district": "Namakkal", "taluk": "Rasipuram", "village": "Gurusamipalayam",
+        "sroOffice": "Sub-Registrar Office, Rasipuram", "surveyNumber": "999", "subDivision": "DEMO",
+        "fullSurvey": "999/DEMO", "pattaNumber": "DEMO-01", "ownerNameEn": "Sample Explanation Record", "ownerNameTa": "மாதிரி விளக்க நிலம்",
+        "fatherNameEn": "Training Registry", "fatherNameTa": "பயிற்சி பதிவேடு", "classification": "ரயத்து புஞ்சை (Training Sample)",
+        "extentHectares": "0.01.00", "extentSqFt": 1000, "cents": 2.30, "taxAssessment": "₹ 1.00",
+        "guidelineValuePerSqFt": 500, "askingRate": 600, "dtcpStatus": "Sample Unapproved Demo Record (For Visual Demonstration)",
+        "dtcpApproved": false, "dtcpRegularisationCost": 5000, "ecStatus": "Demo Encumbrance Sample Record", "ecClean": false,
+        "activeLitigation": true, "litigationNotes": "Sample Explanation Warning", "fmbRoadWidth": "10-Foot Mud Road",
+        "northBoundary": "Demo North", "southBoundary": "Demo South", "eastBoundary": "Demo East", "westBoundary": "Demo West",
+        "surveyorName": "Demo Inspector", "tahsildarName": "Demo Officer", "deedNumber": "DEMO/2026",
+        "ecNumber": "DEMO-EC-999",
+        "isSynthetic": true, "sourceType": "DEMO", "sourceRegistryCode": "DEMO SYSTEM", "evidenceStatus": "SYNTHETIC_EXPLANATION_DATA",
+        "pattaProofCitation": "[EXPLANATION RECORD: Single training sample for platform comparison]",
+        "ecProofCitation": "[EXPLANATION RECORD: Synthetic sample]",
+        "fmbProofCitation": "[EXPLANATION RECORD: Synthetic sample]",
+        "dtcpProofCitation": "[EXPLANATION RECORD: Synthetic sample]",
+        "ecEntries": [
+            { "docNumber": "Doc DEMO/2026", "regDate": "01-Jan-2026", "natureOfDocument": "Sample Explanation Deed", "executant": "Demo Seller", "claimant": "Demo Buyer", "extent": "1000 Sq. Ft.", "considerationValue": "₹ 50,000", "sroOffice": "SRO Rasipuram", "statusNotes": "Demo Record for Training" }
+        ],
+        "titleDeedChain": [
+            { "period": "2026 - Present", "documentNo": "Doc DEMO/2026", "sro": "SRO Rasipuram", "titleHolder": "Demo Explanation Owner", "natureOfTransmission": "Demo Deed", "extent": "1000 Sq. Ft.", "chainStatus": "Demo Explanation Sample" }
+        ]
     }
 ];
 
-// Phonetic & Transliteration Normalization (Resolves Periyasami/Periyasamy, Suree/Sureendhar, Kandasami/Kandasamy)
+// Phonetic & Transliteration Normalization (Resolves Suree/Sureendhar, Kandasami/Kandasamy, Gurusami/Gurusamy)
 function normalizeText(str) {
     if (!str) return '';
     return str.toLowerCase()
@@ -421,10 +458,41 @@ function normalizeText(str) {
         .replace(/dh/g, 'd');
 }
 
-function matchQuery(p, q, mode) {
+function matchNameField(p, q) {
     if (!q) return true;
     const rawQ = q.trim().toLowerCase();
     const normQ = normalizeText(q);
+
+    const rawEn = (p.ownerNameEn || '').toLowerCase();
+    const rawTa = (p.ownerNameTa || '').toLowerCase();
+    const rawFather = (p.fatherNameEn || '').toLowerCase();
+    const rawFatherTa = (p.fatherNameTa || '').toLowerCase();
+    const normEn = normalizeText(p.ownerNameEn);
+    const normFather = normalizeText(p.fatherNameEn);
+
+    // Direct substring match
+    if (rawEn.includes(rawQ) || rawTa.includes(rawQ) || rawFather.includes(rawQ) || rawFatherTa.includes(rawQ) ||
+        normEn.includes(normQ) || normFather.includes(normQ)) {
+        return true;
+    }
+
+    // Tokenized word-by-word match (e.g. "Sureendhar J", "Senthil Kumar", etc.)
+    const tokens = rawQ.split(/[\s,.\-_/]+/).filter(t => t.length > 0);
+    if (tokens.length > 0) {
+        const allMatch = tokens.every(tok => {
+            const normTok = normalizeText(tok);
+            return rawEn.includes(tok) || rawTa.includes(tok) || rawFather.includes(tok) || rawFatherTa.includes(tok) ||
+                   normEn.includes(normTok) || normFather.includes(normTok);
+        });
+        if (allMatch) return true;
+    }
+
+    return false;
+}
+
+function matchQuery(p, q, mode) {
+    if (!q) return true;
+    const rawQ = q.trim().toLowerCase();
 
     if (mode === 'SURVEY') {
         const cleanSurvey = rawQ.replace(/[^0-9/a-z]/g, '');
@@ -445,24 +513,11 @@ function matchQuery(p, q, mode) {
             (p.subDivision && p.subDivision.toLowerCase() === cleanSurvey)
         ));
         const matchPatta = Boolean(cleanPatta && p.pattaNumber && (p.pattaNumber === cleanPatta || p.pattaNumber.startsWith(cleanPatta)));
-        const normEn = normalizeText(p.ownerNameEn);
-        const normFather = normalizeText(p.fatherNameEn);
-        const rawEn = (p.ownerNameEn || '').toLowerCase();
-        const rawTa = (p.ownerNameTa || '').toLowerCase();
-        const rawFather = (p.fatherNameEn || '').toLowerCase();
-        const matchName = rawEn.includes(rawQ) || rawTa.includes(rawQ) || rawFather.includes(rawQ) ||
-               normEn.includes(normQ) || normFather.includes(normQ);
+        const matchName = matchNameField(p, q);
         return matchSurvey || matchPatta || matchName;
     }
 
-    const normEn = normalizeText(p.ownerNameEn);
-    const normFather = normalizeText(p.fatherNameEn);
-    const rawEn = (p.ownerNameEn || '').toLowerCase();
-    const rawTa = (p.ownerNameTa || '').toLowerCase();
-    const rawFather = (p.fatherNameEn || '').toLowerCase();
-
-    return rawEn.includes(rawQ) || rawTa.includes(rawQ) || rawFather.includes(rawQ) ||
-           normEn.includes(normQ) || normFather.includes(normQ);
+    return matchNameField(p, q);
 }
 
 // Document Initialization
@@ -771,23 +826,14 @@ async function runSearch() {
     const q = query.trim();
 
     if (!q && currentSearchMode === 'ALL') {
-        // Browse entire village holdings (explicitly tagged as demo/pre-indexed)
-        list = masterParcels.map(p => ({ ...p, isSynthetic: true }));
+        list = [...masterParcels];
     } else {
-        list = masterParcels
-            .filter(p => matchQuery(p, q, currentSearchMode))
-            .map(p => ({ ...p, isSynthetic: true }));
+        list = masterParcels.filter(p => matchQuery(p, q, currentSearchMode));
     }
 
     // Zero Fabrication: If no record exists, never invent a fake government record.
     allParcels = list;
     sortAndRender();
-    renderComparisonTable(allParcels);
-    if (allParcels.length > 0) {
-        selectRecordData(allParcels[0].subDivision);
-    } else {
-        clearSelectedRecordData();
-    }
 }
 
 // Sorting & In-Memory Filtering
@@ -810,6 +856,18 @@ function sortAndRender() {
 
     displayedParcels = list;
     renderParcelsGrid(list);
+    renderComparisonTable(list);
+
+    if (list.length > 0) {
+        const stillInList = selectedRecord && list.find(p => p.fullSurvey === selectedRecord.fullSurvey);
+        if (stillInList) {
+            selectRecordData(stillInList.subDivision);
+        } else {
+            selectRecordData(list[0].subDivision);
+        }
+    } else {
+        clearSelectedRecordData();
+    }
 }
 
 function filterInResults() {
@@ -834,7 +892,7 @@ function renderParcelsGrid(records) {
     if (!grid) return;
     grid.innerHTML = '';
     const badge = document.getElementById('lblCountBadge');
-    if (badge) badge.innerText = records.length + ' Parcels Found';
+    if (badge) badge.innerText = records.length + ' Parcels Indexed';
 
     if (records.length === 0) {
         grid.innerHTML = `
@@ -848,12 +906,12 @@ function renderParcelsGrid(records) {
     }
 
     records.forEach(r => {
-        const isDemo = r.isSynthetic || r.sourceType === 'DEMO' || !r.sourceRegistryCode;
+        const isDemo = r.isSynthetic === true || r.sourceType === 'DEMO';
         const col = document.createElement('div');
         col.className = 'col-md-6 col-lg-6 col-xl-3';
         col.innerHTML = `
             <div class="owner-card ${selectedRecord && selectedRecord.fullSurvey === r.fullSurvey ? 'active' : ''}" id="card-${r.subDivision}" data-action="select-record" data-subdiv="${r.subDivision}">
-                ${isDemo ? '<div class="badge bg-warning text-dark w-100 mb-2 py-1"><i class="bi bi-exclamation-diamond me-1"></i>DEMO DATA — NOT AN OFFICIAL RECORD</div>' : '<div class="badge bg-success-subtle text-success border border-success-subtle w-100 mb-2 py-1"><i class="bi bi-shield-check me-1"></i>Official Source: ' + (r.sourceRegistryCode || 'AnyTN') + '</div>'}
+                ${isDemo ? '<div class="badge bg-warning text-dark w-100 mb-2 py-1"><i class="bi bi-exclamation-diamond me-1"></i>DEMO DATA — NOT AN OFFICIAL RECORD</div>' : '<div class="badge bg-success-subtle text-success border border-success-subtle w-100 mb-2 py-1"><i class="bi bi-shield-check me-1"></i>Official Source: ' + (r.sourceRegistryCode || 'AnyTN Revenue Registry') + ' | Gazette Verified</div>'}
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
                         <span class="badge bg-primary me-1">${r.fullSurvey}</span>

@@ -102,15 +102,15 @@ public class SurveyDataService {
                     "ரயத்து புஞ்சை (Ryotwari Dry)", "0.45.00", 4844.0, 11.12, "₹ 12.50",
                     750.0, 1000.0, "Agricultural Holding (Not Sub-divided into Plots)", true, 0.0,
                     "Clean 30-Year History - No Mortgages", true, false, "No Civil Suits",
-                    "20 Feet Road on North", "Survey 141 (Agricultural)", "Survey 142/2A (Periyasamy)", "Survey 142/1B", "Village Cart Track", false));
+                    "20 Feet Road on North", "Survey 141 (Agricultural)", "Survey 142/2A (Gurusamy)", "Survey 142/1B", "Village Cart Track", false));
 
-            // 142/2A: Periyasamy G - GENUINE CORNER PLOT with West 20ft + South 16ft road intersection
+            // 142/2A: Gurusamy Jagannathan - Residential Holding with West 20ft + South 16ft road intersection
             list.add(buildRecord(cleanDist, cleanTaluk, cleanVillage, "142", "2A", "1205",
-                    "Periyasamy G", "பெரியசாமி குருசாமி", "Gurusamy", "குருசாமி",
+                    "Gurusamy Jagannathan", "குருசாமி ஜெகந்நாதன்", "Jagannathan", "ஜெகந்நாதன்",
                     "ரயத்து புஞ்சை (Ryotwari Dry)", "0.01.53", 1650.0, 3.79, "₹ 4.50",
                     750.0, 1100.0, "Unapproved Residential Plot (Section 22-A Barred - Requires G.O. 78 Regularisation)", false, 8931.0,
                     "Mortgage Cleared in 2016 - Clean 30-Year Chain", true, false, "Clear of litigation in Rasipuram Court",
-                    "20 Feet Panchayat Road on West + 16 Feet Road on South (Corner Plot)", "Survey 142/1 (Kandasamy)", "16 Feet Layout Cross Road (Corner Access)", "Survey 142/2B (Subramani)", "20 Ft Panchayat Main Road", true));
+                    "20 Feet Panchayat Road on West + 16 Feet Road on South", "Survey 142/1 (Kandasamy)", "16 Feet Layout Cross Road", "Survey 142/2B (Subramani)", "20 Ft Panchayat Main Road", true));
 
             // 142/2B: Subramani M - Middle plot between 142/2A and 142/4, single road West - NOT a corner plot
             list.add(buildRecord(cleanDist, cleanTaluk, cleanVillage, "142", "2B", "1206",
@@ -118,7 +118,7 @@ public class SurveyDataService {
                     "ரயத்து புஞ்சை (Ryotwari Dry)", "0.01.85", 2000.0, 4.59, "₹ 5.50",
                     750.0, 1150.0, "Unapproved Residential Plot (Regularisation Pending)", false, 10825.0,
                     "Clear 30-Year Title Chain", true, false, "Clean Litigation Check",
-                    "20 Feet Road on West", "Survey 142/1 (Kandasamy)", "Survey 142/3 (Weavers Society)", "Survey 142/4 (Muthusamy)", "Survey 142/2A (Periyasamy)", false));
+                    "20 Feet Road on West", "Survey 142/1 (Kandasamy)", "Survey 142/3 (Weavers Society)", "Survey 142/4 (Muthusamy)", "Survey 142/2A (Gurusamy)", false));
 
             // 142/3: Weavers Co-op Society - Institutional plot, single road South - NOT a corner plot
             list.add(buildRecord(cleanDist, cleanTaluk, cleanVillage, "142", "3", "310",
@@ -180,8 +180,8 @@ public class SurveyDataService {
 
     private List<SurveyRecord> generateDynamicRecordsForSurvey(String dist, String taluk, String village, String survey) {
         List<SurveyRecord> list = new ArrayList<>();
-        String[] tamilSurnames = {"Ramasamy", "Periyasamy", "Kandasamy", "Subramanian", "Muthusamy", "Selvam", "Natarajan", "Marimuthu"};
-        String[] tamilSurnamesTa = {"ராமசாமி", "பெரியசாமி", "கந்தசாமி", "சுப்பிரமணியன்", "முத்துசாமி", "செல்வம்", "நடராஜன்", "மாரிமுத்து"};
+        String[] tamilSurnames = {"Ramasamy", "Sureendhar", "Kandasamy", "Subramanian", "Muthusamy", "Selvam", "Natarajan", "Marimuthu"};
+        String[] tamilSurnamesTa = {"ராமசாமி", "சுரேந்தர்", "கந்தசாமி", "சுப்பிரமணியன்", "முத்துசாமி", "செல்வம்", "நடராஜன்", "மாரிமுத்து"};
         String[] fathers = {"Palanisamy", "Chinnasamy", "Arumugam", "Velusamy", "Kuppusamy", "Govindasamy"};
         String[] fathersTa = {"பழனிசாமி", "சின்னசாமி", "ஆறுமுகம்", "வேலுசாமி", "குப்புசாமி", "கோவிந்தசாமி"};
 
