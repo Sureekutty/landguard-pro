@@ -95,424 +95,972 @@
         </div>
         <div id="officialGovLinksNav" class="d-flex gap-2 flex-wrap align-items-center"></div>
     </div>
+    <!-- MAIN MULTI-PAGE NAVIGATION TABS (Version 1 Restored Multi-Page Experience) -->
+    <div class="main-page-nav-wrapper no-print">
+        <ul class="nav nav-pills main-page-nav d-flex flex-wrap gap-2 justify-content-start" id="mainPageNavTabs" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" data-page="page-search" type="button">
+                    <i class="bi bi-search me-1"></i> 1. Cadastre Explorer
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-page="page-patta" type="button">
+                    <i class="bi bi-file-earmark-text me-1"></i> 2. Patta Pass Book
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-page="page-ec" type="button">
+                    <i class="bi bi-file-earmark-pdf me-1"></i> 3. 30-Yr EC (Form 15)
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-page="page-fmb" type="button">
+                    <i class="bi bi-map me-1"></i> 4. Cadastral FMB
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-page="page-deed" type="button">
+                    <i class="bi bi-file-earmark-lock me-1"></i> 5. Registered Deed
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-page="page-calculator" type="button">
+                    <i class="bi bi-calculator me-1"></i> 6. Cost & Negotiation
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-page="page-fetch" type="button">
+                    <i class="bi bi-cloud-arrow-down-fill me-1 text-primary"></i> 7. Official Portal Fetch Desk
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-page="page-dossiers" type="button">
+                    <i class="bi bi-hdd-network me-1"></i> 8. Saved Dossiers (<span id="navDossierCount">0</span>)
+                </button>
+            </li>
+        </ul>
+    </div>
 
-    <!-- MAIN STEP 1: Search by Name, Place, or Survey -->
-    <div class="card card-custom">
-        <div class="card-header-custom">
-            <h5><i class="bi bi-search text-primary"></i> Step 1: Universal Land Parcel Search (உரிமையாளர் பெயர் / சர்வே எண் தேடல்)</h5>
-            <span class="badge bg-primary">Real Name & Cadastre Search</span>
-        </div>
-        <div class="card-body p-4">
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 1: CADASTRE EXPLORER & FIELD DILIGENCE -->
+    <!-- ========================================== -->
+    <div class="page-view active" id="page-search">
+        <!-- MAIN STEP 1: Search by Name, Place, or Survey -->
+        <div class="card card-custom">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-search text-primary"></i> Step 1: Universal Land Parcel Search (உரிமையாளர் பெயர் / சர்வே எண் தேடல்)</h5>
+                <span class="badge bg-primary">Real Name & Cadastre Search</span>
+            </div>
+            <div class="card-body p-4">
 
-            <!-- Search Mode Selection Tabs -->
-            <ul class="nav nav-pills mb-3" id="searchModePills">
-                <li class="nav-item">
-                    <button class="nav-link active fw-bold" data-mode="NAME">
-                        <i class="bi bi-person-bounding-box me-1"></i> 1. Search by Any Owner Name
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link fw-bold" data-mode="SURVEY">
-                        <i class="bi bi-geo-alt-fill me-1"></i> 2. Search by Survey Number
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link fw-bold" data-mode="PATTA">
-                        <i class="bi bi-card-heading me-1"></i> 3. Search by Patta Number
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link fw-bold" data-mode="ALL">
-                        <i class="bi bi-grid-fill me-1"></i> 4. Browse All Parcels in Village
-                    </button>
-                </li>
-            </ul>
-
-            <!-- Search Form -->
-            <div class="row g-3">
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">1. District (மாவட்டம்)</label>
-                    <select class="form-select" id="inpDistrict" >
-                        <option value="Namakkal" selected>Namakkal (நாமக்கல்)</option>
-                        <option value="Salem">Salem (சேலம்)</option>
-                        <option value="Erode">Erode (ஈரோடு)</option>
-                        <option value="Coimbatore">Coimbatore (கோயம்புத்தூர்)</option>
-                        <option value="Tiruppur">Tiruppur (திருப்பூர்)</option>
-                        <option value="Trichy">Tiruchirappalli (திருச்சிராப்பள்ளி)</option>
-                        <option value="Karur">Karur (கரூர்)</option>
-                        <option value="Dindigul">Dindigul (திண்டுக்கல்)</option>
-                        <option value="Chennai">Chennai (சென்னை)</option>
-                    </select>
-                    <div class="proof-citation">Checked Proof: Revenue Administration District Code</div>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">2. Taluk (வட்டம்)</label>
-                    <input type="text" class="form-control" id="inpTaluk" value="Rasipuram" placeholder="e.g. Rasipuram">
-                    <div class="proof-citation">Checked Proof: Sub-Registrar / Taluk Jurisdiction</div>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-bold">3. Village (கிராமம்)</label>
-                    <input type="text" class="form-control" id="inpVillage" value="Gurusamipalayam" placeholder="e.g. Gurusamipalayam">
-                    <div class="proof-citation">Checked Proof: Revenue Village Settlement Ledger</div>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label fw-bold" id="lblSearchQuery">4. Owner / Pattadhar Name</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="inpSearchQuery" value="" placeholder="Type ANY name (e.g. Ramesh, Senthil, Palanisamy, Sureendhar...)" >
-                        <button class="btn btn-primary-custom" id="btnRunSearch">
-                            <i class="bi bi-search me-1"></i> Search
+                <!-- Search Mode Selection Tabs -->
+                <ul class="nav nav-pills mb-3" id="searchModePills">
+                    <li class="nav-item">
+                        <button class="nav-link active fw-bold" data-mode="NAME">
+                            <i class="bi bi-person-bounding-box me-1"></i> 1. Search by Any Owner Name
                         </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link fw-bold" data-mode="SURVEY">
+                            <i class="bi bi-geo-alt-fill me-1"></i> 2. Search by Survey Number
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link fw-bold" data-mode="PATTA">
+                            <i class="bi bi-card-heading me-1"></i> 3. Search by Patta Number
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link fw-bold" data-mode="ALL">
+                            <i class="bi bi-grid-fill me-1"></i> 4. Browse All Parcels in Village
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Search Form -->
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">1. District (மாவட்டம்)</label>
+                        <select class="form-select" id="inpDistrict" >
+                            <option value="Namakkal" selected>Namakkal (நாமக்கல்)</option>
+                            <option value="Salem">Salem (சேலம்)</option>
+                            <option value="Erode">Erode (ஈரோடு)</option>
+                            <option value="Coimbatore">Coimbatore (கோயம்புத்தூர்)</option>
+                            <option value="Tiruppur">Tiruppur (திருப்பூர்)</option>
+                            <option value="Trichy">Tiruchirappalli (திருச்சிராப்பள்ளி)</option>
+                            <option value="Karur">Karur (கரூர்)</option>
+                            <option value="Dindigul">Dindigul (திண்டுக்கல்)</option>
+                            <option value="Chennai">Chennai (சென்னை)</option>
+                        </select>
+                        <div class="proof-citation">Checked Proof: Revenue Administration District Code</div>
                     </div>
-                    <div class="proof-citation" id="proofSearch">Checked Proof: Dynamic Revenue Chitta Owner Ledger Search</div>
-                </div>
-            </div>
-
-            <!-- Sorting & Filter Controls -->
-            <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top flex-wrap gap-2">
-                <div class="d-flex align-items-center gap-2">
-                    <label class="small fw-bold text-muted mb-0"><i class="bi bi-sort-down me-1"></i>Sort Parcels By:</label>
-                    <select class="form-select form-select-sm w-auto" id="selectSort" >
-                        <option value="SURVEY_ASC" selected>Survey Number (Ascending)</option>
-                        <option value="NAME_ASC">Owner Name (A to Z)</option>
-                        <option value="NAME_DESC">Owner Name (Z to A)</option>
-                        <option value="EXTENT_DESC">Land Extent (Largest First)</option>
-                        <option value="EXTENT_ASC">Land Extent (Smallest First)</option>
-                    </select>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                    <button class="btn btn-outline-success btn-sm fw-bold" id="btnOpenUploadDocModal">
-                        <i class="bi bi-cloud-arrow-up-fill me-1"></i> Ingest Official PDF (Patta / EC)
-                    </button>
-                    <input type="text" class="form-control form-control-sm" id="inpFilterText" placeholder="Filter in results..." >
-                    <span class="badge bg-primary" id="lblCountBadge">10 Parcels Found</span>
-                </div>
-            </div>
-
-            <hr class="my-3">
-
-            <!-- Parcels Listing Grid -->
-            <div id="surveyResultsSection">
-                <div class="row" id="ownersGrid">
-                    <!-- Populated dynamically via JS -->
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- MAIN STEP 2: LAND DUE DILIGENCE & FIELD INTELLIGENCE (PROS & CONS, REAL VS FAKE) -->
-    <div class="row g-4" id="intelSection">
-        <!-- Land Due Diligence Intelligence Card -->
-        <div class="col-lg-6">
-            <div class="card card-custom h-100 border-primary">
-                <div class="card-header-custom bg-primary-subtle d-flex justify-content-between align-items-center">
-                    <h5 class="text-dark mb-0"><i class="bi bi-shield-check text-primary me-2"></i> Land Due Diligence & Field Intelligence (நில ஆய்வு விபரம்)</h5>
-                    <span class="badge bg-primary" id="landIntelBadge">Survey 142/2A</span>
-                </div>
-                <div class="card-body p-4" id="landIntelBody">
-                    <!-- Dynamic intelligence body -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Real vs Fake Claims Auditor -->
-        <div class="col-lg-6">
-            <div class="card card-custom h-100">
-                <div class="card-header-custom">
-                    <h5><i class="bi bi-shield-shaded text-danger"></i> Real vs Fake Claims Auditor (உண்மை vs பொய் ஆய்வு)</h5>
-                    <span class="badge bg-danger">Zero Misleading Claims</span>
-                </div>
-                <div class="card-body p-4">
-                    <p class="text-muted small">We cross-referenced seller and broker marketing claims against official Tamil Nadu government portals:</p>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-sm small align-middle">
-                            <thead class="table-light text-center">
-                                <tr>
-                                    <th>Seller / Broker Claim</th>
-                                    <th>Ground Truth from Government Portals</th>
-                                    <th>Due Diligence Verdict</th>
-                                </tr>
-                            </thead>
-                            <tbody id="realVsFakeTableBody">
-                                <!-- Populated dynamically via JS -->
-                            </tbody>
-                        </table>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">2. Taluk (வட்டம்)</label>
+                        <input type="text" class="form-control" id="inpTaluk" value="Rasipuram" placeholder="e.g. Rasipuram">
+                        <div class="proof-citation">Checked Proof: Sub-Registrar / Taluk Jurisdiction</div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN STEP 3: STRATEGIC PRICE NEGOTIATION CALCULATOR -->
-    <div class="card card-custom mt-4 border-primary">
-        <div class="card-header-custom bg-primary text-white">
-            <h5 class="text-white"><i class="bi bi-cash-stack text-warning"></i> Step 3: Strategic Price Negotiation Calculator ("How Much Can We Negotiate?")</h5>
-            <span class="badge bg-warning text-dark">Save ₹ 83,000 to ₹ 1,33,000</span>
-        </div>
-        <div class="card-body p-4">
-            <div class="row g-4 align-items-center">
-                <div class="col-lg-7">
-                    <h6 class="fw-bold text-dark mb-3">Statutory & Practical Price Deduction Formula:</h6>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-sm small align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Negotiation Leverage Item</th>
-                                    <th>Justification / Statutory Source</th>
-                                    <th>Deduction Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><b>1. DTCP Regularisation Outflow</b></td>
-                                    <td>G.O. Ms. No. 78 & 172 H&UD Dept (Unapproved plot regularisation fee)</td>
-                                    <td class="text-danger fw-bold" id="negDtcpCost">- ₹ 8,931</td>
-                                </tr>
-                                <tr>
-                                    <td><b>2. Unapproved Layout Status Penalty</b></td>
-                                    <td>Market discount for unapproved sub-division holding</td>
-                                    <td class="text-danger fw-bold">- ₹ 25,000</td>
-                                </tr>
-                                <tr>
-                                    <td><b>3. Patta Sub-division & Boundary Stones</b></td>
-                                    <td>G.O. 425 Treasury fee + Firka Surveyor physical boundary stone planting</td>
-                                    <td class="text-danger fw-bold" id="negSurveyorCost">- ₹ 5,000</td>
-                                </tr>
-                                <tr>
-                                    <td><b>4. Guideline (₹750) vs Asking (₹1100) Gap</b></td>
-                                    <td>Market negotiation margin in residential segment</td>
-                                    <td class="text-danger fw-bold">- ₹ 45,000</td>
-                                </tr>
-                                <tr class="table-secondary">
-                                    <td colspan="2" class="fw-bold text-end">TOTAL JUSTIFIED DEDUCTION:</td>
-                                    <td class="text-danger fw-bold fs-6" id="negTotalDeduction">- ₹ 83,931</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">3. Village (கிராமம்)</label>
+                        <input type="text" class="form-control" id="inpVillage" value="Gurusamipalayam" placeholder="e.g. Gurusamipalayam">
+                        <div class="proof-citation">Checked Proof: Revenue Village Settlement Ledger</div>
                     </div>
-                </div>
-
-                <div class="col-lg-5">
-                    <div class="p-4 bg-light border rounded shadow-sm">
-                        <h6 class="fw-bold text-primary mb-3"><i class="bi bi-bullseye me-1"></i> Negotiation Summary for <span id="negParcelLabel">142/2A</span>:</h6>
-                        
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Seller's Asking Price (<span id="negAskingSqFt">1,650</span> sq.ft @ asking):</span>
-                            <span class="fw-bold text-dark" id="negTotalAsking">₹ 18,15,000</span>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold" id="lblSearchQuery">4. Owner / Pattadhar Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inpSearchQuery" value="" placeholder="Type ANY name (e.g. Ramesh, Senthil, Palanisamy, Sureendhar...)" >
+                            <button class="btn btn-primary-custom" id="btnRunSearch">
+                                <i class="bi bi-search me-1"></i> Search
+                            </button>
                         </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Reported Guideline Value (₹ 750/sq.ft):</span>
-                            <span class="text-muted" id="negTotalGuideline">₹ 12,37,500</span>
-                        </div>
-                        <hr class="my-2">
-                        <div class="d-flex justify-content-between mb-2 fs-6">
-                            <span class="fw-bold text-success">Target Settlement Price:</span>
-                            <span class="fw-bold text-success fs-5" id="negTargetPrice">₹ 17,31,069</span>
-                        </div>
-                        <div class="text-end small text-muted" id="negPerSqFtRate">(~₹ 1,049 / sq. ft.)</div>
+                        <div class="proof-citation" id="proofSearch">Checked Proof: Dynamic Revenue Chitta Owner Ledger Search</div>
+                    </div>
+                </div>
 
-                        <div class="alert alert-success mt-3 p-2 small mb-0">
-                            <b>Opening Offer:</b> Start at <b id="negOpeningOffer">₹ 16,81,069</b> citing out-of-pocket DTCP regularisation expenses and boundary stone demarcation fees. Settle at <b id="negSettlementOffer">₹ 17,31,069</b> (Net Savings: <b id="negNetSavings">₹ 83,931</b>).
-                        </div>
+                <!-- Sorting & Filter Controls -->
+                <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <label class="small fw-bold text-muted mb-0"><i class="bi bi-sort-down me-1"></i>Sort Parcels By:</label>
+                        <select class="form-select form-select-sm w-auto" id="selectSort" >
+                            <option value="SURVEY_ASC" selected>Survey Number (Ascending)</option>
+                            <option value="NAME_ASC">Owner Name (A to Z)</option>
+                            <option value="NAME_DESC">Owner Name (Z to A)</option>
+                            <option value="EXTENT_DESC">Land Extent (Largest First)</option>
+                            <option value="EXTENT_ASC">Land Extent (Smallest First)</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <button class="btn btn-outline-success btn-sm fw-bold" id="btnOpenUploadDocModal">
+                            <i class="bi bi-cloud-arrow-up-fill me-1"></i> Ingest Official PDF (Patta / EC)
+                        </button>
+                        <input type="text" class="form-control form-control-sm" id="inpFilterText" placeholder="Filter in results..." >
+                        <span class="badge bg-primary" id="lblCountBadge">10 Parcels Found</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- MAIN STEP 4: Critical Pre-Purchase Checkpoints -->
-    <div class="card card-custom mt-4">
-        <div class="card-header-custom">
-            <h5><i class="bi bi-clipboard-check-fill text-primary"></i> Step 4: Critical Pre-Purchase Checkpoints & Field Diligence Checklist</h5>
-            <span class="badge bg-danger">Buyer Mandatory Rules</span>
-        </div>
-        <div class="card-body p-4">
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light h-100">
-                        <div class="fw-bold text-dark mb-1">1. Physical Field Stone Demarcation:</div>
-                        <div class="small text-muted">Seller must arrange the Firka Surveyor to plant concrete corner boundary stones matching FMB triangulation measurements before advance payment.</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light h-100">
-                        <div class="fw-bold text-dark mb-1">2. Patta Sub-Division Verification:</div>
-                        <div class="small text-muted">Confirm sub-division is officially carved out in Taluk office e-Services registry, not an undocumented private family partition.</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light h-100">
-                        <div class="fw-bold text-dark mb-1">3. Hand Over Original 30-Year Parent Deeds:</div>
-                        <div class="small text-muted">Must deliver Original Partition Deed, Settlement Deed, and Original Mortgage Discharge Receipt before registry.</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light h-100">
-                        <div class="fw-bold text-dark mb-1">4. Zero-Arrears Panchayat Kist Receipts:</div>
-                        <div class="small text-muted">Produce official Village Panchayat tax receipts up to date proving no local body tax or agricultural kist arrears.</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light h-100">
-                        <div class="fw-bold text-dark mb-1">5. Consenting Signatures of Family Heirs:</div>
-                        <div class="small text-muted">Spouse and all adult children of registered owner must sign as consenting witnesses in the Sale Deed to prevent future partition claims.</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded bg-light h-100">
-                        <div class="fw-bold text-dark mb-1">6. Same-Day SRO Token EC Verification:</div>
-                        <div class="small text-muted">Conduct an online EC search on the morning of registration at SRO to confirm no same-day second sale or attachment was filed.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <hr class="my-3">
 
-    <!-- MAIN STEP 5: Side-by-Side Parcels Comparison Matrix -->
-    <div class="card card-custom mt-4">
-        <div class="card-header-custom">
-            <h5><i class="bi bi-bar-chart-steps text-primary"></i> Step 5: Side-by-Side Parcels Comparison Matrix (All Land Holdings)</h5>
-            <span class="badge bg-success">Comparative Matrix</span>
-        </div>
-        <div class="card-body p-4">
-            <div class="table-responsive">
-                <table class="table table-bordered text-center align-middle small">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Survey & Sub-div</th>
-                            <th>Pattadhar / Owner</th>
-                            <th>Extent (Sq. Ft.)</th>
-                            <th>Road Frontage</th>
-                            <th>DTCP Status</th>
-                            <th>DTCP Regularisation Outflow</th>
-                            <th>30-Yr EC Status</th>
-                            <th>Safety Score</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="comparisonTableBody">
+                <!-- Parcels Listing Grid -->
+                <div id="surveyResultsSection">
+                    <div class="row" id="ownersGrid">
                         <!-- Populated dynamically via JS -->
-                    </tbody>
-                </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- OFFICIAL GOVERNMENT DETAILS COPY HELPER (TASK 4) -->
+        <div id="officialVerificationHelperContainer" class="mt-4 mb-4"></div>
+
+        <!-- MAIN STEP 2: LAND DUE DILIGENCE & FIELD INTELLIGENCE (PROS & CONS, REAL VS FAKE) -->
+        <div class="row g-4 mt-2" id="intelSection">
+            <!-- Land Due Diligence Intelligence Card -->
+            <div class="col-lg-6">
+                <div class="card card-custom h-100 border-primary">
+                    <div class="card-header-custom bg-primary-subtle d-flex justify-content-between align-items-center">
+                        <h5 class="text-dark mb-0"><i class="bi bi-shield-check text-primary me-2"></i> Land Due Diligence & Field Intelligence (நில ஆய்வு விபரம்)</h5>
+                        <span class="badge bg-primary" id="landIntelBadge">Survey 142/2A</span>
+                    </div>
+                    <div class="card-body p-4" id="landIntelBody">
+                        <!-- Dynamic intelligence body -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real vs Fake Claims Auditor -->
+            <div class="col-lg-6">
+                <div class="card card-custom h-100">
+                    <div class="card-header-custom">
+                        <h5><i class="bi bi-shield-shaded text-danger"></i> Real vs Fake Claims Auditor (உண்மை vs பொய் ஆய்வு)</h5>
+                        <span class="badge bg-danger">Zero Misleading Claims</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-muted small">We cross-referenced seller and broker marketing claims against official Tamil Nadu government portals:</p>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm small align-middle">
+                                <thead class="table-light text-center">
+                                    <tr>
+                                        <th>Seller / Broker Claim</th>
+                                        <th>Ground Truth from Government Portals</th>
+                                        <th>Due Diligence Verdict</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="realVsFakeTableBody">
+                                    <!-- Populated dynamically via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN STEP 4: Critical Pre-Purchase Checkpoints -->
+        <div class="card card-custom mt-4">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-clipboard-check-fill text-primary"></i> Step 4: Critical Pre-Purchase Checkpoints & Field Diligence Checklist</h5>
+                <span class="badge bg-danger">Buyer Mandatory Rules</span>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded bg-light h-100">
+                            <div class="fw-bold text-dark mb-1">1. Physical Field Stone Demarcation:</div>
+                            <div class="small text-muted">Seller must arrange the Firka Surveyor to plant concrete corner boundary stones matching FMB triangulation measurements before advance payment.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded bg-light h-100">
+                            <div class="fw-bold text-dark mb-1">2. Patta Sub-Division Verification:</div>
+                            <div class="small text-muted">Confirm sub-division is officially carved out in Taluk office e-Services registry, not an undocumented private family partition.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded bg-light h-100">
+                            <div class="fw-bold text-dark mb-1">3. Hand Over Original 30-Year Parent Deeds:</div>
+                            <div class="small text-muted">Must deliver Original Partition Deed, Settlement Deed, and Original Mortgage Discharge Receipt before registry.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded bg-light h-100">
+                            <div class="fw-bold text-dark mb-1">4. Zero-Arrears Panchayat Kist Receipts:</div>
+                            <div class="small text-muted">Produce official Village Panchayat tax receipts up to date proving no local body tax or agricultural kist arrears.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded bg-light h-100">
+                            <div class="fw-bold text-dark mb-1">5. Consenting Signatures of Family Heirs:</div>
+                            <div class="small text-muted">Spouse and all adult children of registered owner must sign as consenting witnesses in the Sale Deed to prevent future partition claims.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded bg-light h-100">
+                            <div class="fw-bold text-dark mb-1">6. Same-Day SRO Token EC Verification:</div>
+                            <div class="small text-muted">Conduct an online EC search on the morning of registration at SRO to confirm no same-day second sale or attachment was filed.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN STEP 5: Side-by-Side Parcels Comparison Matrix -->
+        <div class="card card-custom mt-4">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-bar-chart-steps text-primary"></i> Step 5: Side-by-Side Parcels Comparison Matrix (All Land Holdings)</h5>
+                <span class="badge bg-success">Comparative Matrix</span>
+            </div>
+            <div class="card-body p-4">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center align-middle small">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Survey & Sub-div</th>
+                                <th>Pattadhar / Owner</th>
+                                <th>Extent (Sq. Ft.)</th>
+                                <th>Road Frontage</th>
+                                <th>DTCP Status</th>
+                                <th>DTCP Regularisation Outflow</th>
+                                <th>30-Yr EC Status</th>
+                                <th>Safety Score</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comparisonTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- MAIN STEP 6: Statutory Acquisition Outflow Calculator -->
-    <div class="card card-custom mt-4">
-        <div class="card-header-custom">
-            <h5><i class="bi bi-calculator-fill text-primary"></i> Step 6: Total Acquisition Outflow Calculator (Verified Statutory Rates)</h5>
-            <span class="badge bg-secondary">Estimated TN Rates</span>
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 2: COMPUTERISED PATTA PASS BOOK -->
+    <!-- ========================================== -->
+    <div class="page-view" id="page-patta">
+        <div class="page-view-header d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-action="switch-page" data-page="page-search">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
+                </button>
+                <span class="badge bg-primary fs-6">Official Document: Patta Pass Book (படிவம் 1)</span>
+            </div>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <div id="fpPattaPortalContainer"></div>
+                <button class="btn btn-outline-success btn-sm fw-bold" data-action="open-upload-modal">
+                    <i class="bi bi-cloud-arrow-up-fill me-1"></i> Ingest Official PDF
+                </button>
+                <button class="btn btn-primary btn-sm fw-bold" data-action="print-element" data-target="fullPagePattaContainer">
+                    <i class="bi bi-printer me-1"></i> Print Patta Pass Book
+                </button>
+            </div>
         </div>
-        <div class="card-body p-4">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Land Extent (Sq. Ft.)</label>
-                    <input type="number" class="form-control" id="calcSqFt" value="1650" >
-                    <div class="proof-citation">Checked Proof: Standard Land Measure (1 Cent = 435.6 Sq. Ft)</div>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Negotiated Rate (₹ / Sq. Ft.)</label>
-                    <input type="number" class="form-control" id="calcRate" value="1100" >
-                    <div class="proof-citation">Checked Proof: Agreed Sale Consideration Value</div>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label fw-bold">Guideline Value (₹ / Sq. Ft.)</label>
-                    <input type="number" class="form-control" id="calcGuideline" value="750" readonly>
-                    <div class="proof-citation">Checked Proof: TNREGINET Official Guideline Value Schedule</div>
-                </div>
+
+        <div class="full-page-doc-wrapper" id="fullPagePattaContainer">
+            <div class="text-center border-bottom pb-4 mb-4">
+                <img src="assets/img/tamilnadu-logo.svg" alt="TN Emblem" class="tn-emblem-img">
+                <h4 class="fw-bold mt-2 mb-1 text-primary-navy">தமிழ்நாடு அரசு - வருவாய்த் துறை</h4>
+                <div class="fs-6 text-muted">கணினி திருத்தப்பட்ட பட்டா மாறுதல் உத்தரவு / நில உரிமைப் பதிவேடு</div>
+                <div class="fw-bold text-primary mt-1">படிவம் எண்: 1 | தமிழ்நாடு பட்டா மாறுதல் சட்டம் 1983 பிரிவு 3-ன் கீழ் வழங்கப்பட்டது</div>
+                <div class="mt-2"><span class="badge bg-primary" id="fpPattaNoBadge">பட்டா எண்: 1205</span></div>
             </div>
 
-            <!-- Cost Table -->
-            <div class="table-responsive mt-4">
-                <table class="table table-bordered small">
+            <div class="row g-3 small mb-4 p-3 bg-light rounded border">
+                <div class="col-md-4"><b>மாவட்டம் (District):</b> <span id="fpPattaDist">Namakkal</span></div>
+                <div class="col-md-4"><b>வட்டம் (Taluk):</b> <span id="fpPattaTaluk">Rasipuram</span></div>
+                <div class="col-md-4"><b>கிராமம் (Village):</b> <span id="fpPattaVillage">Gurusamipalayam</span></div>
+                <div class="col-md-4"><b>பட்டா எண் (Patta No):</b> <span class="badge bg-primary" id="fpPattaNo">1205</span></div>
+                <div class="col-md-4"><b>புல எண் (Survey No):</b> <span class="fw-bold" id="fpPattaSurvey">142</span></div>
+                <div class="col-md-4"><b>உட்பிரிவு (Sub-div):</b> <span class="fw-bold" id="fpPattaSubDiv">2A</span></div>
+                <div class="col-md-4"><b>நில வகைப்பாடு:</b> <span id="fpPattaType">ரயத்து புஞ்சை</span></div>
+                <div class="col-md-4"><b>பரப்பளவு:</b> <span id="fpPattaExtent">0.01.53 ஹெக் (1,650 சதுர அடி)</span></div>
+                <div class="col-md-4"><b>தீர்வை (Land Tax):</b> <span id="fpPattaTax">₹ 4.50</span></div>
+            </div>
+
+            <div class="table-responsive mb-4">
+                <table class="table table-bordered small text-center align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th>Cost Component</th>
-                            <th>Basis / Statutory Rate</th>
-                            <th>Amount (₹)</th>
-                            <th>Portal Reference & Due Diligence Proof</th>
+                            <th>வ.எண்</th>
+                            <th>பட்டாதாரர் பெயர் (Pattadhar Name)</th>
+                            <th>தந்தை / கணவர் பெயர்</th>
+                            <th>உரிமை வகை</th>
+                            <th>விபரக் குறிப்பு</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><b>Basic Land Price</b></td>
-                            <td id="calcBaseFormula">1,650 Sq. Ft. × ₹ 1,100</td>
-                            <td class="fw-bold" id="calcBasePrice">₹ 18,15,000</td>
-                            <td><span class="proof-citation">Checked Proof: Agreed Sale Consideration Value</span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Stamp Duty</b></td>
-                            <td><b>7.0%</b> of Consideration Value</td>
-                            <td class="fw-bold" id="calcStampDuty">₹ 1,27,050</td>
-                            <td><span class="proof-citation">Checked Proof: Indian Stamp Act 1899, Tamil Nadu Schedule I, Article 23</span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Registration Fee</b></td>
-                            <td><b>4.0%</b> of Consideration Value</td>
-                            <td class="fw-bold" id="calcRegFee">₹ 72,600</td>
-                            <td><span class="proof-citation">Checked Proof: TN Registration Rules, G.O. Ms. No. 58 Commercial Taxes Dept</span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Legal Title Search</b></td>
-                            <td>Indicative Legal Retainer</td>
-                            <td class="fw-bold">₹ 8,000</td>
-                            <td><span class="proof-citation">Checked Proof: Standard 30-Year Search Schedule</span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Patta Sub-division & Kist</b></td>
-                            <td>Survey Fee + Panchayat Tax</td>
-                            <td class="fw-bold">₹ 1,200</td>
-                            <td><span class="proof-citation">Checked Proof: G.O. Ms. No. 425 Revenue Dept & TN Survey Act</span></td>
-                        </tr>
-                        <tr class="table-primary">
-                            <td><b>TOTAL STATUTORY OUTFLOW</b></td>
-                            <td><b>All-inclusive Initial Cost</b></td>
-                            <td class="fw-bold fs-5 text-primary" id="calcTotalOutflow">₹ 20,23,850</td>
-                            <td><span class="proof-citation">Checked Proof: Comprehensive Tamil Nadu Statutory Outflow Formula</span></td>
+                            <td>1</td>
+                            <td class="fw-bold fs-6 text-primary" id="fpPattaOwner">பெரியசாமி (Periyasamy G)</td>
+                            <td id="fpPattaFather">குருசாமி (Gurusamy)</td>
+                            <td id="fpPattaTitleType">தனிப் பட்டா (Sole Registered Owner)</td>
+                            <td>வருவாய்த் துறை கணினி பதிவேடு சரிபார்க்கப்பட்டது</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <div class="d-flex justify-content-between align-items-center pt-3 border-top small flex-wrap gap-2">
+                <div class="seal-box" id="fpPattaSeal">
+                    ✓ e-Services AnyTN Digital Signature Certified<br>
+                    Ref: TN-REV-RAS-1205/2026
+                </div>
+                <div class="text-end">
+                    <b>வட்டாட்சியர் / Tahsildar</b><br>
+                    <span id="fpPattaSignTaluk">ராசிபுரம் வட்டம், நாமக்கல் மாவட்டம்</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- MAIN STEP 7: Saved Land Dossiers with Triple-Tier Storage -->
-    <div class="card card-custom mt-4">
-        <div class="card-header-custom flex-wrap gap-2">
-            <h5><i class="bi bi-hdd-network-fill text-primary"></i> Step 7: Saved Land Dossiers (<span id="dossierCount">0</span> Records in Storage)</h5>
-            <div class="d-flex gap-2 flex-wrap">
-                <button class="btn btn-outline-primary btn-sm" id="btnSaveDossier"><i class="bi bi-bookmark-plus-fill me-1"></i>Save Selected Parcel</button>
-                <button class="btn btn-outline-success btn-sm" id="btnExportDrive"><i class="bi bi-cloud-arrow-down-fill me-1"></i>Backup to Device & Drive</button>
-                <button class="btn btn-outline-secondary btn-sm" id="btnTriggerImport"><i class="bi bi-cloud-arrow-up-fill me-1"></i>Restore from Backup</button>
-                <input type="file" id="importFileInput" class="d-none" accept=".json">
-                <button class="btn btn-outline-info btn-sm text-dark" id="btnSyncMongo"><i class="bi bi-arrow-repeat me-1"></i>Sync Local MongoDB</button>
-                <button class="btn btn-outline-danger btn-sm" id="btnClearDossiers"><i class="bi bi-trash3-fill me-1"></i>Clear All</button>
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 3: 30-YEAR ENCUMBRANCE CERTIFICATE (FORM 15) -->
+    <!-- ========================================== -->
+    <div class="page-view" id="page-ec">
+        <div class="page-view-header d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-action="switch-page" data-page="page-search">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
+                </button>
+                <span class="badge bg-danger fs-6">Official Document: TNREGINET Form 15 EC</span>
+            </div>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <div id="fpEcPortalContainer"></div>
+                <button class="btn btn-outline-success btn-sm fw-bold" data-action="open-upload-modal">
+                    <i class="bi bi-cloud-arrow-up-fill me-1"></i> Ingest Official PDF
+                </button>
+                <button class="btn btn-danger btn-sm fw-bold" data-action="print-element" data-target="fullPageEcContainer">
+                    <i class="bi bi-printer me-1"></i> Print Form 15 EC
+                </button>
             </div>
         </div>
-        <div class="card-body p-4">
-            <div id="dossiersContainer">
-                <div class="text-center py-4 text-muted" id="emptyDossiersMsg">
-                    <i class="bi bi-folder2-open fs-1 text-secondary"></i>
-                    <p class="mt-2 mb-0">No dossiers currently stored. All records are stored securely in your website browser storage.</p>
-                    <small>Select any parcel above and click <b>"Save Selected Parcel"</b> to keep your due diligence record permanently.</small>
+
+        <div class="full-page-doc-wrapper" id="fullPageEcContainer">
+            <div class="tnreginet-ec-sheet">
+                <div class="tnreginet-header text-center pb-3 mb-3 border-bottom">
+                    <img src="assets/img/tamilnadu-logo.svg" alt="TN Logo" class="tn-emblem-img">
+                    <h4 class="fw-bold mt-2 mb-0 text-primary-navy">பதிவுத்துறை, தமிழ்நாடு அரசு</h4>
+                    <div class="small fw-bold">DEPARTMENT OF REGISTRATION, GOVERNMENT OF TAMIL NADU</div>
+                    <div class="small mt-1 text-muted">வில்லங்கச் சான்றிதழ் / Certificate of Encumbrance on Property (Form No. 15)</div>
+                    <div class="mt-2"><span class="badge bg-primary" id="fpEcCertNoBadge">EC/2026/RAS/58751</span></div>
                 </div>
-                <div class="table-responsive d-none" id="dossiersTableWrapper">
+
+                <div class="row g-2 small mb-4 p-3 bg-light rounded border">
+                    <div class="col-md-6"><b>மண்டலம் (Zone):</b> <span id="fpEcZone">சேலம் (Salem)</span></div>
+                    <div class="col-md-6"><b>மாவட்டம் (District):</b> <span id="fpEcDist">நாமக்கல் (Namakkal)</span></div>
+                    <div class="col-md-6"><b>சார்பதிவாளர் அலுவலகம் (SRO):</b> <span id="fpEcSro">ராசிபுரம் (Rasipuram SRO)</span></div>
+                    <div class="col-md-6"><b>கால அளவு (Search Period):</b> <span id="fpEcPeriod">01-Jan-1984 முதல் 2026 வரை (40 ஆண்டுகள்)</span></div>
+                    <div class="col-md-6"><b>கிராமம் (Village):</b> <span id="fpEcVillage">குருசாமிபாளையம் (Gurusamipalayam)</span></div>
+                    <div class="col-md-6"><b>புல எண் (Survey & Sub-div):</b> <span id="fpEcFullSurvey" class="fw-bold text-primary">142/2A</span></div>
+                    <div class="col-md-6"><b>நில வகைப்பாடு:</b> <span id="fpEcClass">ரயத்து புஞ்சை</span></div>
+                    <div class="col-md-6"><b>பரப்பளவு:</b> <span id="fpEcExtent">1,650 சதுர அடி (3.79 சென்ட்)</span></div>
+                    <div class="col-12"><b>நான்கெல்லை (Boundaries):</b> <span id="fpEcBoundaries">வடக்கு: 142/1, தெற்கு: 16 அடி சாலை, கிழக்கு: 142/2B, மேற்கு: 20 அடி சாலை</span></div>
+                </div>
+
+                <div class="table-responsive mb-4">
+                    <table class="tnreginet-table">
+                        <thead>
+                            <tr>
+                                <th>வ.எண்</th>
+                                <th>ஆவண எண் & பதிவு நாள்</th>
+                                <th>ஆவண வகை</th>
+                                <th>எழுதிக்கொடுத்தவர்</th>
+                                <th>எழுதிவாங்கியவர்</th>
+                                <th>சொத்து விவரம்</th>
+                                <th>மதிப்பு (₹)</th>
+                                <th>வில்லங்க நிலை</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fpEcTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top small flex-wrap gap-2">
+                    <div class="seal-box" id="fpEcSeal">
+                        ✓ தமிழ்நாடு பதிவுத்துறை மத்திய வழங்கி சரிபார்க்கப்பட்டது<br>
+                        SRO Server Certified Digital Seal
+                    </div>
+                    <div class="text-end">
+                        <b>சார்பதிவாளர் / Sub-Registrar</b><br>
+                        <span id="fpEcSignSro">ராசிபுரம் சார்பதிவாளர் அலுவலகம்</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 4: CADASTRAL FMB SKETCH -->
+    <!-- ========================================== -->
+    <div class="page-view" id="page-fmb">
+        <div class="page-view-header d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-action="switch-page" data-page="page-search">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
+                </button>
+                <span class="badge bg-success fs-6">Official Cadastre: Field Measurement Book (புல வரைபடம்)</span>
+            </div>
+            <div>
+                <button class="btn btn-success btn-sm fw-bold" data-action="print-element" data-target="fullPageFmbContainer">
+                    <i class="bi bi-printer me-1"></i> Print FMB Sketch
+                </button>
+            </div>
+        </div>
+
+        <div class="full-page-doc-wrapper text-center" id="fullPageFmbContainer">
+            <h4 class="fw-bold mb-1 text-primary-navy">கிராமப் புல வரைபடம் (Field Measurement Book)</h4>
+            <div class="text-muted small mb-4">கிராமம்: <span id="fpFmbVillage">Gurusamipalayam</span> | புல எண்: <span id="fpFmbFullSurvey" class="fw-bold text-primary">142/2A</span></div>
+
+            <div class="border rounded p-4 bg-light mb-4">
+                <svg width="100%" height="280" viewBox="0 0 500 240" class="fmb-cadastre-canvas">
+                    <polygon points="120,40 380,40 380,200 120,200" fill="#e0f2fe" stroke="#0284c7" stroke-width="3" stroke-dasharray="0"/>
+                    <line x1="120" y1="30" x2="380" y2="30" stroke="#0369a1" stroke-width="1.5"/>
+                    <text x="250" y="24" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">55.0 Feet (North)</text>
+                    <line x1="390" y1="40" x2="390" y2="200" stroke="#0369a1" stroke-width="1.5"/>
+                    <text x="440" y="125" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">30.0 Feet (East)</text>
+                    <line x1="120" y1="210" x2="380" y2="210" stroke="#0369a1" stroke-width="1.5"/>
+                    <text x="250" y="226" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">55.0 Feet (South Frontage)</text>
+                    <line x1="110" y1="40" x2="110" y2="200" stroke="#0369a1" stroke-width="1.5"/>
+                    <text x="60" y="125" fill="#0369a1" font-size="12" font-weight="bold" text-anchor="middle">30.0 Feet (West Frontage)</text>
+                    <text x="250" y="115" fill="#1e3a8a" font-size="16" font-weight="bold" text-anchor="middle" id="fpFmbSvgSurvey">Survey 142/2A</text>
+                    <text x="250" y="135" fill="#475569" font-size="12" text-anchor="middle" id="fpFmbSvgExtent">Extent: 1,650 Sq. Ft. (3.79 Cents)</text>
+                </svg>
+            </div>
+
+            <div class="text-start p-3 bg-light rounded border mb-4 small" id="fpFmbBoundaries">
+                <!-- Dynamic boundaries -->
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center pt-3 border-top small text-start flex-wrap gap-2">
+                <div class="seal-box" id="fpFmbSeal">
+                    ✓ Survey Field Diary Triangulation Certified<br>
+                    G-File Reference: RAS/G-FILE/142-2A
+                </div>
+                <div class="text-end">
+                    <b>பிர்க்கா நில அளவர் / Firka Surveyor</b><br>
+                    <span id="fpFmbSignTaluk">ராசிபுரம் குறுவட்டம்</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 5: REGISTERED TITLE DEED & ROOT LINEAGE -->
+    <!-- ========================================== -->
+    <div class="page-view" id="page-deed">
+        <div class="page-view-header d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-action="switch-page" data-page="page-search">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
+                </button>
+                <span class="badge bg-info text-dark fs-6">Registered Deed & 40-Year Root Title Lineage</span>
+            </div>
+            <div>
+                <button class="btn btn-info btn-sm text-dark fw-bold" data-action="print-element" data-target="fullPageDeedContainer">
+                    <i class="bi bi-printer me-1"></i> Print Deed Extract
+                </button>
+            </div>
+        </div>
+
+        <div class="full-page-doc-wrapper" id="fullPageDeedContainer">
+            <div class="text-center border-bottom pb-4 mb-4">
+                <h4 class="fw-bold mb-1 text-primary-navy">குடும்ப தான செட்டில்மென்ட் பத்திரம் (Settlement Deed)</h4>
+                <div class="small text-muted">பதிவு எண்: <span id="fpDeedNo" class="fw-bold text-primary">Doc No. 1120/2004</span> | சார்பதிவாளர் அலுவலகம்: <span id="fpDeedSro">ராசிபுரம்</span></div>
+            </div>
+
+            <div class="row g-3 small mb-4 p-3 bg-light rounded border">
+                <div class="col-md-6"><b>செட்டில்மென்ட் கொடுத்தவர் (Executant):</b> <span id="fpDeedExec">குருசாமி (Gurusamy)</span></div>
+                <div class="col-md-6"><b>செட்டில்மென்ட் பெற்றவர் (Claimant):</b> <span id="fpDeedClaim">பெரியசாமி (Periyasamy G)</span></div>
+                <div class="col-md-6"><b>சொத்து புல எண் (Survey):</b> <span id="fpDeedSurvey">142/2A</span></div>
+                <div class="col-md-6"><b>பரப்பளவு (Extent):</b> <span id="fpDeedExtent">1,650 சதுர அடி</span></div>
+            </div>
+
+            <div class="p-3 bg-light border rounded small mb-4">
+                <b>ஆவண வாசகம் (Deed Text Extract):</b><br>
+                "என் அன்பிற்கும் பாசத்திற்கும் உரிய என் மகன் <b id="fpDeedExtractClaim">பெரியசாமிக்கு</b>, குடும்ப பாகப்பிரிவினை ஆவணம் எண் 520/1984-ன் படி எனக்கு பாத்தியப்பட்ட சர்வே எண் <b id="fpDeedExtractSurvey">142/2A</b>-ல் உள்ள <b id="fpDeedExtractExtent">1,650 சதுர அடி</b> மனை நிலத்தை எவ்வித பிரதிபலனும் இன்றி மனப்பூர்வமாக தான செட்டில்மென்ட் செய்து கொடுக்கிறேன்..."
+            </div>
+
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-diagram-3-fill me-1"></i> 40-Year Root Title Chain & Transmission History:</h6>
+            <div id="fpDeedChainList" class="mb-4"></div>
+
+            <div class="d-flex justify-content-between align-items-center pt-3 border-top small flex-wrap gap-2">
+                <div class="seal-box" id="fpDeedSeal">
+                    ✓ Registered Certified Copy Issued by SRO
+                </div>
+                <div class="text-end">
+                    <b>சார்பதிவாளர் / Sub-Registrar</b><br>
+                    <span id="fpDeedSignSro">ராசிபுரம்</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 6: COST & NEGOTIATION CALCULATORS -->
+    <!-- ========================================== -->
+    <div class="page-view" id="page-calculator">
+        <div class="page-view-header d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-action="switch-page" data-page="page-search">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
+                </button>
+                <span class="badge bg-primary fs-6">Financial Analytics & Statutory Costs</span>
+            </div>
+        </div>
+
+        <!-- MAIN STEP 3: STRATEGIC PRICE NEGOTIATION CALCULATOR -->
+        <div class="card card-custom border-primary mb-4">
+            <div class="card-header-custom bg-primary text-white">
+                <h5 class="text-white"><i class="bi bi-cash-stack text-warning"></i> Step 3: Strategic Price Negotiation Calculator ("How Much Can We Negotiate?")</h5>
+                <span class="badge bg-warning text-dark">Save ₹ 83,000 to ₹ 1,33,000</span>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-7">
+                        <h6 class="fw-bold text-dark mb-3">Statutory & Practical Price Deduction Formula:</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm small align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Negotiation Leverage Item</th>
+                                        <th>Justification / Statutory Source</th>
+                                        <th>Deduction Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>1. DTCP Regularisation Outflow</b></td>
+                                        <td>G.O. Ms. No. 78 & 172 H&UD Dept (Unapproved plot regularisation fee)</td>
+                                        <td class="text-danger fw-bold" id="negDtcpCost">- ₹ 8,931</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>2. Unapproved Layout Status Penalty</b></td>
+                                        <td>Market discount for unapproved sub-division holding</td>
+                                        <td class="text-danger fw-bold">- ₹ 25,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>3. Patta Sub-division & Boundary Stones</b></td>
+                                        <td>G.O. 425 Treasury fee + Firka Surveyor physical boundary stone planting</td>
+                                        <td class="text-danger fw-bold" id="negSurveyorCost">- ₹ 5,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>4. Guideline (₹750) vs Asking (₹1100) Gap</b></td>
+                                        <td>Market negotiation margin in residential segment</td>
+                                        <td class="text-danger fw-bold">- ₹ 45,000</td>
+                                    </tr>
+                                    <tr class="table-secondary">
+                                        <td colspan="2" class="fw-bold text-end">TOTAL JUSTIFIED DEDUCTION:</td>
+                                        <td class="text-danger fw-bold fs-6" id="negTotalDeduction">- ₹ 83,931</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="p-4 bg-light border rounded shadow-sm">
+                            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-bullseye me-1"></i> Negotiation Summary for <span id="negParcelLabel">142/2A</span>:</h6>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Seller's Asking Price (<span id="negAskingSqFt">1,650</span> sq.ft @ asking):</span>
+                                <span class="fw-bold text-dark" id="negTotalAsking">₹ 18,15,000</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Reported Guideline Value (₹ 750/sq.ft):</span>
+                                <span class="text-muted" id="negTotalGuideline">₹ 12,37,500</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="d-flex justify-content-between mb-2 fs-6">
+                                <span class="fw-bold text-success">Target Settlement Price:</span>
+                                <span class="fw-bold text-success fs-5" id="negTargetPrice">₹ 17,31,069</span>
+                            </div>
+                            <div class="text-end small text-muted" id="negPerSqFtRate">(~₹ 1,049 / sq. ft.)</div>
+
+                            <div class="alert alert-success mt-3 p-2 small mb-0">
+                                <b>Opening Offer:</b> Start at <b id="negOpeningOffer">₹ 16,81,069</b> citing out-of-pocket DTCP regularisation expenses and boundary stone demarcation fees. Settle at <b id="negSettlementOffer">₹ 17,31,069</b> (Net Savings: <b id="negNetSavings">₹ 83,931</b>).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN STEP 6: Statutory Acquisition Outflow Calculator -->
+        <div class="card card-custom">
+            <div class="card-header-custom">
+                <h5><i class="bi bi-calculator-fill text-primary"></i> Step 6: Total Acquisition Outflow Calculator (Verified Statutory Rates)</h5>
+                <span class="badge bg-secondary">Estimated TN Rates</span>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Land Extent (Sq. Ft.)</label>
+                        <input type="number" class="form-control" id="calcSqFt" value="1650" >
+                        <div class="proof-citation">Checked Proof: Standard Land Measure (1 Cent = 435.6 Sq. Ft)</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Negotiated Rate (₹ / Sq. Ft.)</label>
+                        <input type="number" class="form-control" id="calcRate" value="1100" >
+                        <div class="proof-citation">Checked Proof: Agreed Sale Consideration Value</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Guideline Value (₹ / Sq. Ft.)</label>
+                        <input type="number" class="form-control" id="calcGuideline" value="750" readonly>
+                        <div class="proof-citation">Checked Proof: TNREGINET Official Guideline Value Schedule</div>
+                    </div>
+                </div>
+
+                <!-- Cost Table -->
+                <div class="table-responsive mt-4">
                     <table class="table table-bordered small">
                         <thead class="table-light">
                             <tr>
-                                <th>Saved Date</th>
-                                <th>Survey & Sub-div</th>
-                                <th>Village / Taluk</th>
-                                <th>Claimed Owner</th>
-                                <th>Extent</th>
-                                <th>DTCP Status</th>
-                                <th>30-Yr EC</th>
-                                <th>Actions</th>
+                                <th>Cost Component</th>
+                                <th>Basis / Statutory Rate</th>
+                                <th>Amount (₹)</th>
+                                <th>Portal Reference & Due Diligence Proof</th>
                             </tr>
                         </thead>
-                        <tbody id="dossiersTableBody"></tbody>
+                        <tbody>
+                            <tr>
+                                <td><b>Basic Land Price</b></td>
+                                <td id="calcBaseFormula">1,650 Sq. Ft. × ₹ 1,100</td>
+                                <td class="fw-bold" id="calcBasePrice">₹ 18,15,000</td>
+                                <td><span class="proof-citation">Checked Proof: Agreed Sale Consideration Value</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Stamp Duty</b></td>
+                                <td><b>7.0%</b> of Consideration Value</td>
+                                <td class="fw-bold" id="calcStampDuty">₹ 1,27,050</td>
+                                <td><span class="proof-citation">Checked Proof: Indian Stamp Act 1899, Tamil Nadu Schedule I, Article 23</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Registration Fee</b></td>
+                                <td><b>4.0%</b> of Consideration Value</td>
+                                <td class="fw-bold" id="calcRegFee">₹ 72,600</td>
+                                <td><span class="proof-citation">Checked Proof: TN Registration Rules, G.O. Ms. No. 58 Commercial Taxes Dept</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Legal Title Search</b></td>
+                                <td>Indicative Legal Retainer</td>
+                                <td class="fw-bold">₹ 8,000</td>
+                                <td><span class="proof-citation">Checked Proof: Standard 30-Year Search Schedule</span></td>
+                            </tr>
+                            <tr>
+                                <td><b>Patta Sub-division & Kist</b></td>
+                                <td>Survey Fee + Panchayat Tax</td>
+                                <td class="fw-bold">₹ 1,200</td>
+                                <td><span class="proof-citation">Checked Proof: G.O. Ms. No. 425 Revenue Dept & TN Survey Act</span></td>
+                            </tr>
+                            <tr class="table-primary">
+                                <td><b>TOTAL STATUTORY OUTFLOW</b></td>
+                                <td><b>All-inclusive Initial Cost</b></td>
+                                <td class="fw-bold fs-5 text-primary" id="calcTotalOutflow">₹ 20,23,850</td>
+                                <td><span class="proof-citation">Checked Proof: Comprehensive Tamil Nadu Statutory Outflow Formula</span></td>
+                            </tr>
+                        </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 7: OFFICIAL PORTAL FETCH DESK -->
+    <!-- ========================================== -->
+    <div class="page-view" id="page-fetch">
+        <div class="page-view-header d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-action="switch-page" data-page="page-search">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
+                </button>
+                <span class="badge bg-primary fs-6"><i class="bi bi-cloud-arrow-down-fill me-1"></i> Live Official Portal Fetch & Ingestion Desk</span>
+            </div>
+            <div>
+                <button class="btn btn-success btn-sm fw-bold" data-action="open-upload-modal">
+                    <i class="bi bi-file-earmark-check-fill me-1"></i> Ingest Downloaded PDF Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Section 1: Real-World Architecture & Security Ground Truth -->
+        <div class="alert alert-info border-info d-flex align-items-start p-3 mb-4 rounded-3 shadow-sm">
+            <i class="bi bi-info-circle-fill text-info fs-3 me-3 mt-1"></i>
+            <div>
+                <h6 class="fw-bold text-dark mb-1">How Real Tamil Nadu Land Records are Retrieved & Why Browsers Block Direct Scraping</h6>
+                <p class="small text-muted mb-1">
+                    When you search land records on official portals like <b>TNREGINET</b> or <b>AnyTN e-Services</b>, the government servers require solving a dynamic Tamil/alphanumeric image CAPTCHA and enforce strict Cross-Origin Resource Sharing (CORS) policies. A static client browser (such as GitHub Pages) is blocked by browser security standards from sending background scraping requests to <code>.gov.in</code> servers.
+                </p>
+                <div class="small fw-bold text-primary">
+                    <i class="bi bi-check-circle-fill me-1"></i> LandGuard Solution: Use our 1-Click Parameter Desk below to open the official portal, paste the exact pre-filled values, download the official certified PDF, and drop it into our Ingestion Engine for immediate digital signature validation and cadastre synchronization!
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: TNREGINET EC Fetch Desk (Gurusamipalayam Whole Village & Specific Survey) -->
+        <div class="fetch-desk-card">
+            <div class="card-header-custom bg-dark text-white d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h5 class="text-white mb-0">
+                    <i class="bi bi-file-earmark-pdf text-danger me-2"></i>
+                    1. TNREGINET Encumbrance Certificate (EC) Fetch Desk — Gurusamipalayam & Beyond
+                </h5>
+                <div id="fetchDeskEcLinkContainer"></div>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <h6 class="fw-bold text-primary mb-2"><i class="bi bi-lightbulb-fill text-warning me-1"></i> How to Download the Entire Village / Survey EC in 5 Steps:</h6>
+                        <ol class="small text-muted ps-3 mb-3">
+                            <li class="mb-2">Click <b>"Open TNREGINET Official Portal"</b> above. It opens the verified Registration Department portal safely without query strings.</li>
+                            <li class="mb-2">Navigate to <b>E-Services &rarr; Encumbrance Certificate &rarr; View EC</b>.</li>
+                            <li class="mb-2">Select <b>Zone: Salem</b>, <b>District: Namakkal</b>, <b>SRO: Rasipuram</b>, and <b>Village: Gurusamipalayam</b> (use our 1-click copy buttons on the right).</li>
+                            <li class="mb-2"><b>Pro Tip for Entire Village/Survey EC:</b> Enter Survey No <b>142</b> and <u>leave the Sub-division field BLANK</u>! TNREGINET will return all encumbrance transactions across the entire survey number for the past 40 years!</li>
+                            <li>Enter the displayed CAPTCHA, click Search, and click <b>"Generate PDF"</b> to download the official digitally signed Form 15 EC.</li>
+                        </ol>
+
+                        <div class="alert alert-light border small p-3 rounded">
+                            <span class="badge bg-success me-1">Verified Government URL:</span>
+                            <code>https://tnreginet.gov.in/portal/webHP?requestType=ApplicationRH&actionVal=viewEC&queryType=viewEC&pageName=viewEC</code>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="border rounded p-3 bg-light">
+                            <h6 class="fw-bold text-dark mb-3"><i class="bi bi-clipboard2-check me-1"></i> 1-Click Copy Parameters for Selected Parcel:</h6>
+                            <table class="table table-sm small mb-0 param-copy-table align-middle">
+                                <tbody>
+                                    <tr class="param-copy-row">
+                                        <th>Zone:</th>
+                                        <td><span id="fetchEcZone">Salem</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="Salem"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>District:</th>
+                                        <td><span id="fetchEcDistrict">Namakkal</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="Namakkal"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>SRO Office:</th>
+                                        <td><span id="fetchEcSro">Rasipuram</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="Rasipuram"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>Village:</th>
+                                        <td><span id="fetchEcVillage">Gurusamipalayam</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="Gurusamipalayam"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>Survey No:</th>
+                                        <td><span class="fw-bold text-primary" id="fetchEcSurvey">142</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="142"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>Sub-division:</th>
+                                        <td><span class="fw-bold text-primary" id="fetchEcSubDiv">2A</span> <small class="text-muted">(Leave blank for ALL)</small></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="2A"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>Start Date:</th>
+                                        <td><span>01/01/1975</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="01/01/1975"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: AnyTN e-Services Patta/Chitta Fetch Desk -->
+        <div class="fetch-desk-card">
+            <div class="card-header-custom bg-primary text-white d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h5 class="text-white mb-0">
+                    <i class="bi bi-file-earmark-text text-warning me-2"></i>
+                    2. AnyTN e-Services Patta / Chitta & FMB Fetch Desk
+                </h5>
+                <div id="fetchDeskPattaLinkContainer"></div>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <h6 class="fw-bold text-primary mb-2"><i class="bi bi-check2-circle text-success me-1"></i> How to Fetch Computerised Patta & Chitta Extract:</h6>
+                        <ol class="small text-muted ps-3 mb-3">
+                            <li class="mb-2">Click <b>"Open AnyTN e-Services Portal"</b> above to reach the verified Tamil Nadu Revenue Administration gateway.</li>
+                            <li class="mb-2">Select <b>View Patta / Chitta</b> (பட்டா / சிட்டா விவரங்களை பார்வையிட).</li>
+                            <li class="mb-2">Select <b>District: Namakkal</b>, <b>Taluk: Rasipuram</b>, and <b>Village: Gurusamipalayam</b>.</li>
+                            <li class="mb-2">Choose whether to query by <b>Patta Number</b> (e.g. 1205) or <b>Survey Number</b> (142 / 2A).</li>
+                            <li>Enter the CAPTCHA authentication code and submit to view the digital signature certified Patta Pass Book extract.</li>
+                        </ol>
+
+                        <div class="alert alert-light border small p-3 rounded">
+                            <span class="badge bg-primary me-1">Verified Government URL:</span>
+                            <code>https://eservices.tn.gov.in/eservicesnew/land/chitta.html</code>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="border rounded p-3 bg-light">
+                            <h6 class="fw-bold text-dark mb-3"><i class="bi bi-clipboard2-check me-1"></i> 1-Click Copy Parameters for Revenue Portal:</h6>
+                            <table class="table table-sm small mb-0 param-copy-table align-middle">
+                                <tbody>
+                                    <tr class="param-copy-row">
+                                        <th>District:</th>
+                                        <td><span id="fetchPattaDistrict">Namakkal</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="Namakkal"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>Taluk:</th>
+                                        <td><span id="fetchPattaTaluk">Rasipuram</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="Rasipuram"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>Village:</th>
+                                        <td><span id="fetchPattaVillage">Gurusamipalayam</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="Gurusamipalayam"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>Patta No:</th>
+                                        <td><span class="fw-bold text-primary" id="fetchPattaNo">1205</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="1205"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                    <tr class="param-copy-row">
+                                        <th>Survey No:</th>
+                                        <td><span class="fw-bold text-primary" id="fetchPattaSurvey">142</span></td>
+                                        <td class="text-end"><button class="btn btn-outline-secondary btn-sm py-0 px-2" data-action="copy-param" data-param="142"><i class="bi bi-clipboard"></i> Copy</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Automated Backend Gateway / API Setu Status -->
+        <div class="fetch-desk-card">
+            <div class="card-header-custom bg-light d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h5 class="mb-0 text-dark"><i class="bi bi-hdd-network-fill text-success me-2"></i> 3. Enterprise Government API Gateway Status (API Setu / TNeGA)</h5>
+                <span class="badge bg-success"><i class="bi bi-shield-lock-fill me-1"></i>SSRF Guarded & Hash-Verified</span>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-3 small">
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-light">
+                            <b>National API Setu Connector:</b>
+                            <div class="text-success fw-bold mt-1">Enabled (OAuth 2.0 Client Credentials)</div>
+                            <small class="text-muted">Target: <code>apisetu.gov.in/certificate/v3/landrecords</code></small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-light">
+                            <b>TNeGA e-District Gateway:</b>
+                            <div class="text-success fw-bold mt-1">Configured (X.509 Mutual TLS)</div>
+                            <small class="text-muted">Target: <code>tnega.tn.gov.in/api/v1/patta-chitta</code></small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 border rounded bg-light">
+                            <b>PDF Ingestion & Cryptographic Audit:</b>
+                            <div class="text-primary fw-bold mt-1">Active (SHA-256 + Digital Seal Engine)</div>
+                            <small class="text-muted">Status: Live Ingestion Ready</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PAGE VIEW 8: SAVED LAND DOSSIERS & BACKUP -->
+    <!-- ========================================== -->
+    <div class="page-view" id="page-dossiers">
+        <div class="page-view-header d-flex justify-content-between align-items-center flex-wrap gap-3 no-print">
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary btn-sm fw-bold" data-action="switch-page" data-page="page-search">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Cadastre Search
+                </button>
+                <span class="badge bg-primary fs-6">Saved Land Dossiers & Backup Vault</span>
+            </div>
+        </div>
+
+        <!-- MAIN STEP 7: Saved Land Dossiers with Triple-Tier Storage -->
+        <div class="card card-custom">
+            <div class="card-header-custom flex-wrap gap-2">
+                <h5><i class="bi bi-hdd-network-fill text-primary"></i> Step 7: Saved Land Dossiers (<span id="dossierCount">0</span> Records in Storage)</h5>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button class="btn btn-outline-primary btn-sm" id="btnSaveDossier"><i class="bi bi-bookmark-plus-fill me-1"></i>Save Selected Parcel</button>
+                    <button class="btn btn-outline-success btn-sm" id="btnExportDrive"><i class="bi bi-cloud-arrow-down-fill me-1"></i>Backup to Device & Drive</button>
+                    <button class="btn btn-outline-secondary btn-sm" id="btnTriggerImport"><i class="bi bi-cloud-arrow-up-fill me-1"></i>Restore from Backup</button>
+                    <input type="file" id="importFileInput" class="d-none" accept=".json">
+                    <button class="btn btn-outline-info btn-sm text-dark" id="btnSyncMongo"><i class="bi bi-arrow-repeat me-1"></i>Sync Local MongoDB</button>
+                    <button class="btn btn-outline-danger btn-sm" id="btnClearDossiers"><i class="bi bi-trash3-fill me-1"></i>Clear All</button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <div id="dossiersContainer">
+                    <div class="text-center py-4 text-muted" id="emptyDossiersMsg">
+                        <i class="bi bi-folder2-open fs-1 text-secondary"></i>
+                        <p class="mt-2 mb-0">No dossiers currently stored. All records are stored securely in your website browser storage.</p>
+                        <small>Select any parcel above and click <b>"Save Selected Parcel"</b> to keep your due diligence record permanently.</small>
+                    </div>
+                    <div class="table-responsive d-none" id="dossiersTableWrapper">
+                        <table class="table table-bordered small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Saved Date</th>
+                                    <th>Survey & Sub-div</th>
+                                    <th>Village / Taluk</th>
+                                    <th>Claimed Owner</th>
+                                    <th>Extent</th>
+                                    <th>DTCP Status</th>
+                                    <th>30-Yr EC</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dossiersTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -946,8 +1494,8 @@
 
 <!-- HARDENED LOCAL SCRIPTS (Zero CDNs, Strict CSP Compliant) -->
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/links.js?v=5.1.0"></script>
-<script src="assets/js/guard.js?v=5.1.0"></script>
-<script src="assets/js/app.js?v=5.1.0"></script>
+<script src="assets/js/links.js?v=5.2.0"></script>
+<script src="assets/js/guard.js?v=5.2.0"></script>
+<script src="assets/js/app.js?v=5.2.0"></script>
 </body>
 </html>

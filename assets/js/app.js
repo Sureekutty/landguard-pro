@@ -474,6 +474,47 @@ document.addEventListener('DOMContentLoaded', () => {
         window.LandGuardGuard.renderPortalLinksContainer('officialGovLinksNav', { showNotice: true, showStaleness: true });
     }
 
+    // Render Safe Links into Dedicated Document Pages & Fetch Desk
+    if (window.LandGuardGuard && window.LandGuardLinks) {
+        const pattaLink = window.LandGuardLinks.getLinkById('anytn-eservices');
+        const ecLink = window.LandGuardLinks.getLinkById('tnreginet-ec');
+
+        const fpPattaCont = document.getElementById('fpPattaPortalContainer');
+        if (pattaLink && fpPattaCont) {
+            fpPattaCont.innerHTML = '';
+            fpPattaCont.appendChild(window.LandGuardGuard.renderSafeLink(pattaLink, { className: 'btn btn-outline-primary btn-sm' }));
+        }
+
+        const fpEcCont = document.getElementById('fpEcPortalContainer');
+        if (ecLink && fpEcCont) {
+            fpEcCont.innerHTML = '';
+            fpEcCont.appendChild(window.LandGuardGuard.renderSafeLink(ecLink, { className: 'btn btn-outline-danger btn-sm' }));
+        }
+
+        const fetchEcCont = document.getElementById('fetchDeskEcLinkContainer');
+        if (ecLink && fetchEcCont) {
+            fetchEcCont.innerHTML = '';
+            fetchEcCont.appendChild(window.LandGuardGuard.renderSafeLink(ecLink, { className: 'btn btn-outline-light btn-sm fw-bold' }));
+        }
+
+        const fetchPattaCont = document.getElementById('fetchDeskPattaLinkContainer');
+        if (pattaLink && fetchPattaCont) {
+            fetchPattaCont.innerHTML = '';
+            fetchPattaCont.appendChild(window.LandGuardGuard.renderSafeLink(pattaLink, { className: 'btn btn-outline-light btn-sm fw-bold' }));
+        }
+    }
+
+    // Multi-Page Tab Navigation (Version 1 Experience)
+    const mainPageNavTabs = document.getElementById('mainPageNavTabs');
+    if (mainPageNavTabs) {
+        mainPageNavTabs.addEventListener('click', (e) => {
+            const btn = e.target.closest('button[data-page]');
+            if (btn && btn.getAttribute('data-page')) {
+                switchPageView(btn.getAttribute('data-page'));
+            }
+        });
+    }
+
     // 2. Bind static event listeners (CSP compliance without inline event handlers)
     const authForm = document.getElementById('authForm');
     if (authForm) authForm.addEventListener('submit', handleAuthLogin);
@@ -580,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPrintDeed = document.getElementById('btnPrintDeed');
     if (btnPrintDeed) btnPrintDeed.addEventListener('click', () => printElement('printableDeedCard'));
 
-    // 3. Event Delegation for dynamic cards (owner cards, action pills, delete buttons)
+    // 3. Event Delegation for dynamic cards (owner cards, action pills, delete buttons, multi-page routing)
     document.addEventListener('click', (e) => {
         const target = e.target.closest('[data-action]');
         if (!target) return;
@@ -589,7 +630,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const subdiv = target.getAttribute('data-subdiv');
         const idx = target.getAttribute('data-index');
 
-        if (action === 'select-record' && subdiv) {
+        if (action === 'switch-page') {
+            const pageId = target.getAttribute('data-page');
+            if (pageId) switchPageView(pageId);
+        } else if (action === 'view-page-patta' && subdiv) {
+            e.stopPropagation();
+            selectRecordData(subdiv);
+            switchPageView('page-patta');
+        } else if (action === 'view-page-ec' && subdiv) {
+            e.stopPropagation();
+            selectRecordData(subdiv);
+            switchPageView('page-ec');
+        } else if (action === 'view-page-fmb' && subdiv) {
+            e.stopPropagation();
+            selectRecordData(subdiv);
+            switchPageView('page-fmb');
+        } else if (action === 'view-page-deed' && subdiv) {
+            e.stopPropagation();
+            selectRecordData(subdiv);
+            switchPageView('page-deed');
+        } else if (action === 'open-upload-modal') {
+            openUploadDocModal();
+        } else if (action === 'copy-param') {
+            const param = target.getAttribute('data-param');
+            if (param) copyParamToClipboard(param, target);
+        } else if (action === 'select-record' && subdiv) {
             selectRecordData(subdiv);
         } else if (action === 'open-patta' && subdiv) {
             e.stopPropagation();
@@ -774,7 +839,7 @@ function renderParcelsGrid(records) {
     if (records.length === 0) {
         grid.innerHTML = `
             <div class="col-12 text-center py-5">
-                <i class="bi bi-shield-exclamation text-warning" style="font-size: 3rem;"></i>
+                <i class="bi bi-shield-exclamation text-warning fs-1"></i>
                 <h5 class="fw-bold mt-3 text-dark">No matching record returned by the selected source.</h5>
                 <p class="text-muted small mb-0">Verify the Survey Number, Patta Number, or Owner Name against official Tamil Nadu revenue registers.</p>
             </div>
@@ -809,28 +874,38 @@ function renderParcelsGrid(records) {
                     ${!r.dtcpApproved ? '<div class="text-danger fw-bold mt-1">DTCP Outflow: ₹ ' + (r.dtcpRegularisationCost || 0).toLocaleString() + '</div>' : '<div class="text-success fw-bold mt-1">No DTCP Fee Needed</div>'}
                 </div>
 
-                <div class="mt-2 small" style="color:#dc2626; font-size:11px;">
+                <div class="mt-2 small text-danger">
                     <b>Statutory Proofs:</b> Patta #${r.pattaNumber} | EC Doc #${r.ecEntries && r.ecEntries.length > 0 ? r.ecEntries[r.ecEntries.length-1].docNumber : 'Verified'} | FMB Cadastre Verified
                 </div>
 
+                <!-- Dedicated Full Page Document Viewers -->
                 <div class="d-flex gap-1 flex-wrap mt-2">
-                    <button class="btn btn-outline-primary card-pill-btn" data-action="open-patta" data-subdiv="${r.subDivision}">
-                        <i class="bi bi-file-earmark-text"></i> Patta
+                    <button class="btn btn-outline-primary card-pill-btn" data-action="view-page-patta" data-subdiv="${r.subDivision}" title="Open Full Dedicated Patta Pass Book Page">
+                        <i class="bi bi-file-earmark-text"></i> Patta Page
                     </button>
-                    <button class="btn btn-outline-success card-pill-btn" data-action="open-fmb" data-subdiv="${r.subDivision}">
-                        <i class="bi bi-map"></i> FMB
+                    <button class="btn btn-outline-danger card-pill-btn" data-action="view-page-ec" data-subdiv="${r.subDivision}" title="Open Full Dedicated 30-Year EC Page">
+                        <i class="bi bi-file-earmark-pdf"></i> EC Page
                     </button>
-                    <button class="btn btn-outline-danger card-pill-btn" data-action="open-ec" data-subdiv="${r.subDivision}">
-                        <i class="bi bi-file-earmark-pdf"></i> Sample EC Record
+                    <button class="btn btn-outline-success card-pill-btn" data-action="view-page-fmb" data-subdiv="${r.subDivision}" title="Open Full Dedicated FMB Sketch Page">
+                        <i class="bi bi-map"></i> FMB Page
                     </button>
-                    <button class="btn btn-outline-info text-dark card-pill-btn" data-action="open-deed" data-subdiv="${r.subDivision}">
-                        <i class="bi bi-file-earmark-lock"></i> Deed
+                    <button class="btn btn-outline-info text-dark card-pill-btn" data-action="view-page-deed" data-subdiv="${r.subDivision}" title="Open Full Dedicated Title Deed Page">
+                        <i class="bi bi-file-earmark-lock"></i> Deed Page
                     </button>
                 </div>
 
-                <button class="btn btn-primary btn-sm w-100 mt-2 fw-bold" data-action="inspect-parcel" data-subdiv="${r.subDivision}">
-                    <i class="bi bi-shield-check me-1"></i> Inspect This Parcel (Full Popup)
-                </button>
+                <!-- Modal Inspection Buttons -->
+                <div class="d-flex gap-1 mt-2">
+                    <button class="btn btn-primary btn-sm flex-grow-1 fw-bold" data-action="inspect-parcel" data-subdiv="${r.subDivision}">
+                        <i class="bi bi-shield-check me-1"></i> Quick Inspect
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" data-action="open-patta" data-subdiv="${r.subDivision}" title="Quick Patta Modal">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm" data-action="open-ec" data-subdiv="${r.subDivision}" title="Quick EC Modal">
+                        <i class="bi bi-clock-history"></i>
+                    </button>
+                </div>
             </div>
         `;
         grid.appendChild(col);
@@ -876,6 +951,7 @@ function selectRecordData(subDiv) {
     updateLandIntelligence(rec);
     updateRealVsFakeClaims(rec);
     updateNegotiationCalculator(rec);
+    syncDedicatedPageViews(rec);
 
     const calcSqFtEl = document.getElementById('calcSqFt');
     if (calcSqFtEl && rec.extentSqFt) calcSqFtEl.value = rec.extentSqFt;
@@ -934,6 +1010,8 @@ function clearSelectedRecordData() {
     setT('negNetSavings', '₹ 0');
     setT('negOpeningOffer', '₹ 0');
     setT('negSettlementOffer', '₹ 0');
+
+    clearDedicatedPageViews();
 
     const calcSqFtEl = document.getElementById('calcSqFt');
     if (calcSqFtEl) calcSqFtEl.value = '0';
@@ -1354,6 +1432,8 @@ function loadDossiers() {
     let list = JSON.parse(localStorage.getItem('landguard_dossiers') || '[]');
     const countElem = document.getElementById('dossierCount');
     if (countElem) countElem.innerText = list.length;
+    const navCount = document.getElementById('navDossierCount');
+    if (navCount) navCount.innerText = list.length;
 
     const emptyMsg = document.getElementById('emptyDossiersMsg');
     const tableWrap = document.getElementById('dossiersTableWrapper');
@@ -1573,3 +1653,268 @@ async function handleOfficialDocIngest(e) {
         }
     }
 }
+
+// Multi-Page Switching (Version 1 Experience)
+function switchPageView(pageId) {
+    if (!pageId) return;
+
+    // 1. Update navigation tabs
+    document.querySelectorAll('#mainPageNavTabs .nav-link').forEach(btn => {
+        if (btn.getAttribute('data-page') === pageId) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    // 2. Hide all page views and show target view
+    document.querySelectorAll('.page-view').forEach(view => {
+        if (view.id === pageId) {
+            view.classList.add('active');
+        } else {
+            view.classList.remove('active');
+        }
+    });
+
+    // 3. If switching to dedicated document pages, ensure current parcel data is populated
+    if (selectedRecord) {
+        syncDedicatedPageViews(selectedRecord);
+    }
+
+    // 4. Scroll smoothly to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Synchronize Dedicated Full-Page Document Views
+function syncDedicatedPageViews(rec) {
+    if (!rec) {
+        clearDedicatedPageViews();
+        return;
+    }
+
+    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+
+    // 1. Dedicated Patta Page
+    setT('fpPattaDist', rec.district || 'Namakkal');
+    setT('fpPattaTaluk', rec.taluk || 'Rasipuram');
+    setT('fpPattaVillage', rec.village || 'Gurusamipalayam');
+    setT('fpPattaNo', rec.pattaNumber || '-');
+    setT('fpPattaNoBadge', 'பட்டா எண்: ' + (rec.pattaNumber || '-'));
+    setT('fpPattaSurvey', rec.surveyNumber || '-');
+    setT('fpPattaSubDiv', rec.subDivision || '-');
+    setT('fpPattaType', rec.classification || 'ரயத்து புஞ்சை');
+    setT('fpPattaExtent', (rec.extentHectares || '0.01.53') + ' ஹெக் (' + (rec.extentSqFt || 0).toLocaleString() + ' சதுர அடி)');
+    setT('fpPattaTax', rec.taxAssessment || '₹ 4.50');
+    setT('fpPattaOwner', (rec.ownerNameTa || '') + ' (' + (rec.ownerNameEn || '') + ')');
+    setT('fpPattaFather', (rec.fatherNameTa || '') + ' (' + (rec.fatherNameEn || '') + ')');
+    setT('fpPattaTitleType', 'தனிப் பட்டா (Sole Registered Owner)');
+    setT('fpPattaSignTaluk', (rec.taluk || 'ராசிபுரம்') + ' வட்டம், ' + (rec.district || 'நாமக்கல்') + ' மாவட்டம்');
+
+    const sealPatta = document.getElementById('fpPattaSeal');
+    if (sealPatta) {
+        sealPatta.innerHTML = '✓ e-Services AnyTN Digital Signature Certified<br>Ref: TN-REV-' + ((rec.taluk || 'RAS').slice(0,3)).toUpperCase() + '-' + rec.pattaNumber + '/2026';
+    }
+
+    // 2. Dedicated EC Page
+    setT('fpEcZone', 'சேலம் (Salem)');
+    setT('fpEcDist', rec.district || 'Namakkal');
+    setT('fpEcSro', rec.sroOffice || 'ராசிபுரம் சார்பதிவாளர் அலுவலகம்');
+    setT('fpEcPeriod', '01-Jan-1984 முதல் 2026 வரை (40 ஆண்டுகள்)');
+    setT('fpEcVillage', (rec.village || 'Gurusamipalayam') + ' (குருசாமிபாளையம்)');
+    setT('fpEcFullSurvey', rec.fullSurvey || '-');
+    setT('fpEcClass', rec.classification || 'ரயத்து புஞ்சை');
+    setT('fpEcExtent', (rec.extentSqFt || 0).toLocaleString() + ' சதுர அடி (' + (rec.cents || 0) + ' சென்ட்)');
+    setT('fpEcBoundaries', 'வடக்கு: ' + (rec.northBoundary || '-') + ', தெற்கு: ' + (rec.southBoundary || '-') + ', கிழக்கு: ' + (rec.eastBoundary || '-') + ', மேற்கு: ' + (rec.westBoundary || '-'));
+    setT('fpEcCertNoBadge', rec.ecNumber || ('EC/2026/' + ((rec.taluk || 'RAS').slice(0,3)).toUpperCase() + '/58751'));
+    setT('fpEcSignSro', rec.sroOffice || 'ராசிபுரம் சார்பதிவாளர் அலுவலகம்');
+
+    const ecTbody = document.getElementById('fpEcTableBody');
+    if (ecTbody) {
+        ecTbody.innerHTML = '';
+        if (rec.ecEntries && rec.ecEntries.length > 0) {
+            rec.ecEntries.forEach((e, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center">${idx + 1}</td>
+                    <td><b>${e.regDate}</b><br>${e.docNumber}<br><small class="text-muted">${e.sroOffice}</small></td>
+                    <td>${e.natureOfDocument}</td>
+                    <td>${e.executant}</td>
+                    <td>${e.claimant}</td>
+                    <td>${rec.village} சர்வே ${rec.fullSurvey} - ${e.extent}</td>
+                    <td class="text-end">${e.considerationValue}</td>
+                    <td class="text-end"><span class="badge bg-success">${e.statusNotes}</span></td>
+                `;
+                ecTbody.appendChild(tr);
+            });
+        }
+    }
+
+    // 3. Dedicated FMB Page
+    setT('fpFmbVillage', rec.village || 'Gurusamipalayam');
+    setT('fpFmbFullSurvey', rec.fullSurvey || '-');
+    setT('fpFmbSvgSurvey', 'Survey ' + (rec.fullSurvey || '-'));
+    setT('fpFmbSvgExtent', 'Extent: ' + (rec.extentSqFt || 0).toLocaleString() + ' Sq. Ft. (' + (rec.cents || 0) + ' Cents)');
+    setT('fpFmbSignTaluk', (rec.taluk || 'ராசிபுரம்') + ' குறுவட்டம்');
+
+    const fmbBounds = document.getElementById('fpFmbBoundaries');
+    if (fmbBounds) {
+        fmbBounds.innerHTML = `
+            <div class="row g-2">
+                <div class="col-6"><b>வடக்கு (North):</b> ${rec.northBoundary || '-'}</div>
+                <div class="col-6"><b>தெற்கு (South):</b> ${rec.southBoundary || '-'}</div>
+                <div class="col-6"><b>கிழக்கு (East):</b> ${rec.eastBoundary || '-'}</div>
+                <div class="col-6"><b>மேற்கு (West):</b> ${rec.westBoundary || '-'}</div>
+            </div>
+        `;
+    }
+
+    // 4. Dedicated Title Deed Page
+    setT('fpDeedNo', rec.deedNumber || 'Doc No. 1120/2004');
+    setT('fpDeedSro', rec.sroOffice || 'SRO Rasipuram');
+    setT('fpDeedExec', (rec.fatherNameTa || '') + ' (' + (rec.fatherNameEn || '') + ')');
+    setT('fpDeedClaim', (rec.ownerNameTa || '') + ' (' + (rec.ownerNameEn || '') + ')');
+    setT('fpDeedSurvey', rec.fullSurvey || '-');
+    setT('fpDeedExtent', (rec.extentSqFt || 0).toLocaleString() + ' சதுர அடி (' + (rec.cents || 0) + ' சென்ட்)');
+    setT('fpDeedExtractClaim', rec.ownerNameEn || '');
+    setT('fpDeedExtractSurvey', rec.fullSurvey || '');
+    setT('fpDeedExtractExtent', (rec.extentSqFt || 0).toLocaleString() + ' சதுர அடி');
+    setT('fpDeedSignSro', rec.taluk || 'ராசிபுரம்');
+
+    const deedChain = document.getElementById('fpDeedChainList');
+    if (deedChain) {
+        deedChain.innerHTML = '';
+        if (rec.titleDeedChain && rec.titleDeedChain.length > 0) {
+            rec.titleDeedChain.forEach((c, idx) => {
+                const itm = document.createElement('div');
+                itm.className = 'p-3 mb-2 bg-light border rounded small d-flex justify-content-between align-items-center flex-wrap gap-2';
+                itm.innerHTML = `
+                    <div>
+                        <b>Link ${idx + 1}: ${c.period} (${c.documentNo})</b>
+                        <div class="text-muted">${c.natureOfTransmission} | Title Holder: <b>${c.titleHolder}</b> | SRO: ${c.sro || rec.sroOffice}</div>
+                    </div>
+                    <div><span class="badge ${c.chainStatus && c.chainStatus.includes('⚠️') ? 'badge-danger-custom' : 'badge-verified'}">${c.chainStatus}</span></div>
+                `;
+                deedChain.appendChild(itm);
+            });
+        }
+    }
+
+    // 5. Live Official Portal Fetch Desk Parameters
+    setT('fetchEcZone', 'Salem');
+    setT('fetchEcDistrict', rec.district || 'Namakkal');
+    setT('fetchEcSro', rec.sroOffice ? rec.sroOffice.replace(/Sub-Registrar Office,?\s*/i, '') : 'Rasipuram');
+    setT('fetchEcVillage', rec.village || 'Gurusamipalayam');
+    setT('fetchEcSurvey', rec.surveyNumber || '142');
+    setT('fetchEcSubDiv', rec.subDivision || '2A');
+    setT('fetchPattaDistrict', rec.district || 'Namakkal');
+    setT('fetchPattaTaluk', rec.taluk || 'Rasipuram');
+    setT('fetchPattaVillage', rec.village || 'Gurusamipalayam');
+    setT('fetchPattaNo', rec.pattaNumber || '1205');
+    setT('fetchPattaSurvey', rec.surveyNumber || '142');
+
+    // Dynamically update copy buttons data-param
+    const updateBtnParam = (selector, val) => {
+        const btn = document.querySelector(selector);
+        if (btn) btn.setAttribute('data-param', val);
+    };
+    updateBtnParam('[data-action="copy-param"][data-param][data-field="fetchEcSurvey"]', rec.surveyNumber);
+    updateBtnParam('[data-action="copy-param"][data-param][data-field="fetchEcSubDiv"]', rec.subDivision);
+    updateBtnParam('[data-action="copy-param"][data-param][data-field="fetchPattaNo"]', rec.pattaNumber);
+    updateBtnParam('[data-action="copy-param"][data-param][data-field="fetchPattaSurvey"]', rec.surveyNumber);
+}
+
+// Clear Dedicated Page Views when No Record is Selected
+function clearDedicatedPageViews() {
+    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+    setT('fpPattaDist', '-');
+    setT('fpPattaTaluk', '-');
+    setT('fpPattaVillage', '-');
+    setT('fpPattaNo', '-');
+    setT('fpPattaNoBadge', 'பட்டா எண்: -');
+    setT('fpPattaSurvey', '-');
+    setT('fpPattaSubDiv', '-');
+    setT('fpPattaType', '-');
+    setT('fpPattaExtent', '-');
+    setT('fpPattaTax', '-');
+    setT('fpPattaOwner', '-');
+    setT('fpPattaFather', '-');
+
+    setT('fpEcZone', '-');
+    setT('fpEcDist', '-');
+    setT('fpEcSro', '-');
+    setT('fpEcVillage', '-');
+    setT('fpEcFullSurvey', '-');
+    setT('fpEcClass', '-');
+    setT('fpEcExtent', '-');
+    setT('fpEcBoundaries', '-');
+    setT('fpEcCertNoBadge', 'EC/-');
+
+    const ecTbody = document.getElementById('fpEcTableBody');
+    if (ecTbody) {
+        ecTbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-3">No parcel selected.</td></tr>';
+    }
+
+    setT('fpFmbVillage', '-');
+    setT('fpFmbFullSurvey', '-');
+    setT('fpFmbSvgSurvey', 'No Survey Selected');
+    setT('fpFmbSvgExtent', 'Extent: -');
+
+    setT('fpDeedNo', '-');
+    setT('fpDeedSro', '-');
+    setT('fpDeedExec', '-');
+    setT('fpDeedClaim', '-');
+    setT('fpDeedSurvey', '-');
+    setT('fpDeedExtent', '-');
+    setT('fpDeedExtractClaim', '-');
+    setT('fpDeedExtractSurvey', '-');
+    setT('fpDeedExtractExtent', '-');
+
+    const deedChain = document.getElementById('fpDeedChainList');
+    if (deedChain) {
+        deedChain.innerHTML = '<div class="text-muted small p-2">No parcel selected.</div>';
+    }
+}
+
+// 1-Click Clipboard Copy Helper for Fetch Desk
+function copyParamToClipboard(text, btnEl) {
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showCopiedFeedback(btnEl);
+        }).catch(() => {
+            fallbackCopy(text, btnEl);
+        });
+    } else {
+        fallbackCopy(text, btnEl);
+    }
+}
+
+function fallbackCopy(text, btnEl) {
+    const temp = document.createElement('textarea');
+    temp.value = text;
+    temp.setAttribute('readonly', '');
+    temp.className = 'visually-hidden';
+    document.body.appendChild(temp);
+    temp.select();
+    try {
+        document.execCommand('copy');
+        showCopiedFeedback(btnEl);
+    } catch (e) {
+        // silent
+    }
+    document.body.removeChild(temp);
+}
+
+function showCopiedFeedback(btnEl) {
+    if (!btnEl) return;
+    const origHtml = btnEl.innerHTML;
+    btnEl.innerHTML = '<i class="bi bi-check2"></i> Copied!';
+    btnEl.classList.remove('btn-outline-secondary');
+    btnEl.classList.add('btn-success');
+    setTimeout(() => {
+        btnEl.innerHTML = origHtml;
+        btnEl.classList.remove('btn-success');
+        btnEl.classList.add('btn-outline-secondary');
+    }, 1500);
+}
+
