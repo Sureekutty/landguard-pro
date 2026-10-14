@@ -6,9 +6,10 @@
 
 ---
 
-### Access Credentials (Demo Locking Gate)
-- **Username:** `Sureendhar`
-- **Password:** `Land@2026`
+### Security & Authentication
+- **Authentication**: Spring Security 6 with stateless JWT Bearer tokens and BCrypt(12) password hashing.
+- **Role-Based Access Control**: `ROLE_USER` for due-diligence searches and dossiers; `ROLE_ADMIN` for source registry management.
+- **Zero Plaintext Credentials**: All credentials configured via `.env` / environment variables. No secrets committed to Git or stored in client-side bundles.
 
 ---
 

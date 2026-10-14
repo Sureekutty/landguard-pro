@@ -52,12 +52,12 @@ LandGuard Pro is a specialized real estate due diligence platform engineered for
 
 When launching the platform, an encrypted access gate protects the proprietary due diligence database.
 
-| Field | Value | Notes |
+| Field | Configuration | Notes |
 | :--- | :--- | :--- |
-| **Username / ID** | `Sureendhar` | Primary authorized administrator |
-| **Password** | `Land@2026` | Case-sensitive secure password |
-| **Remember Session** | Checked by default | Keeps your browser logged in on that phone/PC |
-| **Family & Parents Access** | Click **"⚡ Family & Parents 1-Click Access"** | Instant 1-click access without retyping passwords on family phones |
+| **Username / ID** | Configured via Admin Bootstrap or User Registration | Authorized user account |
+| **Password** | Configured in `.env` / BCrypt Hashed | Secure BCrypt(12) hashed credential |
+| **Remember Session** | Checked by default | Keeps JWT session active in browser |
+| **Guest / Read-Only Access** | Click **"⚡ 1-Click Guest Access"** | Read-only due-diligence review |
 
 To lock the session or switch accounts, click the **"Logout / Lock"** button located on the top right navigation bar.
 
@@ -65,21 +65,22 @@ To lock the session or switch accounts, click the **"Logout / Lock"** button loc
 
 ## 3. Step 1: Universal Land Parcel Search Engine
 
-The search engine features a **Universal Real-Name Land Engine** that eliminates hardcoded restrictions and allows searching across Tamil Nadu.
+The search engine queries official Tamil Nadu government source registries (AnyTN e-Services, TNREGINET, DTCP) and pre-indexed cadastral holdings with complete data honesty:
 
-### Search by Any Real Owner Name
+### Search by Owner Name
 1. Click the tab: **"1. Search by Any Owner Name"**.
-2. Type **ANY real person's name** in the search field (e.g., `Ramesh`, `Senthil`, `Palanisamy`, `Sureendhar`, `Kavitha`, `Murugan`, `Dinesh Kumar`, `Selvam`, `Natarajan`, etc.) in English or Tamil.
+2. Type a landholder name in the search field (e.g., `Kandasamy`, `Periyasamy`, `Sureendhar`, `Gurusamy`) in English or Tamil.
 3. Click **"Search"** or press **Enter**.
 4. The system will:
-   - Match existing pre-indexed parcels for that name if already in the cadastre, **OR**
-   - Automatically generate the authentic Tamil Nadu revenue record with that exact person as the registered owner, complete with father's name, Patta passbook, registered settlement deed, Form 15 EC entries, and FMB measurements!
+   - Match existing records for that name in the verified database or connected government portal.
+   - If no record exists, display: *"No matching record returned by the selected source."*
+   - Sample or mock records are prominently labeled: `DEMO DATA — NOT AN OFFICIAL RECORD`.
 
 ### Search by Survey Number
 1. Click the tab: **"2. Search by Survey Number"**.
-2. Enter any survey number (e.g., `142`, `143`, `146`, `148`, `204`, etc.).
+2. Enter any survey number (e.g., `142`, `143`, `146`).
 3. Click **"Search"**.
-4. The engine retrieves or generates all sub-divisions (e.g., `142/1`, `142/2A`, `142/2B`, `142/3`, `142/4`) with their respective owners, road frontages, and extents.
+4. The engine retrieves all registered sub-divisions (e.g., `142/1`, `142/2A`, `142/2B`) with their respective registered owners, road frontages, and extents.
 
 ### Search by Patta Number
 1. Click the tab: **"3. Search by Patta Number"**.

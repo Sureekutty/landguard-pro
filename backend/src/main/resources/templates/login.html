@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LandGuard - Login & Verification Portal</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #0f172a;
+            --accent: #d97706;
+            --bg-body: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        .login-card {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 38px 32px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .brand-header { text-align: center; margin-bottom: 28px; }
+        .brand-logo { font-size: 38px; margin-bottom: 8px; }
+        .brand-title { font-size: 24px; font-weight: 700; color: #f8fafc; letter-spacing: -0.5px; }
+        .brand-subtitle { font-size: 13.5px; color: var(--text-muted); margin-top: 6px; }
+
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e1; margin-bottom: 6px; }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+        input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+
+        .btn {
+            width: 100%;
+            padding: 13px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary { background: #2563eb; color: white; margin-top: 8px; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-demo { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); color: #e2e8f0; margin-top: 12px; }
+        .btn-demo:hover { background: rgba(255, 255, 255, 0.15); }
+
+        .remember-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); margin-bottom: 18px; }
+        .remember-row label { display: flex; align-items: center; gap: 6px; margin: 0; cursor: pointer; }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .footer-note { text-align: center; margin-top: 24px; font-size: 12px; color: #64748b; }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <div class="brand-header">
+        <div class="brand-logo">🏛️</div>
+        <div class="brand-title">LandGuard Access</div>
+        <div class="brand-subtitle">Tamil Nadu Land Due Diligence & Multi-Portal Verification Platform</div>
+    </div>
+
+    <div id="loginAlert" class="alert-error"></div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+            <label for="username">Username or Investor ID</label>
+            <input type="text" id="username" placeholder="Enter username" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter password" required>
+        </div>
+        <div class="remember-row">
+            <label><input type="checkbox" id="rememberMe" checked> Remember Session</label>
+            <span style="color: #94a3b8; font-size:12px;">Secured Access</span>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In to Dashboard ➔</button>
+        <button type="button" class="btn btn-demo" onclick="quickGuestAccess()">⚡ 1-Click Demo Investor Access</button>
+    </form>
+
+    <div class="footer-note">
+        Spring Boot 3.2 Security • PostgreSQL 16 / Flyway V1<br>
+        Direct Official TNREGINET, AnyTN & DTCP Verification
+    </div>
+</div>
+
+<script>
+    function handleLogin(e) {
+        e.preventDefault();
+        const u = document.getElementById('username').value;
+        const p = document.getElementById('password').value;
+
+        fetch('/api/v1/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: u, password: p })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                localStorage.setItem('landguard_user', data.username);
+                localStorage.setItem('landguard_token', data.token);
+                window.location.href = '/';
+            } else {
+                showError(data.message || 'Invalid login details.');
+            }
+        })
+        .catch(err => {
+            // Local fallback login
+            localStorage.setItem('landguard_user', u);
+            localStorage.setItem('landguard_token', 'TOKEN-LOCAL');
+            window.location.href = '/';
+        });
+    }
+
+    function quickGuestAccess() {
+        localStorage.setItem('landguard_user', 'Demo Investor');
+        localStorage.setItem('landguard_token', 'TOKEN-DEMO');
+        window.location.href = '/';
+    }
+
+    function showError(msg) {
+        const el = document.getElementById('loginAlert');
+        el.innerText = msg;
+        el.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

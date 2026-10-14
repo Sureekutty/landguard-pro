@@ -1,0 +1,47 @@
+name: LandGuard Pro CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  frontend-tests:
+    name: Frontend Link Guard & CSP Compliance Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Node.js Test Suite
+        run: node --test
+
+      - name: Audit External Portal Links
+        run: node check-links.js
+
+  backend-tests:
+    name: Spring Boot 3.2 Java 21 Backend Test Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 (Eclipse Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Make Maven Wrapper Executable
+        run: chmod +x backend/mvnw
+
+      - name: Build and Run Automated Tests
+        working-directory: ./backend
+        run: ./mvnw clean test -B

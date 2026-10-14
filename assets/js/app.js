@@ -12,34 +12,73 @@ function checkAuth() {
     }
 }
 
-function handleAuthLogin(e) {
+async function handleAuthLogin(e) {
     e.preventDefault();
     const u = (document.getElementById('authUsername').value || '').trim();
     const p = (document.getElementById('authPassword').value || '').trim();
+    const alertEl = document.getElementById('loginAlert');
 
-    if (u === 'Sureendhar' && p === 'Land@2026') {
-        localStorage.setItem('landguard_auth_user', 'Sureendhar');
-        const overlay = document.getElementById('loginOverlay');
-        if (overlay) overlay.classList.add('d-none');
-        const badge = document.getElementById('userBadge');
-        if (badge) badge.innerText = 'Sureendhar';
-        const alertEl = document.getElementById('loginAlert');
-        if (alertEl) alertEl.classList.add('d-none');
-    } else {
-        const alertEl = document.getElementById('loginAlert');
+    if (!u || !p) {
         if (alertEl) {
-            alertEl.innerText = '❌ Invalid Credentials. Username must be "Sureendhar" and Password "Land@2026".';
+            alertEl.innerText = '❌ Please enter both username and password.';
+            alertEl.classList.remove('d-none');
+        }
+        return;
+    }
+
+    try {
+        const apiUrl = window.LANDGUARD_API_URL || 
+            (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+                ? 'http://localhost:8080/api/v1' 
+                : '/api/v1');
+
+        const res = await fetch(`${apiUrl}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: u, password: p })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            sessionStorage.setItem('landguard_jwt_token', data.token);
+            localStorage.setItem('landguard_auth_user', data.username);
+            const overlay = document.getElementById('loginOverlay');
+            if (overlay) overlay.classList.add('d-none');
+            const badge = document.getElementById('userBadge');
+            if (badge) badge.innerText = data.username + ' (' + (data.role || 'USER') + ')';
+            if (alertEl) alertEl.classList.add('d-none');
+        } else {
+            const errData = await res.json().catch(() => ({}));
+            if (alertEl) {
+                alertEl.innerText = '❌ ' + (errData.message || 'Invalid username or password.');
+                alertEl.classList.remove('d-none');
+            }
+        }
+    } catch (netErr) {
+        // Fallback for static GitHub Pages offline preview
+        console.warn('Backend server not reachable. Fallback to local session mode.');
+        if (u === 'admin' || u === 'Sureendhar') {
+            localStorage.setItem('landguard_auth_user', u + ' (Offline Dev)');
+            const overlay = document.getElementById('loginOverlay');
+            if (overlay) overlay.classList.add('d-none');
+            const badge = document.getElementById('userBadge');
+            if (badge) badge.innerText = u + ' (Offline Dev)';
+            if (alertEl) alertEl.classList.add('d-none');
+            return;
+        }
+        if (alertEl) {
+            alertEl.innerText = '❌ Authentication server unavailable. Please check backend connection.';
             alertEl.classList.remove('d-none');
         }
     }
 }
 
 function quickParentLogin() {
-    localStorage.setItem('landguard_auth_user', 'Sureendhar (Family Access)');
+    localStorage.setItem('landguard_auth_user', 'Guest User (Read-Only)');
     const overlay = document.getElementById('loginOverlay');
     if (overlay) overlay.classList.add('d-none');
     const badge = document.getElementById('userBadge');
-    if (badge) badge.innerText = 'Sureendhar (Family Access)';
+    if (badge) badge.innerText = 'Guest User (Read-Only)';
 }
 
 function logoutSession() {
@@ -632,78 +671,73 @@ async function runSearch() {
     const village = villageEl ? villageEl.value : 'Gurusamipalayam';
     const query = queryEl ? (queryEl.value || '').trim() : '';
 
-    // Backend API Attempt
+    const apiUrl = window.LANDGUARD_API_URL || 
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:8080/api/v1' 
+            : '/api/v1');
+
+    // Backend API Attempt (Spring Boot REST)
     try {
-        const url = '/api/search-parcels?district=' + encodeURIComponent(dist) +
-                    '&taluk=' + encodeURIComponent(taluk) +
-                    '&village=' + encodeURIComponent(village) +
-                    '&searchMode=' + encodeURIComponent(currentSearchMode) +
-                    '&query=' + encodeURIComponent(query);
-        const res = await fetch(url);
+        let url = `${apiUrl}/properties/search?district=${encodeURIComponent(dist)}&taluk=${encodeURIComponent(taluk)}&village=${encodeURIComponent(village)}&includeDemo=true`;
+        if (currentSearchMode === 'NAME' && query) {
+            url += `&ownerName=${encodeURIComponent(query)}`;
+        } else if (currentSearchMode === 'SURVEY' && query) {
+            url += `&surveyNumber=${encodeURIComponent(query)}`;
+        } else if (currentSearchMode === 'PATTA' && query) {
+            url += `&pattaNumber=${encodeURIComponent(query)}`;
+        }
+
+        const token = sessionStorage.getItem('landguard_jwt_token');
+        const headers = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res = await fetch(url, { headers });
         if (res.ok) {
             const data = await res.json();
-            if (data && data.length > 0) {
+            if (Array.isArray(data)) {
                 allParcels = data;
                 sortAndRender();
                 renderComparisonTable(data);
-                selectRecordData(data[0].subDivision);
+                if (data.length > 0) {
+                    selectRecordData(data[0].subDivision);
+                }
                 return;
             }
         }
     } catch (err) {
-        // Standalone / client mode active
+        // Backend offline / GitHub Pages standalone fallback
     }
 
-    // High Availability Universal Client Engine
+    // High Availability Standalone Client Engine (Authentic Pre-Indexed Records)
     let list = [];
     const q = query.toLowerCase();
 
     if (!q || currentSearchMode === 'ALL') {
-        // Browse entire village holdings
-        list = [...masterParcels];
+        // Browse entire village holdings (explicitly tagged as demo/pre-indexed)
+        list = masterParcels.map(p => ({ ...p, isSynthetic: true }));
     } else if (currentSearchMode === 'NAME') {
-        // Search by real owner name across English and Tamil
-        list = masterParcels.filter(p =>
-            (p.ownerNameEn && p.ownerNameEn.toLowerCase().includes(q)) ||
-            (p.ownerNameTa && p.ownerNameTa.toLowerCase().includes(q)) ||
-            (p.fatherNameEn && p.fatherNameEn.toLowerCase().includes(q))
-        );
-        // If not found in pre-indexed database, DYNAMICALLY CONSTRUCT FOR THAT REAL NAME!
-        if (list.length === 0 && q.length > 0) {
-            const dynamicRec = generateDynamicRecordForName(query, dist, taluk, village);
-            list = [dynamicRec];
-        }
+        list = masterParcels
+            .filter(p =>
+                (p.ownerNameEn && p.ownerNameEn.toLowerCase().includes(q)) ||
+                (p.ownerNameTa && p.ownerNameTa.toLowerCase().includes(q)) ||
+                (p.fatherNameEn && p.fatherNameEn.toLowerCase().includes(q))
+            )
+            .map(p => ({ ...p, isSynthetic: true }));
     } else if (currentSearchMode === 'SURVEY') {
-        // Search by Survey Number
-        list = masterParcels.filter(p =>
-            (p.surveyNumber && p.surveyNumber === q) ||
-            (p.fullSurvey && p.fullSurvey.toLowerCase().includes(q))
-        );
-        if (list.length === 0 && q.length > 0) {
-            const cleanSurvey = query.replace(/[^0-9/]/g, '') || query;
-            const dyn1 = generateDynamicRecordForName("Pattadhar 1 (Survey " + cleanSurvey + ")", dist, taluk, village);
-            dyn1.surveyNumber = cleanSurvey;
-            dyn1.subDivision = "1";
-            dyn1.fullSurvey = cleanSurvey + "/1";
-
-            const dyn2 = generateDynamicRecordForName("Pattadhar 2 (Survey " + cleanSurvey + ")", dist, taluk, village);
-            dyn2.surveyNumber = cleanSurvey;
-            dyn2.subDivision = "2A";
-            dyn2.fullSurvey = cleanSurvey + "/2A";
-
-            list = [dyn1, dyn2];
-        }
+        list = masterParcels
+            .filter(p =>
+                (p.surveyNumber && p.surveyNumber === q) ||
+                (p.fullSurvey && p.fullSurvey.toLowerCase().includes(q))
+            )
+            .map(p => ({ ...p, isSynthetic: true }));
     } else if (currentSearchMode === 'PATTA') {
-        // Search by Patta Number
-        list = masterParcels.filter(p => p.pattaNumber && p.pattaNumber.includes(q));
-        if (list.length === 0 && q.length > 0) {
-            const dyn = generateDynamicRecordForName("Pattadhar #" + query, dist, taluk, village);
-            dyn.pattaNumber = query;
-            list = [dyn];
-        }
+        list = masterParcels
+            .filter(p => p.pattaNumber && p.pattaNumber.includes(q))
+            .map(p => ({ ...p, isSynthetic: true }));
     }
 
-    allParcels = list.length > 0 ? list : masterParcels;
+    // Zero Fabrication: If no record exists, never invent a fake government record.
+    allParcels = list;
     sortAndRender();
     renderComparisonTable(allParcels);
     if (allParcels.length > 0) {
@@ -758,15 +792,23 @@ function renderParcelsGrid(records) {
     if (badge) badge.innerText = records.length + ' Parcels Found';
 
     if (records.length === 0) {
-        grid.innerHTML = '<div class="col-12 text-center py-4 text-muted"><i class="bi bi-search fs-2"></i><p class="mt-2 mb-0">No matching parcels found for your search criteria.</p></div>';
+        grid.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-shield-exclamation text-warning" style="font-size: 3rem;"></i>
+                <h5 class="fw-bold mt-3 text-dark">No matching record returned by the selected source.</h5>
+                <p class="text-muted small mb-0">Verify the Survey Number, Patta Number, or Owner Name against official Tamil Nadu revenue registers.</p>
+            </div>
+        `;
         return;
     }
 
     records.forEach(r => {
+        const isDemo = r.isSynthetic || r.sourceType === 'DEMO' || !r.sourceRegistryCode;
         const col = document.createElement('div');
         col.className = 'col-md-6 col-lg-6 col-xl-3';
         col.innerHTML = `
             <div class="owner-card ${selectedRecord && selectedRecord.fullSurvey === r.fullSurvey ? 'active' : ''}" id="card-${r.subDivision}" data-action="select-record" data-subdiv="${r.subDivision}">
+                ${isDemo ? '<div class="badge bg-warning text-dark w-100 mb-2 py-1"><i class="bi bi-exclamation-diamond me-1"></i>DEMO DATA — NOT AN OFFICIAL RECORD</div>' : '<div class="badge bg-success-subtle text-success border border-success-subtle w-100 mb-2 py-1"><i class="bi bi-shield-check me-1"></i>Official Source: ' + (r.sourceRegistryCode || 'AnyTN') + '</div>'}
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
                         <span class="badge bg-primary me-1">${r.fullSurvey}</span>

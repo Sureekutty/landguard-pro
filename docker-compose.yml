@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: landguard-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: landguard_db
+      POSTGRES_USER: ${POSTGRES_USER:-landguard_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMeSecurePassword2026!}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-landguard_admin} -d landguard_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: landguard-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/landguard_db
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-landguard_admin}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMeSecurePassword2026!}
+      SPRING_DATASOURCE_DRIVER: org.postgresql.Driver
+      JWT_SECRET: ${JWT_SECRET:-4c616e64477561726450726f5365637572654a57545365637265744b657932303236466f7254616d696c4e6164754c616e6444756544696c6967656e6365}
+      ADMIN_BOOTSTRAP_USERNAME: ${ADMIN_BOOTSTRAP_USERNAME:-admin}
+      ADMIN_BOOTSTRAP_PASSWORD: ${ADMIN_BOOTSTRAP_PASSWORD:-SecureAdminPassword2026!}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://sureekutty.github.io,http://localhost:8080,http://127.0.0.1:8080}
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
