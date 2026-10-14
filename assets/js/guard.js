@@ -203,6 +203,156 @@
   }
 
   /**
+   * Render all approved official links into a target DOM container.
+   * @param {HTMLElement|string} targetContainer - element or element id
+   * @param {object} [options]
+   */
+  function renderPortalLinksContainer(targetContainer, options) {
+    const el = typeof targetContainer === 'string' ? document.getElementById(targetContainer) : targetContainer;
+    if (!el) return;
+    el.innerHTML = ''; // safe clear before DOM API appends
+
+    const links = (linksModule && linksModule.getAllLinks) ? linksModule.getAllLinks() : [];
+    links.forEach(link => {
+      const linkEl = renderSafeLink(link, options);
+      el.appendChild(linkEl);
+    });
+  }
+
+  /**
+   * Renders the "Quick Copy Official Details" helper panel (Task 4).
+   * 
+   * NEVER appends personal or land parameters to outbound URLs.
+   * Instead, displays fields with individual "Copy" buttons so users can
+   * paste their verified parcel parameters into the official portals safely.
+   * 
+   * @param {HTMLElement|string} targetContainer
+   * @param {object} parcelData - { district, taluk, village, surveyNumber, pattaNumber, ownerName }
+   */
+  function renderCopyHelper(targetContainer, parcelData) {
+    const el = typeof targetContainer === 'string' ? document.getElementById(targetContainer) : targetContainer;
+    if (!el) return;
+    el.innerHTML = '';
+
+    const data = parcelData || {};
+    const fields = [
+      { id: 'district', labelEn: 'District', labelTa: 'மாவட்டம்', value: data.district || 'Namakkal' },
+      { id: 'taluk', labelEn: 'Taluk', labelTa: 'வட்டம்', value: data.taluk || 'Rasipuram' },
+      { id: 'village', labelEn: 'Village', labelTa: 'கிராமம்', value: data.village || 'Gurusamipalayam' },
+      { id: 'survey', labelEn: 'Survey / Sub-Division No.', labelTa: 'புல எண் / உட்பிரிவு', value: data.surveyNumber || data.subDivision || data.fullSurvey || '142/3B' },
+      { id: 'patta', labelEn: 'Patta Number', labelTa: 'பட்டா எண்', value: data.pattaNumber ? String(data.pattaNumber) : '1042' },
+      { id: 'owner', labelEn: 'Owner Name (as reported)', labelTa: 'உரிமையாளர் பெயர்', value: data.ownerName || 'Sureendhar' }
+    ];
+
+    const card = document.createElement('div');
+    card.className = 'card border-primary-subtle shadow-sm mb-3';
+
+    // Header
+    const cardHeader = document.createElement('div');
+    cardHeader.className = 'card-header bg-primary-subtle text-primary-emphasis d-flex align-items-center justify-content-between py-2';
+
+    const headerTitle = document.createElement('div');
+    headerTitle.className = 'fw-bold d-flex align-items-center';
+    const icon = document.createElement('i');
+    icon.className = 'bi bi-clipboard2-check me-2 fs-5 text-primary';
+    headerTitle.appendChild(icon);
+    headerTitle.appendChild(document.createTextNode('Official Portal Fill Helper (No Outbound Data Sent)'));
+    cardHeader.appendChild(headerTitle);
+
+    const badge = document.createElement('span');
+    badge.className = 'badge bg-light text-dark border';
+    badge.textContent = 'Privacy Guard Active';
+    cardHeader.appendChild(badge);
+    card.appendChild(cardHeader);
+
+    // Body
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body p-3';
+
+    const infoP = document.createElement('p');
+    infoP.className = 'small text-muted mb-3';
+    infoP.textContent = 'To protect your privacy, outbound official links never carry your survey number, owner name, or location. Use the Copy buttons below to paste values directly into the official government forms.';
+    cardBody.appendChild(infoP);
+
+    const row = document.createElement('div');
+    row.className = 'row g-2';
+
+    fields.forEach(field => {
+      const col = document.createElement('div');
+      col.className = 'col-md-6 col-lg-4';
+
+      const fieldBox = document.createElement('div');
+      fieldBox.className = 'p-2 border rounded bg-light d-flex flex-column justify-content-between h-100';
+
+      const labelDiv = document.createElement('div');
+      labelDiv.className = 'small text-muted mb-1';
+      labelDiv.textContent = `${field.labelEn} (${field.labelTa})`;
+      fieldBox.appendChild(labelDiv);
+
+      const valDiv = document.createElement('div');
+      valDiv.className = 'fw-bold text-dark text-truncate mb-2';
+      valDiv.textContent = field.value;
+      fieldBox.appendChild(valDiv);
+
+      const copyBtn = document.createElement('button');
+      copyBtn.type = 'button';
+      copyBtn.className = 'btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center gap-1 w-100';
+      
+      const copyIcon = document.createElement('i');
+      copyIcon.className = 'bi bi-clipboard';
+      copyBtn.appendChild(copyIcon);
+      const btnText = document.createTextNode(' Copy');
+      copyBtn.appendChild(btnText);
+
+      // Clipboard copy handler with fallback
+      copyBtn.addEventListener('click', () => {
+        copyToClipboard(field.value, copyBtn, btnText, copyIcon);
+      });
+
+      fieldBox.appendChild(copyBtn);
+      col.appendChild(fieldBox);
+      row.appendChild(col);
+    });
+
+    cardBody.appendChild(row);
+    card.appendChild(cardBody);
+    el.appendChild(card);
+  }
+
+  function copyToClipboard(text, btnElement, btnTextNode, iconElement) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(showSuccess).catch(fallback);
+    } else {
+      fallback();
+    }
+
+    function showSuccess() {
+      btnElement.className = 'btn btn-success btn-sm d-flex align-items-center justify-content-center gap-1 w-100';
+      iconElement.className = 'bi bi-check-lg';
+      btnTextNode.nodeValue = ' Copied!';
+      setTimeout(() => {
+        btnElement.className = 'btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center gap-1 w-100';
+        iconElement.className = 'bi bi-clipboard';
+        btnTextNode.nodeValue = ' Copy';
+      }, 2000);
+    }
+
+    function fallback() {
+      const tempInp = document.createElement('input');
+      tempInp.value = text;
+      document.body.appendChild(tempInp);
+      tempInp.select();
+      try {
+        document.execCommand('copy');
+        showSuccess();
+      } catch (e) {
+        btnTextNode.nodeValue = ' Error';
+      }
+      document.body.removeChild(tempInp);
+    }
+  }
+
+  /**
    * Helper to construct a visible "Link blocked: failed safety check" DOM alert.
    */
   function renderBlockedMessage(container, reason) {
@@ -234,6 +384,8 @@
   return {
     validateGovernmentUrl,
     renderSafeLink,
+    renderPortalLinksContainer,
+    renderCopyHelper,
     renderBlockedMessage,
     APPROVED_HOSTNAMES
   };
