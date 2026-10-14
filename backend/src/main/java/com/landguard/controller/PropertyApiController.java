@@ -1,6 +1,7 @@
 package com.landguard.controller;
 
 import com.landguard.dto.property.ComparisonReportDto;
+import com.landguard.dto.property.DocumentIngestionResponse;
 import com.landguard.dto.property.PropertySearchRequest;
 import com.landguard.dto.property.PropertySearchResponse;
 import com.landguard.entity.RetrievedPropertyRecord;
@@ -139,6 +140,24 @@ public class PropertyApiController {
             @RequestParam(value = "surveyNo", required = false) String surveyNo,
             @RequestParam(value = "ownerName", required = false) String ownerName) {
         VerificationResult result = pdfVerificationService.verifyDocument(file, surveyNo, ownerName);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/ingest-document")
+    public ResponseEntity<DocumentIngestionResponse> ingestDocument(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "district", required = false) String district,
+            @RequestParam(value = "taluk", required = false) String taluk,
+            @RequestParam(value = "village", required = false) String village,
+            @RequestParam(value = "surveyNo", required = false) String surveyNo,
+            @RequestParam(value = "subdivision", required = false) String subdivision,
+            @RequestParam(value = "pattaNo", required = false) String pattaNo,
+            @RequestParam(value = "ownerName", required = false) String ownerName) {
+        DocumentIngestionResponse result = pdfVerificationService.ingestOfficialDocument(
+                file, district, taluk, village, surveyNo, subdivision, pattaNo, ownerName);
+        if (!result.isSuccess()) {
+            return ResponseEntity.badRequest().body(result);
+        }
         return ResponseEntity.ok(result);
     }
 
