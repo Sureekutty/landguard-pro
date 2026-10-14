@@ -3,12 +3,15 @@ package com.landguard;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.landguard.dto.property.PropertySearchRequest;
 import com.landguard.dto.property.PropertySearchResponse;
+import com.landguard.entity.RetrievedPropertyRecord;
 import com.landguard.service.PropertySearchService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,6 +75,7 @@ public class PropertySearchEngineTest {
         req.setVillage("Gurusamipalayam");
         req.setSurveyNumber("142");
         req.setIncludeDemoData(true);
+        req.setTargetSources(List.of("demo-data"));
 
         PropertySearchResponse resp = searchService.search(req, "testuser");
 
@@ -95,6 +99,7 @@ public class PropertySearchEngineTest {
         PropertySearchResponse resp = searchService.search(req, "testuser");
 
         assertNotNull(resp);
-        assertTrue(resp.getRecords().isEmpty(), "Official search must not return demo data when demo mode is disabled");
+        assertFalse(resp.getRecords().isEmpty(), "Official search returns verified government master records");
+        assertTrue(resp.getRecords().stream().noneMatch(RetrievedPropertyRecord::isDemoData), "Official search must not return demo data when demo mode is disabled");
     }
 }
