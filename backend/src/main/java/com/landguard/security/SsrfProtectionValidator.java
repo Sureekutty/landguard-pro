@@ -20,7 +20,9 @@ public class SsrfProtectionValidator {
             "tnreginet.gov.in",
             "onlineppa.tn.gov.in",
             "tnglms.in",
-            "services.ecourts.gov.in"
+            "services.ecourts.gov.in",
+            "apisetu.gov.in",
+            "tnega.tn.gov.in"
     );
 
     public static class ValidationResult {
