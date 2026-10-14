@@ -677,7 +677,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!target) return;
 
         const action = target.getAttribute('data-action');
-        const subdiv = target.getAttribute('data-subdiv');
+        const subdiv = target.getAttribute('data-survey') || target.getAttribute('data-subdiv');
         const idx = target.getAttribute('data-index');
 
         if (action === 'switch-page') {
@@ -859,9 +859,9 @@ function sortAndRender() {
     if (list.length > 0) {
         const stillInList = selectedRecord && list.find(p => p.fullSurvey === selectedRecord.fullSurvey);
         if (stillInList) {
-            selectRecordData(stillInList.subDivision);
+            selectRecordData(stillInList.fullSurvey);
         } else {
-            selectRecordData(list[0].subDivision);
+            selectRecordData(list[0].fullSurvey);
         }
     } else {
         clearSelectedRecordData();
@@ -905,10 +905,11 @@ function renderParcelsGrid(records) {
 
     records.forEach(r => {
         const isSample = r.isSample === true || r.sourceType === 'SAMPLE_BENCHMARK';
+        const safeKey = r.fullSurvey.replace(/[^a-zA-Z0-9]/g, '_');
         const col = document.createElement('div');
         col.className = 'col-md-6 col-lg-6 col-xl-3';
         col.innerHTML = `
-            <div class="owner-card ${selectedRecord && selectedRecord.fullSurvey === r.fullSurvey ? 'active' : ''}" id="card-${r.subDivision}" data-action="select-record" data-subdiv="${r.subDivision}">
+            <div class="owner-card ${selectedRecord && selectedRecord.fullSurvey === r.fullSurvey ? 'active' : ''}" id="card-${safeKey}" data-action="select-record" data-survey="${r.fullSurvey}" data-subdiv="${r.fullSurvey}">
                 ${isSample
                     ? '<div class="badge bg-info-subtle text-info-emphasis border border-info-subtle w-100 mb-2 py-1"><i class="bi bi-info-circle me-1"></i>Reference Benchmark: Sample Holding for Explanation</div>'
                     : '<div class="badge bg-success-subtle text-success border border-success-subtle w-100 mb-2 py-1"><i class="bi bi-shield-check me-1"></i>Official Source: ' + (r.sourceRegistryCode || 'AnyTN Revenue Registry') + ' | Gazette Verified</div>'}
@@ -938,29 +939,29 @@ function renderParcelsGrid(records) {
 
                 <!-- Dedicated Full Page Document Viewers -->
                 <div class="d-flex gap-1 flex-wrap mt-2">
-                    <button class="btn btn-outline-primary card-pill-btn" data-action="view-page-patta" data-subdiv="${r.subDivision}" title="Open Full Dedicated Patta Pass Book Page">
+                    <button class="btn btn-outline-primary card-pill-btn" data-action="view-page-patta" data-survey="${r.fullSurvey}" data-subdiv="${r.fullSurvey}" title="Open Full Dedicated Patta Pass Book Page">
                         <i class="bi bi-file-earmark-text"></i> Patta Page
                     </button>
-                    <button class="btn btn-outline-danger card-pill-btn" data-action="view-page-ec" data-subdiv="${r.subDivision}" title="Open Full Dedicated 30-Year EC Page">
+                    <button class="btn btn-outline-danger card-pill-btn" data-action="view-page-ec" data-survey="${r.fullSurvey}" data-subdiv="${r.fullSurvey}" title="Open Full Dedicated 30-Year EC Page">
                         <i class="bi bi-file-earmark-pdf"></i> EC Page
                     </button>
-                    <button class="btn btn-outline-success card-pill-btn" data-action="view-page-fmb" data-subdiv="${r.subDivision}" title="Open Full Dedicated FMB Sketch Page">
+                    <button class="btn btn-outline-success card-pill-btn" data-action="view-page-fmb" data-survey="${r.fullSurvey}" data-subdiv="${r.fullSurvey}" title="Open Full Dedicated FMB Sketch Page">
                         <i class="bi bi-map"></i> FMB Page
                     </button>
-                    <button class="btn btn-outline-info text-dark card-pill-btn" data-action="view-page-deed" data-subdiv="${r.subDivision}" title="Open Full Dedicated Title Deed Page">
+                    <button class="btn btn-outline-info text-dark card-pill-btn" data-action="view-page-deed" data-survey="${r.fullSurvey}" data-subdiv="${r.fullSurvey}" title="Open Full Dedicated Title Deed Page">
                         <i class="bi bi-file-earmark-lock"></i> Deed Page
                     </button>
                 </div>
 
                 <!-- Modal Inspection Buttons -->
                 <div class="d-flex gap-1 mt-2">
-                    <button class="btn btn-primary btn-sm flex-grow-1 fw-bold" data-action="inspect-parcel" data-subdiv="${r.subDivision}">
+                    <button class="btn btn-primary btn-sm flex-grow-1 fw-bold" data-action="inspect-parcel" data-survey="${r.fullSurvey}" data-subdiv="${r.fullSurvey}">
                         <i class="bi bi-shield-check me-1"></i> Quick Inspect
                     </button>
-                    <button class="btn btn-outline-primary btn-sm" data-action="open-patta" data-subdiv="${r.subDivision}" title="Quick Patta Modal">
+                    <button class="btn btn-outline-primary btn-sm" data-action="open-patta" data-survey="${r.fullSurvey}" data-subdiv="${r.fullSurvey}" title="Quick Patta Modal">
                         <i class="bi bi-file-earmark-text"></i>
                     </button>
-                    <button class="btn btn-outline-danger btn-sm" data-action="open-ec" data-subdiv="${r.subDivision}" title="Quick EC Modal">
+                    <button class="btn btn-outline-danger btn-sm" data-action="open-ec" data-survey="${r.fullSurvey}" data-subdiv="${r.fullSurvey}" title="Quick EC Modal">
                         <i class="bi bi-clock-history"></i>
                     </button>
                 </div>
@@ -989,8 +990,13 @@ function openDeedDirect(subDiv) {
 }
 
 // Select Record Data & Synchronize Intelligence
-function selectRecordData(subDiv) {
-    const rec = allParcels.find(r => r.subDivision === subDiv) || allParcels[0];
+function selectRecordData(surveyIdentifier) {
+    const rec = allParcels.find(r => 
+        r.fullSurvey === surveyIdentifier || 
+        r.subDivision === surveyIdentifier || 
+        r.surveyNumber === surveyIdentifier
+    ) || allParcels[0];
+
     if (!rec) {
         clearSelectedRecordData();
         return;
@@ -1003,7 +1009,8 @@ function selectRecordData(subDiv) {
     }
 
     document.querySelectorAll('.owner-card').forEach(c => c.classList.remove('active'));
-    const activeCard = document.getElementById('card-' + subDiv);
+    const safeKey = rec.fullSurvey.replace(/[^a-zA-Z0-9]/g, '_');
+    const activeCard = document.getElementById('card-' + safeKey) || document.getElementById('card-' + rec.subDivision);
     if (activeCard) activeCard.classList.add('active');
 
     updateLandIntelligence(rec);

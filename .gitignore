@@ -63,3 +63,5 @@ target/
 .idea/
 *.iml
 
+# Test temporary files
+.tmp-chrome-profile*
