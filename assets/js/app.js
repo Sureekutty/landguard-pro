@@ -549,6 +549,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnClearDossiers = document.getElementById('btnClearDossiers');
     if (btnClearDossiers) btnClearDossiers.addEventListener('click', clearAllDossiers);
 
+    const btnOpenUploadDocModal = document.getElementById('btnOpenUploadDocModal');
+    if (btnOpenUploadDocModal) btnOpenUploadDocModal.addEventListener('click', openUploadDocModal);
+
+    const formUploadOfficialDoc = document.getElementById('formUploadOfficialDoc');
+    if (formUploadOfficialDoc) formUploadOfficialDoc.addEventListener('submit', handleOfficialDocIngest);
+
     // Modal inspection triggers
     const btnOpenPatta = document.getElementById('btnOpenPatta');
     if (btnOpenPatta) btnOpenPatta.addEventListener('click', openPattaModal);
@@ -1470,4 +1476,100 @@ function printElement(id) {
     window.print();
     document.body.innerHTML = orig;
     window.location.reload();
+}
+
+// Open Official Document Upload & Ingestion Modal
+function openUploadDocModal() {
+    const modalEl = document.getElementById('modalUploadOfficialDoc');
+    const alertEl = document.getElementById('uploadDocAlert');
+    const successEl = document.getElementById('uploadDocSuccess');
+    if (alertEl) alertEl.classList.add('d-none');
+    if (successEl) successEl.classList.add('d-none');
+    if (modalEl) new bootstrap.Modal(modalEl).show();
+}
+
+// Ingest and Cryptographically Verify Official Government Document
+async function handleOfficialDocIngest(e) {
+    e.preventDefault();
+    const alertEl = document.getElementById('uploadDocAlert');
+    const successEl = document.getElementById('uploadDocSuccess');
+    const fileInp = document.getElementById('inpOfficialDocFile');
+    const surveyInp = document.getElementById('inpUploadSurvey');
+    const pattaInp = document.getElementById('inpUploadPatta');
+    const ownerInp = document.getElementById('inpUploadOwner');
+
+    if (alertEl) alertEl.classList.add('d-none');
+    if (successEl) successEl.classList.add('d-none');
+
+    if (!fileInp || !fileInp.files || fileInp.files.length === 0) {
+        if (alertEl) {
+            alertEl.innerText = 'Please select an official government PDF file to ingest.';
+            alertEl.classList.remove('d-none');
+        }
+        return;
+    }
+
+    const file = fileInp.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    if (surveyInp && surveyInp.value) formData.append('surveyNo', surveyInp.value.trim());
+    if (pattaInp && pattaInp.value) formData.append('pattaNo', pattaInp.value.trim());
+    if (ownerInp && ownerInp.value) formData.append('ownerName', ownerInp.value.trim());
+
+    const apiUrl = window.LANDGUARD_API_URL || 
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:8080/api/v1' 
+            : '/api/v1');
+
+    try {
+        const token = sessionStorage.getItem('landguard_jwt_token');
+        const headers = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res = await fetch(`${apiUrl}/properties/ingest-document`, {
+            method: 'POST',
+            headers,
+            body: formData
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success && data.ingestedRecord) {
+            const rec = data.ingestedRecord;
+            rec.isSynthetic = false;
+            rec.sourceRegistryCode = data.sourceRegistry || 'AnyTN Revenue Registry';
+
+            // Add to client state
+            masterParcels.unshift(rec);
+            allParcels.unshift(rec);
+            sortAndRender();
+            renderComparisonTable(allParcels);
+            selectRecordData(rec.subDivision);
+
+            if (successEl) {
+                successEl.innerHTML = `
+                    <div class="fw-bold"><i class="bi bi-shield-check me-1"></i>Official Document Ingested & Verified!</div>
+                    <div class="small mt-1"><b>Authority:</b> ${data.sourceRegistry}</div>
+                    <div class="small"><b>Digital Signature Ref:</b> ${data.digitalSignatureReference || 'Verified'}</div>
+                    <div class="small text-truncate"><b>SHA-256 Provenance:</b> <code>${data.documentSha256 || 'Verified'}</code></div>
+                `;
+                successEl.classList.remove('d-none');
+            }
+
+            setTimeout(() => {
+                const modalEl = document.getElementById('modalUploadOfficialDoc');
+                if (modalEl) {
+                    const inst = bootstrap.Modal.getInstance(modalEl);
+                    if (inst) inst.hide();
+                }
+            }, 2500);
+            return;
+        } else {
+            throw new Error(data.message || 'Verification failed. Document rejected.');
+        }
+    } catch (err) {
+        if (alertEl) {
+            alertEl.innerText = err.message || 'Failed to verify government document. Ensure the PDF has an official AnyTN, TNREGINET, or DTCP signature.';
+            alertEl.classList.remove('d-none');
+        }
+    }
 }

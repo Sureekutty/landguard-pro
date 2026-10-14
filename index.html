@@ -180,8 +180,11 @@
                     </select>
                 </div>
                 <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-outline-success btn-sm fw-bold" id="btnOpenUploadDocModal">
+                        <i class="bi bi-cloud-arrow-up-fill me-1"></i> Ingest Official PDF (Patta / EC)
+                    </button>
                     <input type="text" class="form-control form-control-sm" id="inpFilterText" placeholder="Filter in results..." >
-                    <span class="badge bg-primary" id="lblCountBadge">13 Parcels Found</span>
+                    <span class="badge bg-primary" id="lblCountBadge">10 Parcels Found</span>
                 </div>
             </div>
 
@@ -890,10 +893,61 @@
     </div>
 </div>
 
+<!-- MODAL: UPLOAD & VERIFY OFFICIAL GOVERNMENT DOCUMENT -->
+<div class="modal fade" id="modalUploadOfficialDoc" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title fs-6"><i class="bi bi-file-earmark-check-fill me-2"></i>Verify & Ingest Official Government Document (அரசு ஆவணப் பதிவு)</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="alert alert-success-subtle border border-success-subtle small mb-3">
+                    <i class="bi bi-shield-lock-fill me-1"></i>
+                    <b>Official Document Verification:</b> Upload your downloaded AnyTN Patta/Chitta PDF, TNREGINET Form 15 Encumbrance Certificate, or DTCP Layout Sanction Order. The system validates the government digital signature, computes an immutable SHA-256 cryptographic hash, and registers the verified authentic parcel in the live cadastre.
+                </div>
+
+                <div id="uploadDocAlert" class="alert alert-danger py-2 px-3 small d-none"></div>
+                <div id="uploadDocSuccess" class="alert alert-success py-2 px-3 small d-none"></div>
+
+                <form id="formUploadOfficialDoc">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small">Official Government PDF Document <span class="text-danger">*</span></label>
+                        <input type="file" class="form-control" id="inpOfficialDocFile" accept="application/pdf" required>
+                        <div class="form-text small">Accepted: AnyTN Patta Chitta PDF (with Ref: TN-REV-...), TNREGINET Form 15 EC PDF, DTCP Approval Orders.</div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold">Survey Number (Optional)</label>
+                            <input type="text" class="form-control form-control-sm" id="inpUploadSurvey" placeholder="Auto-extracted if blank">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold">Patta Number (Optional)</label>
+                            <input type="text" class="form-control form-control-sm" id="inpUploadPatta" placeholder="Auto-extracted if blank">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold">Owner Name (Optional)</label>
+                            <input type="text" class="form-control form-control-sm" id="inpUploadOwner" placeholder="Auto-extracted if blank">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success btn-sm fw-bold" id="btnSubmitDocIngest">
+                            <i class="bi bi-shield-check me-1"></i> Validate & Ingest into Cadastre
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- HARDENED LOCAL SCRIPTS (Zero CDNs, Strict CSP Compliant) -->
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/links.js?v=5.0.2"></script>
-<script src="assets/js/guard.js?v=5.0.2"></script>
-<script src="assets/js/app.js?v=5.0.2"></script>
+<script src="assets/js/links.js?v=5.1.0"></script>
+<script src="assets/js/guard.js?v=5.1.0"></script>
+<script src="assets/js/app.js?v=5.1.0"></script>
 </body>
 </html>
